@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: animator94-hasura
+  data: null
+  kubeContext: animator94
+  name: animator94
