@@ -1,4 +1,4 @@
-# hello-python-flask
+# Team47 hello-python-flask
 
 Boilerplate Hasura project with [Flask](http://flask.pocoo.org/) microservice.
 
