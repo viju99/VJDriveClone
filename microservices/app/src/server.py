@@ -1,3 +1,9 @@
+import os
+import sys
+from src import app
+import requests
+from flask import jsonify, render_template, request, make_response,json,redirect, url_for
+
 #-------------------------------------------------------------------------------
 # Name:        DriveClone
 # Purpose:
@@ -13,12 +19,6 @@
 
 
 #-------------------------------------------------------------------------------
-import os
-import sys
-from src import app
-import requests
-from flask import jsonify, render_template, request, make_response,json,redirect, url_for
-
 CLUSTER_NAME = os.environ.get("CLUSTER_NAME")
 if CLUSTER_NAME is None:
     print("""
