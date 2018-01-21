@@ -10,6 +10,8 @@ import gridIcon from './images/Grid-Image.png';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
 import driveLogo from './images/Hasura_Drive_image.png';
+import { checkLogin } from './login';
+
 
 
 
@@ -36,7 +38,8 @@ const iconStyles = {
 
 const searchIconStyles = {
   marginRight: 20,
-  marginTop: 25
+  marginTop: 14,
+  marginLeft: 8
 };
 
 export default class TopMenu extends React.Component {
@@ -64,7 +67,27 @@ export default class TopMenu extends React.Component {
 
   handleLogoClick = () => {
     alert("logo clicked");
+    const text = {
+        hvName: "vij1",
+        hvPwd: "sankar",
+        hvCpwd: "sankar"
+    }
+    alert(text);
+    checkLogin(text);
+    //setErrorText(undefined);
   };
+
+  handleSubmit() {
+    const text = {
+        hvName: "vj",
+        hvPwd: "sankar",
+        hvCpwd: "sankar"
+    }
+    alert(text.hvName);
+    checkLogin(text);
+    //setErrorText(undefined);
+
+};
 
   handleChange = (event, index, value) => this.setState({value});
 
