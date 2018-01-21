@@ -49,12 +49,16 @@ def registerpage():
 
 @app.route("/dlogin", methods = ['POST', 'GET'])
 def login():
-    if request.method == 'POST':
-        vuser = request.form['hvName']
-        vpwd = request.form['hvPwd']
+
     # This is the url to which the query is made
     url = "https://auth." + CLUSTER_NAME + ".hasura-app.io/v1/login"
     print(request)
+    print(request.form)
+
+    if request.method == 'POST':
+        vuser = request.form['hvName']
+        vpwd = request.form['hvPwd']
+
     # This is the json payload for the query
     requestPayload = {
         "provider": "username",
@@ -84,6 +88,7 @@ def dregister():
     # This is the url to which the query is made
     url = "https://auth." + CLUSTER_NAME + ".hasura-app.io/v1/signup"
     print(request)
+    print(request.form)
     vuser = request.form['hvName']
     vpwd = request.form['hvPwd']
     # This is the json payload for the query
