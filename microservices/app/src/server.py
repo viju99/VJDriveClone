@@ -57,8 +57,8 @@ def login():
     print(request.form)
     print(request.content_type)
     print(request.data)
-    print(request.get_data)
-    print(request.get_json)
+    print(request.json)
+    print(request.is_json)
 
     if request.method == 'POST':
         vuser = request.form['hvName']
@@ -105,8 +105,8 @@ def dregister():
     print(request.form)
     print(request.content_type)
     print(request.data)
-    print(request.get_data)
-    print(request.get_json)
+    print(request.json)
+    print(request.is_json)
 
 
     if request.method == 'POST':
