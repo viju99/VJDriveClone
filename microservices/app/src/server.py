@@ -66,11 +66,12 @@ def login():
 #    print (content['hvPwde'])
 
     if request.method == 'POST':
-        vuser = request.form['hvName']
-        vpwd = request.form['hvPwd']
         if request.content_type == 'application/json':
             vuser = content['hvName']
             vpwd = content['hvPwd']
+        else:
+            vuser = request.form['hvName']
+            vpwd = request.form['hvPwd']
 
 
     # This is the json payload for the query
@@ -86,13 +87,14 @@ def login():
     headers = {
         "Content-Type": "application/json"
     }
+
     print(requestPayload)
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
     # resp.content contains the json response.
-
     print(resp.content)
+
+
     if request.content_type == 'application/json':
         return resp
     else:
@@ -118,19 +120,16 @@ def dregister():
 #    print (content['hvName'])
 #    print (content['hvPwd'])
     if request.method == 'POST':
-        vuser = request.form['hvName']
-        vpwd = request.form['hvPwd']
         if request.content_type == 'application/json':
             vuser = content['hvName']
             vpwd = content['hvPwd']
-
+        else:
+            vuser = request.form['hvName']
+            vpwd = request.form['hvPwd']
 
     print("Before")
     print(vuser)
     print(vpwd)
-
-
-
     # This is the json payload for the query
     requestPayload = {
     "provider": "username",
@@ -139,7 +138,6 @@ def dregister():
         "password": vpwd
             }
     }
-
     # Setting headers
     headers = {
         "Content-Type": "application/json"
@@ -150,6 +148,7 @@ def dregister():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     print(resp.content)
     #  resp.content contains the json response.
+
     if request.content_type == 'application/json':
         return resp
     else:
