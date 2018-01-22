@@ -52,18 +52,18 @@ def login():
 
     # This is the url to which the query is made
     url = "https://auth." + CLUSTER_NAME + ".hasura-app.io/v1/login"
-    print(request)
-    print(request.headers)
-    print(request.form)
-    print(request.content_type)
+#    print(request)
+#    print(request.headers)
+#    print(request.form)
+#    print(request.content_type)
     print(request.data)
     print(request.json)
     print(request.is_json)
 
     content = request.json
-    print (content)
-    print (content['hvName'])
-    print (content['hvPwd'])
+#    print (content)
+#    print (content['hvName'])
+#    print (content['hvPwde'])
 
     if request.method == 'POST':
         vuser = request.form['hvName']
@@ -92,7 +92,10 @@ def login():
     # resp.content contains the json response.
 
     print(resp.content)
-    return (render_template('homedrive.html',name = vuser,msg = resp.content))
+    if request.content_type == 'application/json':
+        return resp.content
+    else:
+        return (render_template('homedrive.html',name = vuser,msg = resp.content))
 
 
 @app.route("/dregister", methods = ['POST', 'GET'])
@@ -139,10 +142,12 @@ def dregister():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
+    print(resp.content)
     #  resp.content contains the json response.
-    print (resp.content)
-    return render_template('dlogin.html')
+    if request.content_type == 'application/json':
+        return resp.content
+    else:
+        return (render_template('homedrive.html',name = vuser,msg = resp.content))
 
 # Handling all other request and robots.txt request
 @app.errorhandler(404)
