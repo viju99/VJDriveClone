@@ -91,11 +91,11 @@ def login():
 
     # resp.content contains the json response.
 
-    print(resp)
+    print(resp.status_code + ":" +resp.content)
     if request.content_type == 'application/json':
-        return resp.content
+        return resp
     else:
-        return (render_template('homedrive.html',name = vuser,msg = resp.content))
+        return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp ))
 
 
 @app.route("/dregister", methods = ['POST', 'GET'])
@@ -142,12 +142,12 @@ def dregister():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    print(resp)
+    print(resp.status_code + ":" +resp.content)
     #  resp.content contains the json response.
     if request.content_type == 'application/json':
-        return resp.content
+        return resp
     else:
-        return (render_template('homedrive.html',name = vuser,msg = resp.content))
+        return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp))
 
 # Handling all other request and robots.txt request
 @app.errorhandler(404)
