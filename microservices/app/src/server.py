@@ -140,6 +140,7 @@ def dregister():
         "Content-Type": "application/json"
     }
 
+    print(requestPayload)
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     print(resp.content)
