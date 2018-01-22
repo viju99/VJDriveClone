@@ -68,10 +68,11 @@ def login():
     if request.method == 'POST':
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
-
         if request.content_type == 'application/json':
             vuser = content['hvName']
             vpwd = content['hvPwd']
+
+
     # This is the json payload for the query
     requestPayload = {
         "provider": "username",
@@ -119,11 +120,15 @@ def dregister():
     if request.method == 'POST':
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
-
-
         if request.content_type == 'application/json':
             vuser = content['hvName']
             vpwd = content['hvPwd']
+
+
+    print("Before")
+    print(vuser)
+    print(vpwd)
+
 
 
     # This is the json payload for the query
