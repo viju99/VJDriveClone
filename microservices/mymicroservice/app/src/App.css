@@ -17,7 +17,7 @@
 .App-title {
   font-size: 1.5em;
 }
-.navbarleftdiv ul{
+.navbarleftdiv li{
   list-style-type: none !important;
   margin-top: -10px ;
   font-size: 14px !important;
@@ -31,29 +31,28 @@
 }
 .dropbutton{
   color: #212121  !important;
+ 
+
 }
 .navbar{
   background-color: #fff !important;
-  height: 100px;
+  
+  padding-bottom: 10px;
   border-bottom: 2px solid rgb(158, 158, 158) !important;
-  position: fixed !important;
-  color:#F44336 !important;
-  z-index: 100000;
+ 
   
 }
-.navbarleftdiv ul{
-  list-style-type: none !important;
+.navbarleftdiv {
+ 
   display: flex;
-  margin-top: -10px ;
-  margin-left: 10px;
-  font-size: 14px !important;
-  font-weight: bold !important;
+  justify-content: flex-start;
+
+  
 }
 .navbarlistitem{
   display: inline ;
-  color: #9E9E9E !important;
-  margin-left: 20px;
-  margin-right: 10px;
+  
+  
 }
 
 .TopMenu{

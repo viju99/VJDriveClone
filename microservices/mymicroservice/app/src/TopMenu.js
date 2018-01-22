@@ -6,7 +6,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import './App.css';
 import SearchSVGIcon from 'material-ui/svg-icons/action/search';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
-import gridIcon from './images/Grid-Image.png';
+import gridIcon from './images/Grid-Image.png'; 
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
 import driveLogo from './images/Hasura_Drive_image.png';
@@ -68,9 +68,9 @@ export default class TopMenu extends React.Component {
   handleLogoClick = () => {
     alert("logo clicked");
     const text = {
-        hvName: "vij1",
-        hvPwd: "sankar1234",
-        hvCpwd: "sankar1234"
+        hvName: "vijay12New",
+        hvPwd: "sankarXYZ",
+        hvCpwd: "sankarXYZ"
     }
     alert(text);
     checkLogin(text);
@@ -80,8 +80,8 @@ export default class TopMenu extends React.Component {
   handleSubmit() {
     const text = {
         hvName: "vj",
-        hvPwd: "sankar1234",
-        hvCpwd: "sankar1234"
+        hvPwd: "sankar",
+        hvCpwd: "sankar"
     }
     alert(text.hvName);
     checkLogin(text);

@@ -10,10 +10,10 @@ return fetch('https://app.animator94.hasura-app.io/dregister', {
     }
 }).then(response => {
     if (response.status >= 200 && response.status < 300) {
-        console.log("here");
+        console.log("Request worked");
         console.log(response);
         
-        window.location.reload();
+        //window.location.reload();
         return response;
       } else {
        console.log('Something went wrong here');
