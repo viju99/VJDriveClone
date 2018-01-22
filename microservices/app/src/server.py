@@ -64,7 +64,7 @@ def login():
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
 
-    content = json.loads(request.data)
+    content = json.parse(request.data)
     print (content)
     if request.content_type == 'application/json':
 
@@ -113,7 +113,7 @@ def dregister():
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
 
-    content = json.loads(request.data)
+    content = json.parse(request.data)
     print (content)
     if request.content_type == 'application/json':
 
