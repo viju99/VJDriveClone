@@ -91,7 +91,7 @@ def login():
 
     # resp.content contains the json response.
 
-    print(resp.status_code + ":" +resp.content)
+    print(resp.content)
     if request.content_type == 'application/json':
         return resp
     else:
@@ -142,7 +142,7 @@ def dregister():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    print(resp.status_code + ":" +resp.content)
+    print(resp.content)
     #  resp.content contains the json response.
     if request.content_type == 'application/json':
         return resp
