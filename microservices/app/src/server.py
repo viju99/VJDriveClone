@@ -2,7 +2,7 @@ import os
 import sys
 from src import app
 import requests
-from flask import jsonify, render_template, request, make_response,json,redirect, url_for
+from flask import jsonify, render_template, request, make_response, json, redirect, url_for
 
 #-------------------------------------------------------------------------------
 # Name:        DriveClone
@@ -60,10 +60,16 @@ def login():
     print(request.get_data)
     print(request.get_json)
 
-
     if request.method == 'POST':
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
+
+    content = request.data()
+    print (content)
+    if request.content_type == 'application/json':
+
+        print (content['hvName'])
+        print (content['hvPwd"'])
 
     # This is the json payload for the query
     requestPayload = {
@@ -102,8 +108,19 @@ def dregister():
     print(request.get_data)
     print(request.get_json)
 
-    vuser = request.form['hvName']
-    vpwd = request.form['hvPwd']
+
+    if request.method == 'POST':
+        vuser = request.form['hvName']
+        vpwd = request.form['hvPwd']
+
+    content = request.data()
+    print (content)
+    if request.content_type == 'application/json':
+
+        print (content['hvName'])
+        print (content['hvPwd"'])
+
+
     # This is the json payload for the query
     requestPayload = {
     "provider": "username",
