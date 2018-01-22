@@ -104,18 +104,18 @@ def dregister():
     # This is the url to which the query is made
     url = "https://auth." + CLUSTER_NAME + ".hasura-app.io/v1/signup"
 
-    print(request)
-    print(request.headers)
-    print(request.form)
+#    print(request)
+#    print(request.headers)
+#    print(request.form)
     print(request.content_type)
     print(request.data)
     print(request.json)
     print(request.is_json)
 
     content = request.json
-    print (content)
-    print (content['hvName'])
-    print (content['hvPwd'])
+#    print (content)
+#    print (content['hvName'])
+#    print (content['hvPwd'])
     if request.method == 'POST':
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
