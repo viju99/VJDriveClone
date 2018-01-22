@@ -64,13 +64,13 @@ def login():
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
 
-    content = request.json()
+    content = request.json
     print (content)
     if request.content_type == 'application/json':
-
         print (content['hvName'])
         print (content['hvPwd"'])
-
+        vuser = content['hvName']
+        vpwd = content['hvPwd"']
     # This is the json payload for the query
     requestPayload = {
         "provider": "username",
@@ -113,12 +113,13 @@ def dregister():
         vuser = request.form['hvName']
         vpwd = request.form['hvPwd']
 
-    content = request.json()
+    content = request.json
     print (content)
     if request.content_type == 'application/json':
-
         print (content['hvName'])
         print (content['hvPwd"'])
+        vuser = content['hvName']
+        vpwd = content['hvPwd"']
 
 
     # This is the json payload for the query
