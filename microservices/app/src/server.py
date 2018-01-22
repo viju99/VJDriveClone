@@ -96,7 +96,7 @@ def login():
 
 
     if request.content_type == 'application/json':
-        return resp
+        return resp.content
     else:
         return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp ))
 
@@ -150,7 +150,7 @@ def dregister():
     #  resp.content contains the json response.
 
     if request.content_type == 'application/json':
-        return resp
+        return resp.content
     else:
         return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp))
 
