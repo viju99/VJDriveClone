@@ -93,7 +93,11 @@ def login():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     # resp.content contains the json response.
     print(resp.content)
-
+    vauthdata = resp.content
+    print(vauthdata['auth_token'])
+    print(vauthdata['username'])
+    print(vauthdata['hasura_id'])
+    print(vauthdata['hasura_roles'])
 
     if request.content_type == 'application/json':
         return resp.content
