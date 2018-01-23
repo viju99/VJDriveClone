@@ -99,10 +99,10 @@ def login():
         print(vauthdata['username'])
         print(vauthdata['hasura_id'])
         print(vauthdata['hasura_roles'])
-        session['auth_token']= vauthdata['auth_token']
-        session['username']= vauthdata['username']
-        session['hasura_id']= vauthdata['hasura_id']
-        session['hasura_roles']= vauthdata['hasura_roles']
+#        session['auth_token']= vauthdata['auth_token']
+#        session['username']= vauthdata['username']
+#        session['hasura_id']= vauthdata['hasura_id']
+#        session['hasura_roles']= vauthdata['hasura_roles']
 
     if request.content_type == 'application/json':
         return resp.content
@@ -164,10 +164,10 @@ def dregister():
         print(vauthdata['username'])
         print(vauthdata['hasura_id'])
         print(vauthdata['hasura_roles'])
-        session['auth_token']= vauthdata['auth_token']
-        session['username']= vauthdata['username']
-        session['hasura_id']= vauthdata['hasura_id']
-        session['hasura_roles']= vauthdata['hasura_roles']
+#        session['auth_token']= vauthdata['auth_token']
+#       session['username']= vauthdata['username']
+#        session['hasura_id']= vauthdata['hasura_id']
+#        session['hasura_roles']= vauthdata['hasura_roles']
 
 
     if request.content_type == 'application/json':
@@ -183,7 +183,7 @@ def fileupload():
 
     # Setting headers
     headers = {
-        "Authorization": "Bearer " + session['auth_token']
+        "Authorization": "Bearer 66f42689afb9a71c36f9de7a4825ad1517f1338619984a6d"
     }
 
     # Open the file and make the query
