@@ -98,6 +98,10 @@ def login():
     print(vauthdata['username'])
     print(vauthdata['hasura_id'])
     print(vauthdata['hasura_roles'])
+    session['auth_token']= vauthdata['auth_token']
+    session['username']= vauthdata['username']
+    session['hasura_id']= vauthdata['hasura_id']
+    session['hasura_roles']= vauthdata['hasura_roles']
 
     if request.content_type == 'application/json':
         return resp.content
@@ -158,6 +162,11 @@ def dregister():
     print(vauthdata['username'])
     print(vauthdata['hasura_id'])
     print(vauthdata['hasura_roles'])
+    session['auth_token']= vauthdata['auth_token']
+    session['username']= vauthdata['username']
+    session['hasura_id']= vauthdata['hasura_id']
+    session['hasura_roles']= vauthdata['hasura_roles']
+
 
     if request.content_type == 'application/json':
         return resp.content
@@ -172,11 +181,11 @@ def fileupload():
 
     # Setting headers
     headers = {
-        "Authorization": "Bearer 51e913bcca521e31746964097820bd3ad4097f8c37447502"
+        "Authorization": "Bearer " + session['auth_token']
     }
 
     # Open the file and make the query
-    with open(request.form['hvfname'], 'rb') as file_image:
+    with open(request.files['hvfname'], 'rb') as file_image:
         resp = requests.post(url, data=file_image.read(), headers=headers)
 
     # resp.content contains the json response.
