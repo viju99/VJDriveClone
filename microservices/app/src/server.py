@@ -93,15 +93,16 @@ def login():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     # resp.content contains the json response.
     print(resp.content)
-    vauthdata = resp.json()
-    print(vauthdata['auth_token'])
-    print(vauthdata['username'])
-    print(vauthdata['hasura_id'])
-    print(vauthdata['hasura_roles'])
-    session['auth_token']= vauthdata['auth_token']
-    session['username']= vauthdata['username']
-    session['hasura_id']= vauthdata['hasura_id']
-    session['hasura_roles']= vauthdata['hasura_roles']
+    if(resp.status_code >= 200 and resp.status_code < 300):
+        vauthdata = resp.json()
+        print(vauthdata['auth_token'])
+        print(vauthdata['username'])
+        print(vauthdata['hasura_id'])
+        print(vauthdata['hasura_roles'])
+        session['auth_token']= vauthdata['auth_token']
+        session['username']= vauthdata['username']
+        session['hasura_id']= vauthdata['hasura_id']
+        session['hasura_roles']= vauthdata['hasura_roles']
 
     if request.content_type == 'application/json':
         return resp.content
@@ -157,15 +158,16 @@ def dregister():
 
     #  resp.content contains the json response.
     print(resp.content)
-    vauthdata = resp.json()
-    print(vauthdata['auth_token'])
-    print(vauthdata['username'])
-    print(vauthdata['hasura_id'])
-    print(vauthdata['hasura_roles'])
-    session['auth_token']= vauthdata['auth_token']
-    session['username']= vauthdata['username']
-    session['hasura_id']= vauthdata['hasura_id']
-    session['hasura_roles']= vauthdata['hasura_roles']
+    if(resp.status_code >= 200 and resp.status_code < 300):
+        vauthdata = resp.json()
+        print(vauthdata['auth_token'])
+        print(vauthdata['username'])
+        print(vauthdata['hasura_id'])
+        print(vauthdata['hasura_roles'])
+        session['auth_token']= vauthdata['auth_token']
+        session['username']= vauthdata['username']
+        session['hasura_id']= vauthdata['hasura_id']
+        session['hasura_roles']= vauthdata['hasura_roles']
 
 
     if request.content_type == 'application/json':
