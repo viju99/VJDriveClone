@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: user
+    table: user_files
+  type: create_insert_permission

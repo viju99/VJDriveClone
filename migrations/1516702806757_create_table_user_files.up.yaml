@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "user_files"("id" bigserial NOT NULL, "user_id" integer NOT
+      NULL, "file_id" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY ("id") )
+  type: run_sql
+- args:
+    name: user_files
+  type: add_existing_table_or_view

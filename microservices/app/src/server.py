@@ -2,8 +2,8 @@ import os
 import sys
 from src import app
 import requests
-from flask import jsonify, render_template, request, make_response, json, redirect, url_for
-
+from flask import jsonify, render_template, request, make_response, json
+from flask import redirect, url_for, session
 #-------------------------------------------------------------------------------
 # Name:        DriveClone
 # Purpose:
@@ -47,7 +47,7 @@ def index():
 def registerpage():
     return render_template('dregister.html')
 
-@app.route("/dlogin", methods = ['POST', 'GET'])
+@app.route("/dlogin", methods = ['POST'])
 def login():
 
     # This is the url to which the query is made
@@ -101,7 +101,7 @@ def login():
         return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp ))
 
 
-@app.route("/dregister", methods = ['POST', 'GET'])
+@app.route("/dregister", methods = ['POST'])
 def dregister():
 
     # This is the url to which the query is made
@@ -146,13 +146,38 @@ def dregister():
     print(requestPayload)
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    print(resp.content)
+
     #  resp.content contains the json response.
+    print(resp.content)
+    vauthdata = resp.content
+    print(vauthdata['auth_token'])
+    print(vauthdata['username'])
+    print(vauthdata['hasura_id'])
+    print(vauthdata['hasura_roles'])
 
     if request.content_type == 'application/json':
         return resp.content
     else:
         return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp))
+
+
+@app.route("/fupload", methods = ['POST'])
+def fileupload():
+    # This is the url to which the query is made
+    url = "https://filestore." + CLUSTER_NAME + ".hasura-app.io/v1/file"
+
+    # Setting headers
+    headers = {
+        "Authorization": "Bearer 51e913bcca521e31746964097820bd3ad4097f8c37447502"
+    }
+
+    # Open the file and make the query
+    with open(request.form['hvfname'], 'rb') as file_image:
+        resp = requests.post(url, data=file_image.read(), headers=headers)
+
+    # resp.content contains the json response.
+    print(resp.content)
+    return (render_template('homedrive.html',name = vuser,msg = resp.content, responseO=resp ))
 
 # Handling all other request and robots.txt request
 @app.errorhandler(404)
