@@ -1,0 +1,12 @@
+- args:
+    permission:
+      columns:
+      - username
+      - hasura_id
+      - auth_token
+      - create_date
+      - uid
+      filter: {}
+    role: user
+    table: app_users
+  type: create_select_permission

@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: user
+    table: app_users
+  type: create_insert_permission

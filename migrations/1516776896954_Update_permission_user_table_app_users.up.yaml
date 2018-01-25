@@ -1,0 +1,8 @@
+- args:
+    permission:
+      columns:
+      - auth_token
+      filter: {}
+    role: user
+    table: app_users
+  type: create_update_permission

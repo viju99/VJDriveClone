@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "app_users"("uid" serial NOT NULL, "hasura_id" integer NOT NULL,
+      "username" text NOT NULL, "create_date" timestamptz NOT NULL DEFAULT now(),
+      PRIMARY KEY ("uid") )
+  type: run_sql
+- args:
+    name: app_users
+  type: add_existing_table_or_view
