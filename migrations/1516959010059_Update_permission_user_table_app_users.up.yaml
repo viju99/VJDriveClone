@@ -1,0 +1,13 @@
+- args:
+    role: user
+    table: app_users
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - auth_token
+      - root_path_id
+      filter: {}
+    role: user
+    table: app_users
+  type: create_update_permission
