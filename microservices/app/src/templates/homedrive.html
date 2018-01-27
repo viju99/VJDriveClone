@@ -8,11 +8,19 @@
   <body>
         <form action="/fupload" method="post" enctype="multipart/form-data">
         <p><h1>Welcome to Am-Drive {{ name }}!</h1></p>
-        <p>{{ msg }}!</p>
-        <p>{{ response1 }}!</p>
+        <p>Message:{{ msg }}!</p>
         <p><h2>Upload file: </h2></p>
-        <input type="file" name="hvfname" id="hvfname1">
-        <input type="submit" value="Upload File" name="submit">
+        <p><input type="file" name="hvfname"></p>
+        <p><input type="submit" value="Upload File" name="submit"></p>
+        <p><a href="/cfldr" target="_self">Create Folder</a></p>
+        <p>Folder List:{{ fldr }}!</p>
+        <p>{% for row in fldr %}</p>
+        <div>{{ row }} - {{ row['file_path_id'] }} - {{ row['path_nm'] }}</div>
+        {% endfor %}
+        <p>File List:{{ fllst }}!</p>
+        <p>{% for vfllst in fllst %}</p>
+        <div>{{ vfllst }} - {{ vfllst['file_name'] }} - {{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] }}- {{ vfllst['created_at'] }}</div>
+        {% endfor %}
 
         <p><h3><a href="/dlogout"/> Logout</h3></p>
         </form>
