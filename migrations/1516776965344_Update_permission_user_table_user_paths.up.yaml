@@ -1,0 +1,10 @@
+- args:
+    permission:
+      columns:
+      - user_id
+      - path_nm
+      - path_id
+      filter: {}
+    role: user
+    table: user_paths
+  type: create_select_permission

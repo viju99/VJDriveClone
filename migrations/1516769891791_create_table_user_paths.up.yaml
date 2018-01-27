@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "user_paths"("user_id" integer NOT NULL, "path_id" serial NOT
+      NULL, "path_nm" text NOT NULL, PRIMARY KEY ("user_id","path_id") )
+  type: run_sql
+- args:
+    name: user_paths
+  type: add_existing_table_or_view
