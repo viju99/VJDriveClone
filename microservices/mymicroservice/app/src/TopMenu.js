@@ -1,7 +1,4 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
 import AutoComplete from 'material-ui/AutoComplete';
 import './App.css';
 import SearchSVGIcon from 'material-ui/svg-icons/action/search';
@@ -67,8 +64,9 @@ export default class TopMenu extends React.Component {
 
   handleLogoClick = () => {
     alert("logo clicked");
+    
     const text = {
-        hvName: "vijay12New",
+        hvName: "t47user29",
         hvPwd: "sankarXYZ",
         hvCpwd: "sankarXYZ"
     }
@@ -94,7 +92,7 @@ export default class TopMenu extends React.Component {
   render() {
     return (
       <div className="trial">
-        <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+    
         <div className="TopMenu">
           <SearchSVGIcon style={searchIconStyles} />
           <AutoComplete className="AutoComplete"
@@ -109,15 +107,7 @@ export default class TopMenu extends React.Component {
             underlineShow={false}
           />
         </div>
-        <div>
-          <img className="gridIcon" src={gridIcon} alt="gridIcon" />
-        </div>
-        <div>
-          <NotificationIcon style={iconStyles} />
-        </div>
-        <div>
-          <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleLogoClick} />
-        </div>
+      
       </div>
     );
   }
