@@ -1,0 +1,428 @@
+[2018-01-27 09:52:19 +0000] [1] [DEBUG] Current configuration:
+  config: ./conf/gunicorn_config.py
+  bind: ['0.0.0.0:8080']
+  backlog: 2048
+  workers: 1
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  spew: False
+  check_config: False
+  preload_app: False
+  sendfile: None
+  chdir: /app
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 0
+  group: 0
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: -
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: -
+  loglevel: debug
+  capture_output: True
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: True
+  statsd_host: None
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: src:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7fb86f181d08>
+  on_reload: <function OnReload.on_reload at 0x7fb86f181ea0>
+  when_ready: <function WhenReady.when_ready at 0x7fb86f18a0d0>
+  pre_fork: <function Prefork.pre_fork at 0x7fb86f18a268>
+  post_fork: <function Postfork.post_fork at 0x7fb86f18a400>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7fb86f18a598>
+  worker_int: <function WorkerInt.worker_int at 0x7fb86f18a730>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7fb86f18a8c8>
+  pre_exec: <function PreExec.pre_exec at 0x7fb86f18aa60>
+  pre_request: <function PreRequest.pre_request at 0x7fb86f18abf8>
+  post_request: <function PostRequest.post_request at 0x7fb86f18ad08>
+  child_exit: <function ChildExit.child_exit at 0x7fb86f18aea0>
+  worker_exit: <function WorkerExit.worker_exit at 0x7fb86eef30d0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7fb86eef3268>
+  on_exit: <function OnExit.on_exit at 0x7fb86eef3400>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: TLSv1
+  raw_paste_global_conf: []
+[2018-01-27 09:52:19 +0000] [1] [INFO] Starting gunicorn 19.7.1
+[2018-01-27 09:52:19 +0000] [1] [DEBUG] Arbiter booted
+[2018-01-27 09:52:19 +0000] [1] [INFO] Listening at: http://0.0.0.0:8080 (1)
+[2018-01-27 09:52:19 +0000] [1] [INFO] Using worker: sync
+[2018-01-27 09:52:19 +0000] [1] [DEBUG] 1 workers
+[2018-01-27 09:52:19 +0000] [9] [INFO] Booting worker with pid: 9
+[2018-01-27 10:06:47 +0000] [9] [DEBUG] GET /
+animator94
+100.116.82.61 - - [27/Jan/2018:10:06:47 +0000] "GET / HTTP/1.0" 302 219 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:06:47 +0000] [9] [DEBUG] GET /index
+100.116.82.61 - - [27/Jan/2018:10:06:47 +0000] "GET /index HTTP/1.0" 200 709 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:06:47 +0000] [9] [DEBUG] GET /favicon.ico
+100.116.82.61 - - [27/Jan/2018:10:06:47 +0000] "GET /favicon.ico HTTP/1.0" 404 361 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:07:51 +0000] [9] [DEBUG] POST /dlogin
+[2018-01-27 10:07:53,356] ERROR in app: Exception on /dlogin [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/app/src/server.py", line 399, in dlogin
+    fldrresp=r_folderlist(vauthdata['auth_token'],vauthdata['hasura_id'],usrdt[0]['root_path_id'])
+IndexError: list index out of range
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 27
+Cache-Control: max-age=0
+Origin: https://app.animator94.hasura-app.io
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/index
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+X-Hasura-Role: anonymous
+X-Hasura-Allowed-Roles: anonymous
+X-Hasura-User-Id: 0
+
+
+b''
+None
+False
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"dcc053ce23dfc5ad98321855e32c2ae5a89caab2c8f98f79","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+dcc053ce23dfc5ad98321855e32c2ae5a89caab2c8f98f79
+mars
+77
+['user']
+b'[]'
+[]
+100.116.82.61 - - [27/Jan/2018:10:07:53 +0000] "POST /dlogin HTTP/1.0" 500 291 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:09:03 +0000] [9] [DEBUG] GET /regdisplay
+100.116.82.61 - - [27/Jan/2018:10:09:03 +0000] "GET /regdisplay HTTP/1.0" 200 729 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:09:17 +0000] [9] [DEBUG] POST /dregister
+application/x-www-form-urlencoded
+b''
+None
+False
+{'provider': 'username', 'data': {'username': '123456', 'password': '12345678'}}
+b'{"code":"user-exists","message":"This user already exists","detail":null}'
+100.116.82.61 - - [27/Jan/2018:10:09:17 +0000] "POST /dregister HTTP/1.0" 200 73 "https://app.animator94.hasura-app.io/regdisplay" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:09:36 +0000] [9] [DEBUG] POST /dregister
+application/x-www-form-urlencoded
+b''
+None
+False
+{'provider': 'username', 'data': {'username': '1234567', 'password': '12345678'}}
+b'{"auth_token":"b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba","username":"1234567","hasura_id":177,"hasura_roles":["user"]}'
+b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba
+1234567
+177
+['user']
+b'{"affected_rows":1}'
+b'[{"path_id":10}]'
+b'{"affected_rows":1}'
+100.116.82.61 - - [27/Jan/2018:10:09:38 +0000] "POST /dregister HTTP/1.0" 200 1079 "https://app.animator94.hasura-app.io/regdisplay" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:09:50 +0000] [9] [DEBUG] GET /cfldr
+100.116.82.61 - - [27/Jan/2018:10:09:50 +0000] "GET /cfldr HTTP/1.0" 200 519 "https://app.animator94.hasura-app.io/dregister" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:09:55 +0000] [9] [DEBUG] POST /fldrcreate
+application/x-www-form-urlencoded
+b''
+None
+False
+b'{"affected_rows":1}'
+b'[{"path_id":11,"path_nm":"test"}]'
+b'[]'
+100.116.82.61 - - [27/Jan/2018:10:09:56 +0000] "POST /fldrcreate HTTP/1.0" 200 2384 "https://app.animator94.hasura-app.io/cfldr" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:10:04 +0000] [9] [DEBUG] GET /dlogout
+<Request 'http://app.animator94.hasura-app.io/dlogout' [GET]>
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/fldrcreate
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: animator94=b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba; b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba=1234567; rtpthid=10
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 177
+X-Hasura-Role: user
+X-Hasura-Session-Id: b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba
+
+
+ImmutableMultiDict([])
+None
+{'animator94': 'b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba', 'b544eeb5564e09a22049525efb347b50c2fd7d9a0d1644ba': '1234567', 'rtpthid': '10'}
+b'{"message":"logged out"}'
+100.116.82.61 - - [27/Jan/2018:10:10:05 +0000] "GET /dlogout HTTP/1.0" 200 709 "https://app.animator94.hasura-app.io/fldrcreate" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:12:16 +0000] [9] [DEBUG] GET /
+animator94
+100.116.82.61 - - [27/Jan/2018:10:12:16 +0000] "GET / HTTP/1.0" 302 219 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:12:16 +0000] [9] [DEBUG] GET /index
+100.116.82.61 - - [27/Jan/2018:10:12:16 +0000] "GET /index HTTP/1.0" 200 709 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:12:34 +0000] [9] [DEBUG] POST /dlogin
+[2018-01-27 10:12:35,677] ERROR in app: Exception on /dlogin [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 33, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/app/src/server.py", line 399, in dlogin
+    fldrresp=r_folderlist(vauthdata['auth_token'],vauthdata['hasura_id'],usrdt[0]['root_path_id'])
+IndexError: list index out of range
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 27
+Cache-Control: max-age=0
+Origin: https://app.animator94.hasura-app.io
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/index
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+X-Hasura-Role: anonymous
+X-Hasura-Allowed-Roles: anonymous
+X-Hasura-User-Id: 0
+
+
+b''
+None
+False
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"e61d8d44f893e2757b9f1c606269c63b1da4c93c67089624","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+e61d8d44f893e2757b9f1c606269c63b1da4c93c67089624
+mars
+77
+['user']
+b'[]'
+[]
+100.116.82.61 - - [27/Jan/2018:10:12:35 +0000] "POST /dlogin HTTP/1.0" 500 291 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:24:43 +0000] [9] [DEBUG] GET /
+animator94
+100.116.82.61 - - [27/Jan/2018:10:24:44 +0000] "GET / HTTP/1.0" 302 219 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:24:44 +0000] [9] [DEBUG] GET /index
+100.116.82.61 - - [27/Jan/2018:10:24:44 +0000] "GET /index HTTP/1.0" 200 709 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:24:59 +0000] [9] [DEBUG] POST /dlogin
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 27
+Cache-Control: max-age=0
+Origin: https://app.animator94.hasura-app.io
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/index
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+X-Hasura-Role: anonymous
+X-Hasura-Allowed-Roles: anonymous
+X-Hasura-User-Id: 0
+
+
+b''
+None
+False
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629
+mars
+77
+['user']
+b'[{"username":"mars","hasura_id":77,"root_path_id":12}]'
+[{'username': 'mars', 'hasura_id': 77, 'root_path_id': 12}]
+b'[]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:25:02 +0000] "POST /dlogin HTTP/1.0" 200 28177 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:25:18 +0000] [9] [DEBUG] GET /cfldr
+100.116.82.61 - - [27/Jan/2018:10:25:18 +0000] "GET /cfldr HTTP/1.0" 200 519 "https://app.animator94.hasura-app.io/dlogin" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:25:22 +0000] [9] [DEBUG] POST /fldrcreate
+application/x-www-form-urlencoded
+b''
+None
+False
+b'{"affected_rows":1}'
+b'[{"path_id":13,"path_nm":"test"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:25:24 +0000] "POST /fldrcreate HTTP/1.0" 200 29368 "https://app.animator94.hasura-app.io/cfldr" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:25:26 +0000] [9] [DEBUG] GET /cfldr
+100.116.82.61 - - [27/Jan/2018:10:25:26 +0000] "GET /cfldr HTTP/1.0" 200 519 "https://app.animator94.hasura-app.io/fldrcreate" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:25:34 +0000] [9] [DEBUG] POST /fldrcreate
+application/x-www-form-urlencoded
+b''
+None
+False
+b'{"affected_rows":1}'
+b'[{"path_id":13,"path_nm":"test"}, \n {"path_id":14,"path_nm":"hpdf"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:25:36 +0000] "POST /fldrcreate HTTP/1.0" 200 30879 "https://app.animator94.hasura-app.io/cfldr" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:27:14 +0000] [9] [DEBUG] GET /cfldr
+100.116.82.61 - - [27/Jan/2018:10:27:14 +0000] "GET /cfldr HTTP/1.0" 200 519 "https://app.animator94.hasura-app.io/fldrcreate" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:27:22 +0000] [9] [DEBUG] POST /fldrcreate
+application/x-www-form-urlencoded
+b''
+None
+False
+b'{"affected_rows":1}'
+b'[{"path_id":13,"path_nm":"test"}, \n {"path_id":14,"path_nm":"hpdf"}, \n {"path_id":15,"path_nm":"checking"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:27:23 +0000] "POST /fldrcreate HTTP/1.0" 200 32560 "https://app.animator94.hasura-app.io/cfldr" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:35:23 +0000] [9] [DEBUG] GET /
+animator94
+100.116.82.61 - - [27/Jan/2018:10:35:23 +0000] "GET / HTTP/1.0" 302 219 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:35:23 +0000] [9] [DEBUG] GET /index
+100.116.82.61 - - [27/Jan/2018:10:35:23 +0000] "GET /index HTTP/1.0" 200 709 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:35:37 +0000] [9] [DEBUG] POST /dlogin
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 27
+Cache-Control: max-age=0
+Origin: https://app.animator94.hasura-app.io
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/index
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: animator94=bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629; bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629=mars; rtpthid=12
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 77
+X-Hasura-Role: user
+X-Hasura-Session-Id: bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629
+
+
+b''
+None
+False
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"353b6d58a8f67efd3c42c244dd3883f7e9c4ed1e252dd1b8","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+353b6d58a8f67efd3c42c244dd3883f7e9c4ed1e252dd1b8
+mars
+77
+['user']
+b'[{"username":"mars","hasura_id":77,"root_path_id":12}]'
+[{'username': 'mars', 'hasura_id': 77, 'root_path_id': 12}]
+b'[{"path_id":13,"path_nm":"test"}, \n {"path_id":14,"path_nm":"hpdf"}, \n {"path_id":15,"path_nm":"checking"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:35:40 +0000] "POST /dlogin HTTP/1.0" 200 32711 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:46:56 +0000] [9] [DEBUG] GET /
+animator94
+100.116.82.61 - - [27/Jan/2018:10:46:56 +0000] "GET / HTTP/1.0" 302 219 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:46:56 +0000] [9] [DEBUG] GET /index
+100.116.82.61 - - [27/Jan/2018:10:46:56 +0000] "GET /index HTTP/1.0" 200 709 "-" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 10:47:09 +0000] [9] [DEBUG] POST /dlogin
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.126.218.177
+X-Forwarded-For: 100.126.218.177
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 27
+Cache-Control: max-age=0
+Origin: https://app.animator94.hasura-app.io
+Upgrade-Insecure-Requests: 1
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Referer: https://app.animator94.hasura-app.io/index
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: bdf644d8648ee9008e745c7ba68a22d40d8dc5990d24d629=mars; rtpthid=12; animator94=353b6d58a8f67efd3c42c244dd3883f7e9c4ed1e252dd1b8; 353b6d58a8f67efd3c42c244dd3883f7e9c4ed1e252dd1b8=mars
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 77
+X-Hasura-Role: user
+X-Hasura-Session-Id: 353b6d58a8f67efd3c42c244dd3883f7e9c4ed1e252dd1b8
+
+
+b''
+None
+False
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"988b6395e606e96cd5f9c8695d08f53e9dbf6a05d0ba5002","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+988b6395e606e96cd5f9c8695d08f53e9dbf6a05d0ba5002
+mars
+77
+['user']
+b'[{"username":"mars","hasura_id":77,"root_path_id":12}]'
+[{'username': 'mars', 'hasura_id': 77, 'root_path_id': 12}]
+b'[{"path_id":13,"path_nm":"test"}, \n {"path_id":14,"path_nm":"hpdf"}, \n {"path_id":15,"path_nm":"checking"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"created_at":"2018-01-25T13:59:35.168653+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"created_at":"2018-01-25T14:02:32.070483+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"created_at":"2018-01-25T14:03:52.969905+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"created_at":"2018-01-25T14:58:17.576683+00:00"}]'
+100.116.82.61 - - [27/Jan/2018:10:47:11 +0000] "POST /dlogin HTTP/1.0" 200 32711 "https://app.animator94.hasura-app.io/index" "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"
+[2018-01-27 12:51:30 +0000] [9] [DEBUG] POST /fuplaod
+100.116.82.61 - - [27/Jan/2018:12:51:30 +0000] "POST /fuplaod HTTP/1.0" 404 361 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36"

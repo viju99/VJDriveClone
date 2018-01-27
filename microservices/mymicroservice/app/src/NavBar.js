@@ -2,52 +2,31 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 
-import {List, ListItem} from 'material-ui/List';
-import TopMenu from './TopMenu.js';
-import Paper from 'material-ui/Paper';
 
-const style = {
-    height: 350,
-    width: 230,
-   marginTop: 70,
-  marginLeft: -130,
-  display: 'flex', flexFlow: 'column',
-    textAlign: 'center',
-   position: 'absolute',
-  };
+import MyMenu from './MyMenu';
 
-  export class DMenu extends React.Component{
-      render()
-      {
-          return(
-            <div>
-           
-           <List style= {style}>
-                <FlatButton label= "New Folder"/>
-                <FlatButton label=  "Upload files"/>
-                <FlatButton label= "Upload folder"/>
-                <FlatButton label=" Google docs"/>
-                <FlatButton label=" Google Sheets"/>
-                <FlatButton label=" Google Slides" />
-                <FlatButton label= "More"/>
-            </List>
-         
-            </div>
-          );
-      }
-  }
+
+ 
 
 export default class NavBar extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {showComponent: false};
-        this.handleClick=this.handleClick.bind(this);
+        this.state = {showComponent1: false,
+            showComponent2: false    };
+        this.handleClick1=this.handleClick1.bind(this);
+        this.handleClick2=this.handleClick2.bind(this);
       }
-      handleClick=() =>
+      handleClick1=() =>
       {
         this.setState({
-            showComponent: ! this.state.showComponent,
+            showComponent1: ! this.state.showComponent1,
+          });
+      }
+      handleClick2=() =>
+      {
+        this.setState({
+            showComponent2: ! this.state.showComponent2,
           });
       }
     render()
@@ -56,19 +35,22 @@ export default class NavBar extends React.Component
           <div>
             
             <ul className="navbarleftdiv">
-             <li className="navbarlistitem" ><FlatButton className= "newbutton" label="New" backgroundColor="#2962FF" /></li>
-                    <li className="navbarlistitem"> 
-                    <FlatButton className= "dropbutton"
+             <li className="navbarlistitem" style={{ marginLeft: -40,}} >
+                 <FlatButton className= "newbutton" label="New" backgroundColor="#2962FF" onClick={this.handleClick1}/>
+             </li>
+            {this.state.showComponent1? <MyMenu />: null}  
+
+            <li className="navbarlistitem" style={{ marginLeft: 250,}}> 
+                <FlatButton className= "dropbutton"
                         label="My drive"
                         labelPosition="before"
                         primary={true}
                         icon={<DetailsIcon  color = '#21212' />}
-                        onClick={this.handleClick}
+                        onClick={this.handleClick2}
                         />
-                    </li>
-                  <li> {this.state.showComponent? 
-                       <DMenu/>: null}  </li>
-                 </ul>
+            </li>
+             {this.state.showComponent2?  <MyMenu />: null}  
+            </ul>
                  
              </div>
         );
