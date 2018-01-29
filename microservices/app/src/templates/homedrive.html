@@ -15,13 +15,18 @@
         <p><a href="/cfldr" target="_self">Create Folder</a></p>
         <p>Folder List:{{ fldr }}!</p>
         <p>{% for row in fldr %}</p>
-        <div>{{ row }} - {{ row['file_path_id'] }} - {{ row['path_nm'] }}</div>
+        <div> {{ row['path_nm'] }} - {{ row['file_path_id'] | string }} - {{ row['created_at']}}</div>
         {% endfor %}
+        <p><select name="hvfldr">
+        {% for item in fldr %}
+                <option  value="{{item['file_path_id'] | string }}">{{item['path_nm']}}</option>
+        {% endfor %}
+        </select></p>
         <p>File List:{{ fllst }}!</p>
         <p>{% for vfllst in fllst %}</p>
-        <div>{{ vfllst }} - {{ vfllst['file_name'] }} - {{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] }}- {{ vfllst['created_at'] }}</div>
+        <div>{{ vfllst['file_name'] }} - {{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] | string }}- {{ vfllst['created_at'] }}</div>
         {% endfor %}
-
+        <p><input type="hidden" name="fldrid"></p>
         <p><h3><a href="/dlogout"/> Logout</h3></p>
         </form>
 	<br>
