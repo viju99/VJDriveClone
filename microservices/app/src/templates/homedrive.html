@@ -8,14 +8,16 @@
   <body>
         <form action="/fupload" method="post" enctype="multipart/form-data">
         <p><h1>Welcome to Am-Drive {{ name }}!</h1></p>
+        <p><a href="/fupload" target="_self">Take me Home</a></p>
         <p>Message:{{ msg }}!</p>
         <p><h2>Upload file: </h2></p>
         <p><input type="file" name="hvfname"></p>
         <p><input type="submit" value="Upload File" name="submit"></p>
-        <p><a href="/cfldr" target="_self">Create Folder</a></p>
+        <p><a href="/cfldr/{{ pthid }}" target="_self">Create Folder</a></p>
         <p>Folder List:{{ fldr }}!</p>
         <p>{% for row in fldr %}</p>
-        <div> {{ row['path_nm'] }} - {{ row['file_path_id'] | string }} - {{ row['created_at']}}</div>
+        {% set flink = '/fchge/' + row['path_nm'] %}
+        <div><a href="{{ flink }}"> {{ row['path_nm'] }}</a> - {{ row['file_path_id'] | string }} - {{ row['created_at']}}</div>
         {% endfor %}
         <p><select name="hvfldr">
         {% for item in fldr %}
@@ -24,9 +26,10 @@
         </select></p>
         <p>File List:{{ fllst }}!</p>
         <p>{% for vfllst in fllst %}</p>
-        <div>{{ vfllst['file_name'] }} - {{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] | string }}- {{ vfllst['created_at'] }}</div>
+        {% set flink = '/dwnload/' + vfllst['file_id'] %}
+        <div><a href="{{ flink }}">{{ vfllst['file_name'] }}</a>-{{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] | string }}- {{ vfllst['created_at'] }}</div>
         {% endfor %}
-        <p><input type="hidden" name="fldrid"></p>
+        <p><input type="hidden" name="hvfldrid" value="{{ pthid }}"></p>
         <p><h3><a href="/dlogout"/> Logout</h3></p>
         </form>
 	<br>
