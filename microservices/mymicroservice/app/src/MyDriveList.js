@@ -7,7 +7,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
 const styles= {
     marginTop: 160,
     marginLeft: 300, 
@@ -19,6 +18,7 @@ const styles= {
  * A simple table demonstrating the hierarchy of the `Table` component and its sub-components.
  */
 const MyDriveList = () => (
+  <div>
   <Table style={styles}
   selectable = {false}>
     <TableHeader 
@@ -106,6 +106,8 @@ const MyDriveList = () => (
       </TableRow>
     </TableBody>
   </Table>
+  
+  </div>
 );
 
 export default MyDriveList;

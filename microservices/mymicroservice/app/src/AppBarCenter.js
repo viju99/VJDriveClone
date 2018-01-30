@@ -45,25 +45,32 @@ export default class AppBarCenter extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {value: 1,showComponent: false};
+        this.state = {value: 1,showComponent: false, appear: 'inline'};
         this.handler = this.handler.bind(this)
       }
     
       state = {
         searchText: '',
       };
-      handleClick=() =>
+      handleOpen=() =>
       {
         this.setState({
-            showComponent: ! this.state.showComponent,
+            showComponent: true,
           });
+          this.setState({
+           appear: 'inline',
+          });
+      }
+      handleClose =() =>
+      {
+        this.setState({showComponent: false})
       }
       handleUpdateInput = (searchText) => {
         this.setState({
           searchText: searchText,
         });
       };
-
+      
     
       handleNewRequest = () => {
         this.setState({
@@ -71,9 +78,9 @@ export default class AppBarCenter extends React.Component
         });
       };
       handler(e) {
-        e.preventDefault()
+       
         this.setState({
-            showComponent: false
+           appear: 'none'
         })
       };
     
@@ -90,11 +97,13 @@ export default class AppBarCenter extends React.Component
                         labelPosition="before"
                         primary={true}
                         icon={<DetailsIcon  color = '#21212'/>}
-                        onClick={this.handleClick} 
+                        onClick={this.handleOpen} 
+                    
+                       
             />
             
            
-            {this.state.showComponent?  <MyMenu id="1" action = {this.handler} />: null} 
+            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null} 
             </div>
         );
     }

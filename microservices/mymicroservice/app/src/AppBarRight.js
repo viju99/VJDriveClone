@@ -14,7 +14,7 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/twitter-person-image.png';
-import { checkLogin } from './login';
+import { checkLogin, getFolderList, getLoggedInUser } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
@@ -87,6 +87,18 @@ export default class AppBarRight extends React.Component {
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
 
+      }
+
+      getFolders = () => {
+        var userCred = getLoggedInUser();
+
+        var data = {
+            hvName: this.state.hvName,
+            hvPwd: this.state.hvPwd,
+            hvfldrid: userCred.rtpthid
+            }
+        var x = getFolderList(data);
+        console.log(x);
       }
       handleLogoClick = () => {
         alert("logo clicked");
@@ -193,7 +205,7 @@ export default class AppBarRight extends React.Component {
           ];
         return (
             <div style={styles.Left} className="iconColor">
-                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center"  >
+                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
                         <GridIcon color= '#757575'/>
                     </IconButton>
 
@@ -209,7 +221,7 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
                                 <br />
                                 <br />
                                 <strong>Sign in</strong><br />
@@ -272,6 +284,7 @@ export default class AppBarRight extends React.Component {
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
                         <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
                     </IconButton>
+
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
                          <AppBar   title="My Drive" 
                                     
@@ -284,6 +297,7 @@ export default class AppBarRight extends React.Component {
                         <MyDrawer/>
                         
                     </Drawer>
+
                     {this.state.show? <MYlist/>: null}
              </div>
         );    

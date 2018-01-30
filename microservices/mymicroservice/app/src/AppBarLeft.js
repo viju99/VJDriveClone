@@ -20,15 +20,15 @@ export default class AppBarLeft extends React.Component
 {
     constructor(props) {
         super(props);
-        this.state = {showComponent1: false};
+        this.state = {showComponent1: false, appear: 'inline'};
         this.handleClick=this.handleClick.bind(this);
         this.handler = this.handler.bind(this)
         
       }
       handler(e) {
-        e.preventDefault()
+          
         this.setState({
-            showComponent: false
+            appear: 'none'
         })
       }
     
@@ -37,6 +37,11 @@ export default class AppBarLeft extends React.Component
         this.setState({
             showComponent: ! this.state.showComponent,
           });
+
+        this.setState({
+         appear: 'inline',
+        });
+          
       }
     render(){
         return(
@@ -44,7 +49,7 @@ export default class AppBarLeft extends React.Component
             <img className="driveLogo" src={driveLogo} alt="driveLogo" />
             <br/>
             <FlatButton className= "newbutton" label="New" backgroundColor="#0091EA" onClick ={this.handleClick}/>
-            {this.state.showComponent?  <MyMenu id="1" action = {this.handler} />: null}  
+            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null}  
             </div>
         );
     }
