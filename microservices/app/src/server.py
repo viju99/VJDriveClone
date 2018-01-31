@@ -645,9 +645,12 @@ def fileupload():
 
         if request.content_type == 'application/json':
             content = request.json
+            print(content)
             fileup = content['hvfname']
+            fileup = content['hvfldrid']
         else:
             fileup = request.files['hvfname']
+            print("file" , fileup)
             vpthid = request.form['hvfldrid']
 
         if fileup and allowed_file(fileup.filename):
@@ -677,6 +680,8 @@ def fileupload():
 
             return respo
         else:
+            print("failed call" , resp.content)
+
             return resp.content
     else:
         fldrresp=r_folderlist(vauth,vhid,vpthid)
