@@ -37,6 +37,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SESSION_COOKIE_HTTPONLY'] = False
 DEF_USR_PATH = '/'
 DEF_PRNT_PTHID = 0
+DEF_APP_NM = ""
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -570,7 +571,7 @@ def dregister():
                         respo.set_cookie(vauthdata['auth_token'], vauthdata['username'])
                         respo.set_cookie('rtpthid', str(fldrid))
 
-                    return respo.content
+                    return respo
                 #Failure of insert into App_user
                 else:
                     return cusrrep.content
@@ -635,7 +636,10 @@ def fileupload():
     vuser = request.cookies.get(vauth)
     vpthid = request.cookies.get('rtpthid')
     vhid = request.headers.get('X-Hasura-User-Id')
-
+    orgn =  request.headers.get('Origin')
+    hst =  "https://"+request.headers.get('Host')
+    print(orgn)
+    print(hst)
     # Setting headers
     headers = {
         "Authorization": "Bearer " + vauth
@@ -643,15 +647,9 @@ def fileupload():
     # Open the file
     if request.method =='POST':
 
-        if request.content_type == 'application/json':
-            content = request.json
-            print(content)
-            fileup = content['hvfname']
-            fileup = content['hvfldrid']
-        else:
-            fileup = request.files['hvfname']
-            print("file" , fileup)
-            vpthid = request.form['hvfldrid']
+        fileup = request.files['hvfname']
+        print("file" , fileup)
+        vpthid = request.form['hvfldrid']
 
         if fileup and allowed_file(fileup.filename):
             filename = secure_filename(fileup.filename)
@@ -671,7 +669,7 @@ def fileupload():
 
             flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid)
 
-            if request.content_type == 'application/json':
+            if orgn != hst :
                 respo = make_response(resp.content)
             else:
                 fldrresp=r_folderlist(vauth,vhid,vpthid)

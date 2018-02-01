@@ -12,16 +12,16 @@
         <p>Message:{{ msg }}!</p>
         <p><h2>Upload file: </h2><input type="file" name="hvfname"><input type="submit" value="Upload File" name="submit"></p>
         <p><a href="/cfldr/{{ pthid }}" target="_self">Create Folder</a></p>
-        <p>Folder List:{{ fldr }}!</p>
+        <p><h3>Folder List:</h3>{{ fldr }}!</p>
         <p>{% for row in fldr %}</p>
         {% set flink = '/fchge/' + row['path_nm'] %}
         <div><a href="{{ flink }}"> {{ row['path_nm'] }}</a> - {{ row['file_path_id'] | string }} - {{ row['created_at']}}</div>
         {% endfor %}
+        <p><h3>File List:</h3>{{ fllst }}!</p>
         <p>{% for vfllst in fllst %}</p>
         {% set flink = '/dwnload/' + vfllst['file_id'] %}
         <div><a href="{{ flink }}">{{ vfllst['file_name'] }}</a>-{{ vfllst['file_id'] }}-{{ vfllst['file_path_id'] | string }}- {{ vfllst['created_at'] }}</div>
         {% endfor %}
-        <p>File List:{{ fllst }}!</p>
         <p><input type="hidden" name="hvfldrid" value="{{ pthid }}"></p>
         <p><h3><a href="/dlogout"> Logout</h3></a></p>
         </form>
