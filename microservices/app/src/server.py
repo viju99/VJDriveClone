@@ -34,10 +34,9 @@ if CLUSTER_NAME is None:
 UPLOAD_FOLDER = '/fuploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SESSION_COOKIE_HTTPONLY'] = False
 DEF_USR_PATH = '/'
 DEF_PRNT_PTHID = 0
-DEF_APP_NM = ""
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -58,7 +57,7 @@ def r_folderlist(vauth,vhid,vpthid):
                 "path_nm",
                 "path_id",
                 "prnt_path_id",
-                "created_at"
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -103,7 +102,7 @@ def r_getfldrid(vauth,vhid,vpthnm):
                 "path_nm",
                 "path_id",
                 "prnt_path_id",
-                "created_at"
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -149,7 +148,8 @@ def r_filelist(vauth,vhid,vpthid):
                 "file_name",
                 "file_id",
                 "file_path_id",
-                "created_at"
+                "file_size",
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -327,7 +327,7 @@ def c_userfldr(vauth,vhid,vprntpthid,pthnm):
     print(resp1.content)
     return resp1
 
-def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid):
+def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid,vfilesize):
     # This is the url to which the query is made
     url1 = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
 
@@ -341,7 +341,8 @@ def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid):
                     "user_id": vhid,
                     "file_path_id": vpthid,
                     "file_name": vfilename,
-                    "file_id": vfileid
+                    "file_id": vfileid,
+                    "file_size": vfilesize
                 }
             ]
            }
@@ -665,9 +666,10 @@ def fileupload():
             print(vfileupload['file_status'])
             print(vfileupload['created_at'])
             print(vfileupload['file_size'])
+            vfilesize=vfileupload['file_size']
             vfileid=vfileupload['file_id']
 
-            flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid)
+            flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid,vfilesize)
 
             if orgn != hst :
                 respo = make_response(resp.content)
@@ -707,7 +709,7 @@ def fchge(vpthnm):
             print(getfldrid[0]['path_nm'])
             print(getfldrid[0]['path_id'])
             print(getfldrid[0]['prnt_path_id'])
-            print(getfldrid[0]['created_at'])
+            print(getfldrid[0]['modified_at'])
             vpthid=getfldrid[0]['path_id']
             fldrresp=r_folderlist(vauth,vhid,vpthid)
             flresp=r_filelist(vauth,vhid,vpthid)
