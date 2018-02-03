@@ -76,7 +76,13 @@ The flask microservice is located in `microservices/app` directory in your Hasur
     ├── hasura.py                # hasura API examples
     ├── __init__.py              # main Flask app is defined here
     ├── requirements.txt         # python dependency requirements
-    └── server.py                # main Flask server code
+    ├── server.py                # main Flask server code
+    └── templates                # html templates to testout Python Flask API calls
+        ├── homedrive.html       # Primary Drive page to test Drive Flask APIs
+        ├── cfldr.html           # Create Folder html call to Flask APIs
+        ├── dlogin.html          # Login html  call to Flask APIs
+        ├── dregister.html       # SignIn/Register User html  call to Flask APIs
+        └── page_not_found.html  # Page Not Found Error html  call to Flask APIs
 ```
 
 ### Edit
@@ -140,9 +146,9 @@ Hasura comes with a pre-configured ready-to-use PostgreSQL database, which can b
 ### database schema extension
 
 Following tables are added to schema to implement the Drive features
-i) app_users - App Users information for login on signup
-ii) user_files - Files Upload and folder information
-iii) user_paths - Folder structure and Folder Hierarchy information
+- app_users - App Users information for login on signup
+- user_files - Files Upload and folder information
+- user_paths - Folder structure and Folder Hierarchy information
 
 ### API Console
 
