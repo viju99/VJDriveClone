@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "app_users" ADD COLUMN "modified_at" timestamptz NOT NULL DEFAULT
+      now()
+  type: run_sql

@@ -1,7 +1,19 @@
-# Team47 hello-python-flask
+# Google Drive Clone using Hasura with Python Flask & ReactJS
 
-Boilerplate Hasura project with [Flask](http://flask.pocoo.org/) microservice.
+This Readme consists of a steps to setup the codebase for both Python Flask and ReactJS as microservices and build a GDrive(Google Drive) Clone - namely Hasura Drive
 
+The codebase makes use of the boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
+
+## Hasura Drive supports limited Frontend features/tasks
+- Users to be able to sign up/login as a user or a seller.
+- Users should be able to see/browse list of folders
+- Users should be able to upload/download files.
+
+
+## Backend features implemented using Hasura API with Python Flask
+- Schema modelling and Data Layer - using Data API
+- Hasura services - Hasura Auth APIs for Login and Signup
+- Custom services to support - File APIs on Hasura lets users upload and store files
 
 ## Getting started
 
@@ -64,7 +76,13 @@ The flask microservice is located in `microservices/app` directory in your Hasur
     ├── hasura.py                # hasura API examples
     ├── __init__.py              # main Flask app is defined here
     ├── requirements.txt         # python dependency requirements
-    └── server.py                # main Flask server code
+    ├── server.py                # main Flask server code
+    └── templates                # html templates to testout Python Flask API calls
+        ├── homedrive.html       # Primary Drive page to test Drive Flask APIs
+        ├── cfldr.html           # Create Folder html call to Flask APIs
+        ├── dlogin.html          # Login html  call to Flask APIs
+        ├── dregister.html       # SignIn/Register User html  call to Flask APIs
+        └── page_not_found.html  # Page Not Found Error html  call to Flask APIs
 ```
 
 ### Edit
@@ -124,6 +142,13 @@ You can deploy further changes by going through `Edit -> Deploy -> Verify -> Deb
 ## Use a database
 
 Hasura comes with a pre-configured ready-to-use PostgreSQL database, which can be contacted over HTTP JSON APIs. You can use this database from client side or server side just by making HTTP API calls with JSON data. There are no DB connection strings or ORMs to worry about.
+
+### database schema extension
+
+Following tables are added to schema to implement the Drive features
+- app_users - App Users information for login on signup
+- user_files - Files Upload and folder information
+- user_paths - Folder structure and Folder Hierarchy information
 
 ### API Console
 

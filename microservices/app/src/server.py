@@ -34,9 +34,9 @@ if CLUSTER_NAME is None:
 UPLOAD_FOLDER = '/fuploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SESSION_COOKIE_HTTPONLY'] = False
 DEF_USR_PATH = '/'
 DEF_PRNT_PTHID = 0
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -57,7 +57,7 @@ def r_folderlist(vauth,vhid,vpthid):
                 "path_nm",
                 "path_id",
                 "prnt_path_id",
-                "created_at"
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -102,7 +102,7 @@ def r_getfldrid(vauth,vhid,vpthnm):
                 "path_nm",
                 "path_id",
                 "prnt_path_id",
-                "created_at"
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -148,7 +148,8 @@ def r_filelist(vauth,vhid,vpthid):
                 "file_name",
                 "file_id",
                 "file_path_id",
-                "created_at"
+                "file_size",
+                "modified_at"
             ],
             "where": {
                 "$and": [
@@ -326,7 +327,7 @@ def c_userfldr(vauth,vhid,vprntpthid,pthnm):
     print(resp1.content)
     return resp1
 
-def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid):
+def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid,vfilesize):
     # This is the url to which the query is made
     url1 = "https://data." + CLUSTER_NAME + ".hasura-app.io/v1/query"
 
@@ -340,7 +341,8 @@ def c_fileupload(vauth,vhid,vpthid,vfilename,vfileid):
                     "user_id": vhid,
                     "file_path_id": vpthid,
                     "file_name": vfilename,
-                    "file_id": vfileid
+                    "file_id": vfileid,
+                    "file_size": vfilesize
                 }
             ]
            }
@@ -570,7 +572,7 @@ def dregister():
                         respo.set_cookie(vauthdata['auth_token'], vauthdata['username'])
                         respo.set_cookie('rtpthid', str(fldrid))
 
-                    return respo.content
+                    return respo
                 #Failure of insert into App_user
                 else:
                     return cusrrep.content
@@ -609,7 +611,7 @@ def fldrcreate():
         if (cpthrep.status_code >= 200 and cpthrep.status_code < 300):
             # querying for User root folder id for newly created user
             if request.content_type == 'application/json':
-                respo = make_response(resp.content)
+                respo = make_response(cpthrep.content)
             else:
                 fldrresp=r_folderlist(vauth,vhid,vpthid)
                 flresp=r_filelist(vauth,vhid,vpthid)
@@ -631,23 +633,28 @@ def fileupload():
     print(request.form)
     print(request.json)
     print(request.cookies)
+
     vauth = request.cookies.get(CLUSTER_NAME)
     vuser = request.cookies.get(vauth)
     vpthid = request.cookies.get('rtpthid')
     vhid = request.headers.get('X-Hasura-User-Id')
-
+    orgn =  request.headers.get('Origin')
+    hst =  "https://"+request.headers.get('Host')
+    print(orgn)
+    print(hst)
     # Setting headers
     headers = {
         "Authorization": "Bearer " + vauth
     }
+
     # Open the file
     if request.method =='POST':
-
         if request.content_type == 'application/json':
             content = request.json
-            print(content)
             fileup = content['hvfname']
-            fileup = content['hvfldrid']
+            print("file" , fileup)
+            vpthid = content['hvfldrid']
+
         else:
             fileup = request.files['hvfname']
             print("file" , fileup)
@@ -667,12 +674,25 @@ def fileupload():
             print(vfileupload['file_status'])
             print(vfileupload['created_at'])
             print(vfileupload['file_size'])
+            vfilesize=vfileupload['file_size']
             vfileid=vfileupload['file_id']
 
-            flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid)
+            flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid,vfilesize)
 
-            if request.content_type == 'application/json':
-                respo = make_response(resp.content)
+            data_app = {}
+            data_app["file_id"] = vfileupload['file_id']
+            data_app["user_id"] = vfileupload['user_id']
+            data_app["user_role"] = vfileupload['user_role']
+            data_app["content_type"] = vfileupload['content_type']
+            data_app["file_status"] = vfileupload['file_status']
+            data_app["created_at"] = vfileupload['created_at']
+            data_app["file_size"] = vfileupload['file_size']
+
+            json_app = json.dumps(data_app)
+            print ('JSON: ', json_app)
+
+            if orgn != hst :
+                respo = make_response(json_app)
             else:
                 fldrresp=r_folderlist(vauth,vhid,vpthid)
                 flresp=r_filelist(vauth,vhid,vpthid)
@@ -688,6 +708,45 @@ def fileupload():
         flresp=r_filelist(vauth,vhid,vpthid)
         resp = make_response(render_template('homedrive.html', name=vuser, msg="", fldr=fldrresp.json(), fllst=flresp.json(),pthid=vpthid))
         return resp
+
+
+@app.route("/fupload2", methods = ['POST','GET'])
+def fileupload2():
+
+    print(request)
+    print(request.headers)
+    print(request.form)
+    print(request.json)
+    print(request.cookies)
+    vauth = request.cookies.get(CLUSTER_NAME)
+    vuser = request.cookies.get(vauth)
+    vpthid = request.cookies.get('rtpthid')
+    vhid = request.headers.get('X-Hasura-User-Id')
+    orgn =  request.headers.get('Origin')
+    hst =  "https://"+request.headers.get('Host')
+    print(orgn)
+    print(hst)
+    # Setting headers
+    headers = {
+        "Authorization": "Bearer " + vauth
+    }
+
+    # Open the file
+    if request.method =='POST':
+        if request.content_type == 'application/json':
+            content = request.json
+            vfileid = content['hvfileid']
+            vfilename = content['hvfname']
+            vpthid = content['hvfldrid']
+            vpthid = content['hvfilesize']
+
+            flinsresp=c_fileupload(vauth,vhid,vpthid,vfilename,vfileid,vfilesize)
+            respo = make_response(flinsresp.content)
+            return respo
+        else:
+            return "Invalid Content Type"
+    return "Invalid Method Call"
+
 
 @app.route("/fchge/<vpthnm>", methods = ['GET'])
 def fchge(vpthnm):
@@ -709,7 +768,7 @@ def fchge(vpthnm):
             print(getfldrid[0]['path_nm'])
             print(getfldrid[0]['path_id'])
             print(getfldrid[0]['prnt_path_id'])
-            print(getfldrid[0]['created_at'])
+            print(getfldrid[0]['modified_at'])
             vpthid=getfldrid[0]['path_id']
             fldrresp=r_folderlist(vauth,vhid,vpthid)
             flresp=r_filelist(vauth,vhid,vpthid)
@@ -777,7 +836,7 @@ def fldrlist():
         respo = make_response(render_template('homedrive.html',name=vuser, msg= flresp.content, fldr=fldrresp.json(),fllst=flresp.json(),pthid=vpthid))
         return respo
 
-@app.route("/dlogout")
+@app.route("/dlogout", methods = ['POST', 'GET'])
 def dlogout():
 
     print(request)
@@ -805,14 +864,19 @@ def dlogout():
 
     # resp.content contains the json response.
     print(resp.content)
+
     if request.content_type == 'application/json':
-        respo=make_response(resp)
+        respo=make_response(resp.content)
         respo.set_cookie(CLUSTER_NAME, expires=0)
         respo.set_cookie(vauth, expires=0)
         respo.set_cookie('rtpthid', expires=0)
 
     else:
         respo = make_response(render_template('dlogin.html'))
+        respo.set_cookie(CLUSTER_NAME, expires=0)
+        respo.set_cookie(vauth, expires=0)
+        respo.set_cookie('rtpthid', expires=0)
+
     return respo
 
 @app.route("/dwnload/<vfileid>" , methods = ['GET'])

@@ -1,0 +1,11 @@
+- args:
+    permission:
+      columns:
+      - file_name
+      - file_path_id
+      - file_size
+      - modified_at
+      filter: {}
+    role: user
+    table: user_files
+  type: create_update_permission
