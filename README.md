@@ -1,19 +1,19 @@
-# Building a Google Drive Clone Hasura using Python Flask & React.js
+# Google Drive Clone using Hasura with Python Flask & ReactJS
 
-This Readme consists of a steps to setup the codebase for both Python Flask and React.js as microservices and build a GDrive(Google Drive) Clone - namely Hasura Drive
+This Readme consists of a steps to setup the codebase for both Python Flask and ReactJS as microservices and build a GDrive(Google Drive) Clone - namely Hasura Drive
 
 The codebase makes use of the boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
 
-## a) Hasura Drive supports limited Frontend features/tasks
+## Hasura Drive supports limited Frontend features/tasks
 - Users to be able to sign up/login as a user or a seller.
 - Users should be able to see/browse list of folders
 - Users should be able to upload/download files.
 
 
-## b) Backend features implemented using Hasura API with Python Flask
+## Backend features implemented using Hasura API with Python Flask
 - Schema modelling and Data Layer - using Data API
 - Hasura services - Hasura Auth APIs for Login and Signup
--Custom services to support - File APIs on Hasura lets users upload and store files
+- Custom services to support - File APIs on Hasura lets users upload and store files
 
 ## Getting started
 
