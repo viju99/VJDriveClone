@@ -13,18 +13,20 @@ import Paper from 'material-ui/Paper';
 import GridIcon from 'material-ui/svg-icons/image/grid-on'; 
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
-import profPic from './images/twitter-person-image.png';
-import { checkLogin, getFolderList, getLoggedInUser } from './login';
+import profPic from './images/Hasura-face-new.jpg';
+import { checkLogin, getFolderList, getLoggedInUser, logout } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {SelectField, TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
 import blue200 from 'material-ui/styles/colors';
 import { SMALL } from 'material-ui/utils/withWidth';
-
+import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-
-
+import {loginUser,getPromise, getDetails} from './login';
+import flag from 'material-ui/svg-icons/content/flag';
+import face from 'material-ui/svg-icons/action/face';
+import Snackbar from 'material-ui/Snackbar';
 const styles = {
 
 
@@ -70,6 +72,7 @@ class MYlist extends React.Component{
     }
 }
 export default class AppBarRight extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {open: false,
@@ -81,49 +84,77 @@ export default class AppBarRight extends React.Component {
                      hvCpwd: '',
                      isSignUp: false,
                      loginType: "Sign in",
-                     showLoginErrorDialog: false
-                    };
+                     showLoginErrorDialog: false,
+                     success: false,
+                     showSnack: false
+                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
-
+        this.handleRequestClose=this.handleRequestClose.bind(this);
+        this.handleRequestOpen=this.handleRequestOpen.bind(this);
       }
-
+      handleRequestOpen =()=>
+      {
+        this.setState({showSnack: true});
+      }
+      handleRequestClose =()=>
+      {
+        this.setState({showSnack: false});
+      }
+     
       getFolders = () => {
         var userCred = getLoggedInUser();
-
         var data = {
             hvName: this.state.hvName,
             hvPwd: this.state.hvPwd,
             hvfldrid: userCred.rtpthid
             }
         var x = getFolderList(data);
-        console.log(x);
-      }
+        console.log('x=: '+x);
+       }
+    
       handleLogoClick = () => {
         alert("logo clicked");
 
-
+        var cred= {};
         if(!this.state.isSignUp)
         {
             var cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd
-                }
+                };
         } else {
             var cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd,
                 hvCpwd: this.state.hvCpwd
-                }
+                };
         }
+        getDetails(cred).then( (loginresp) => {
+       // checkLogin(cred);
+       console.log(loginresp[0]);
+        this.setState({ success: true} );
+      
+       
+    }
+        )
+    }
         
-        if (!checkLogin(cred))
-        {
-            alert("User with same username already exists. Please try with a different username");
-        }
+           // alert("User with same username already exists. Please try with a different username");
+         /*  setTimeout(() => {
+            this.setState({ success: true} );
+          }, 3000);*/
+          // this.setState({success: true});
+     
+       /* getPromise().then(function(){
+            alert("Promise resolved");
+        this.setState({success: true});
+        })
+    };
+    */
         //setErrorText(undefined);
-      };
+      
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
       handleClick =()=> this.setState({show: !this.state.show});
@@ -147,6 +178,9 @@ export default class AppBarRight extends React.Component {
         this.setState({showLogin: false});
         this.setState({isSignUp: false});
       };
+      handleSignOutClose = () => {
+
+      }
 
       handleSubmit = () => {
         /*if (this.state.isSignUp){
@@ -159,8 +193,19 @@ export default class AppBarRight extends React.Component {
                 return;
             }
         } */ 
-        this.handleLogoClick();
+        if(!this.state.success)
+        {
+            this.handleLogoClick();
+         }
+
+         else{
+             this.handleSignOut();
+         }
         this.setState({showLogin: false});
+        
+        this.state.loginType === "Sign Out" ? 
+            this.setState({loginType: "Sign in"}) : 
+            this.setState({loginType: "Sign Out"});
       };
 
       handleErrorInputChange = (e) => {
@@ -188,6 +233,23 @@ export default class AppBarRight extends React.Component {
              });
       }
     }
+
+    handleSignOut = () => {
+        const status = logout();
+        if (status)
+        {
+            this.setState({showSnackBarLogout: true });
+           
+        }
+        
+       
+        alert("User has been signed out");
+        this.setState({showLogin: false});
+        this.setState({success: false});
+    }
+    handleCancelSignOut = (e) => {
+        this.setState({showLogin: false});
+    }
   
     render()
     {
@@ -201,16 +263,17 @@ export default class AppBarRight extends React.Component {
               label={this.state.loginType}
               primary={true}
               onClick={this.handleSubmit}
-            />,
+            />
           ];
         return (
+            <div >
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
-                        <NotificationIcon color= '#757575'/>
+                        <NotificationIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton >
@@ -221,68 +284,79 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
-                                <br />
-                                <br />
-                                <strong>Sign in</strong><br />
-                                to continue to Hasura Drive
-                                <br />
-                                <br />
-                                <TextField
-                                    id="userName"
-                                    hintText="User Name"
-                                    floatingLabelText="User Name"
-                                    errorText="Enter your user name"
-                                    onChange={this.handleErrorInputChange}
-                                /><br />
-                                <TextField
-                                    id="password"
-                                    hintText="Password"
-                                    floatingLabelText="Password"
-                                    errorText="Enter your password"
+                            {this.state.success ?
+                                <div>
+                                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true"/>
+                                    <h4> Logged in user : {this.state.hvName} </h4>
+
+                                </div>
+                                :
+                                <div>
+                                    <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
+                                    <br />
+                                    <br />
+                                    <strong>Sign in</strong><br />
+                                    to continue to Hasura Drive
+                                    <br />
+                                    <br />
+                                    <TextField
+                                        id="userName"
+                                        hintText="User Name"
+                                        floatingLabelText="User Name"
+                                        errorText="Enter your user name"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <TextField
+                                        id="password"
+                                        hintText="Password"
+                                        floatingLabelText="Password"
+                                        errorText="Enter your password"
+                                        type="password"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <br />
+                                    If not existing user, please 
+                                        <FlatButton 
+                                            id="signUPlink" 
+                                            style={styles.fBUtton} 
+                                            onClick={this.setSignUp} 
+                                            label="Sign Up"
+                                            primary={true}> 
+                                        </FlatButton> 
+                                    first
+                                    <TextField
+                                    style={styles.cfmPassword}
+                                    id="cfmPassword"
+                                    hintText="Confirm Password"
+            
                                     type="password"
+                                    disabled={!this.state.isSignUp}
                                     onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
-                                If not existing user, please 
-                                    <FlatButton 
-                                        id="signUPlink" 
-                                        style={styles.fBUtton} 
-                                        onClick={this.setSignUp} 
-                                        label="Sign Up"
-                                        primary={true}> 
-                                    </FlatButton> 
-                                first
-                                <TextField
-                                style={styles.cfmPassword}
-                                id="cfmPassword"
-                                hintText="Confirm Password"
-        
-                                type="password"
-                                disabled={!this.state.isSignUp}
-                                onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
+                                    /><br />
+                                    <br />
+                                </div>
+                                
+                            }
                                 
                             </Dialog>
 
                     </IconButton>
                     
                     {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
                     :
                      <IconButton tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
-                     <ListIcon color= '#757575'/>
+                     <ListIcon color= '#212121'/>
                  </IconButton>
                  }
                     
                    
                     <IconButton tooltip="View details"  tooltipPosition="bottom-center" onClick ={this.handleToggle}  >
-                        <InfoIcon color= '#757575' />
+                        <InfoIcon color= '#212121' />
                     </IconButton>
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
-                        <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
+                        <SettingsIcon onClick={this.handleClick}  color= '#212121'/>
                     </IconButton>
 
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
@@ -299,7 +373,22 @@ export default class AppBarRight extends React.Component {
                     </Drawer>
 
                     {this.state.show? <MYlist/>: null}
+                    
              </div>
+             <div style={{position: 'relative', top:40, left: -500 }}>
+           
+
+             </div>
+             {this.state.success ?  <FlatButton
+            label="getlist"
+            primary={true}
+            onClick={this.props.handler}
+          />:null }
+             </div>
+             
         );    
+       
     }
+   
 }
+/*  {this.state.success ? this.props.handler : null}*/

@@ -15,7 +15,7 @@ const styles = {
         display: 'flex',
         flexFlow: 'column',
         justifyContent: 'space-around',
-       alignItems: 'flex-start',
+        alignItems: 'flex-start',
         marginLeft: 20,
 
     }
@@ -96,8 +96,9 @@ export default class AppBarCenter extends React.Component
                         label="My drive"
                         labelPosition="before"
                         primary={true}
-                        icon={<DetailsIcon  color = '#21212'/>}
+                        icon={<DetailsIcon  color = '#fff'/>}
                         onClick={this.handleOpen} 
+                        backgroundColor="#222"
                     
                        
             />

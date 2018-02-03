@@ -20,10 +20,12 @@ import FlatButton from 'material-ui/FlatButton';
 import {Dialog, TextField} from 'material-ui';
 import { SelectField } from 'material-ui/SelectField';
 import index from 'material-ui/Dialog';
-import {getLoggedInUser} from './login.js';
+import {getLoggedInUser, uploadFile} from './login.js';
 
 
 import RaisedButton from 'material-ui/RaisedButton'
+import {List, ListItem} from 'material-ui/List';
+
 
 export default class MyMenu extends React.Component
 {
@@ -37,21 +39,49 @@ export default class MyMenu extends React.Component
                  showUpload:false,
                  filePathnName: '',
                  Index: 0,
+                 headerFileUpload: {
+                  'Content-type': 'multipart/form-data',
+                  'credentials' : 'include',
+                },
+                rtpthid: 0
+                 
                
                 };
-    this.handleUpload=this.handleUpload.bind(this);
+    //this.handleUpload=this.handleUpload.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
-  
+    this.getUserPathId=this.getUserPathId.bind(this);  
 
   }
 
-  handleUpload = () => {
 
-    
-    //checkLogin(cred);
-    //setErrorText(undefined);
-  };
+  handleFileUpload = (file) => {
+    console.log(file);
+    const authToken = getLoggedInUser().token;
+    if (!authToken) {
+      this.showAlert('Please login first. Go to /auth to login');
+      return;
+    }
+    const folderId = getLoggedInUser().rtpthid;
+    var data = {
+      hvfname: file,
+      hvfldrid: folderId
+      }
+    //this.showProgressIndicator(true)
+    uploadFile(data, authToken).then(response => {
+      //this.showProgressIndicator(false)
+      console.log(response);
+      if (response.file_id) {
+        alert("File uploaded successfully");
+        //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+      } else {
+        //this.showAlert("File upload failed: " + JSON.stringify(response));
+      }
+    }).catch(error => {
+      console.log('File upload failed: ' + error);
+    });
+  }
+
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -70,6 +100,11 @@ export default class MyMenu extends React.Component
     this.setState({showUpload: false});
   };
 
+  getUserPathId = () => {
+    var loginUser = getLoggedInUser();
+    this.setState({rtpthid: loginUser.rtpthid});
+  }
+
   handleErrorInputChange = (e) => {
     if (e.target.id === 'filePathnName') {
       var fileDetails = e.target.value;
@@ -84,12 +119,9 @@ export default class MyMenu extends React.Component
     };
     
   }; 
- handletest=(e)=>{
-   e.stopPropagation();
-   alert("onblur");
- }
 
-  
+
+  /*
   handleFileUpload = () => {
     var x = document.getElementById("fileToUpload");
     const fileName = x.files[0];
@@ -110,6 +142,7 @@ export default class MyMenu extends React.Component
         "Authorization": 'Bearer ' + arr[1]
       }
     }).then(function(response) {
+      console.log("Inside function response of file upload");
       if (response.status >= 200 && response.status < 300) {
           console.log("retirning response.json function");
           var obj = JSON.stringify(response.body);
@@ -121,9 +154,9 @@ export default class MyMenu extends React.Component
   }).then(function(data) {
       if(data){
           console.log("printing returned value");
-          if (data["auth_token"])
+          if (data["file_id"])
           {
-              console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
+              console.log("File uploadedwith file id : " + data['file_id'] + " and size of the file is "+ data['size']+"bytes");
               //setLoggedInUser(data['username']);
           }
           else {
@@ -136,13 +169,11 @@ export default class MyMenu extends React.Component
     });
     
   }
+*/
 
   //=======================
 
-  componentDidMount(){
-    window.addEventListener('onmousedown', this.props.action, false);
-}
-
+  
   render()
   {
     const actions = [
@@ -160,12 +191,12 @@ export default class MyMenu extends React.Component
     /* needs an eventlistener that will call {this.props.action}, a funcyion defined in line 28 of AppBarLeft and line 73 of
      AppBarRight wich changes the state of showComponent to false */
 
-    if(this.props.id=="1"){
-    
+    if(this.props.id==="1"){
+     
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 10}}  >
+          <Paper style={{position: 'absolute', zIndex: 1}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
             <Divider /> 
@@ -234,43 +265,122 @@ export default class MyMenu extends React.Component
                   <br />
                   <br />
                   <h1>File Upload</h1>
-                
-                    <input id="fileToUpload" type="file" height="30"/>
-                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
-                    
+                  <div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                  <FlatButton
+                    label="Upload File"
+                    secondary={true}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      //var pathId = {this.getUserPathId}
+                      const input = document.querySelector('input[type="file"]');
+                      if (input.files[0]) {
+                        this.handleFileUpload(input.files[0])
+                      } else {
+                        this.showAlert("Please select a file")
+                      }
+                    }}/>                  
                   <br />               
               </Dialog>
       </div>
     );
     }
-    else
+    else if(this.props.id=='2')
+  {
+    return(
+      <div>
+        <Menu>
+      <MenuItem primaryText="Download" />
+            
+           <MenuItem primaryText="View Details"  />
+          
+           
+           </Menu>
+           </div>
+    )
+  }
+    else 
     {
       return(
         <div >
-           <Paper style={{position: 'absolute', marginTop: 132, zIndex: -1,}}>
-           <Menu desktop={true} width={300} className="menu" >
-           <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>} 
-            menuItems={[
-              <MenuItem primaryText="F1"/>,
-              <MenuItem primaryText="F2"/>,
-            ]}/>
+         
+           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
+          
+              <ListItem
+              primaryText="My Drive"
+              leftIcon={<CFolderIcon />}
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <ListItem
+                  key={1}
+                  primaryText="F1"
+                  leftIcon={<CFolderIcon />}
+                />,
+                <ListItem
+                  key={2}
+                  primaryText="F2"
+                  leftIcon={<CFolderIcon />}
+                  
+                  
+                />,
+              
+              ]}
+            />,
+             
          
            <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
            <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-           <Divider />
+          
            <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
-         </Menu>
+         </List>
 
-          </Paper>
+      
         </div>
       );
     }
   }
 }
+
+/*
+
+ <form action="https://t47d.anthology78.hasura-app.io/fupload" 
+                        method="post" 
+                        headers= {this.state.headerFileUpload}
+                        encType="multipart/form-data" >
+                      <p><input type="file" name="hvfname" /></p>
+                      <p><input type="hidden" name="hvfldrid" value={this.state.rtpthid} /></p>
+                      <p><input type="submit" value="Upload File" name="submit" onClick={this.getUserPathId}/></p>
+                    </form>
+                    
+
+*/
+
+/* Hasura type file upload JSX
+<div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                  <FlatButton
+                    label="Upload File"
+                    secondary={true}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      //var pathId = {this.getUserPathId}
+                      const input = document.querySelector('input[type="file"]');
+                      if (input.files[0]) {
+                        this.handleFileUpload(input.files[0])
+                      } else {
+                        this.showAlert("Please select a file")
+                      }
+                    }}/>
+*/
