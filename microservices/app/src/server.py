@@ -611,7 +611,7 @@ def fldrcreate():
         if (cpthrep.status_code >= 200 and cpthrep.status_code < 300):
             # querying for User root folder id for newly created user
             if request.content_type == 'application/json':
-                respo = make_response(resp.content)
+                respo = make_response(cpthrep.content)
             else:
                 fldrresp=r_folderlist(vauth,vhid,vpthid)
                 flresp=r_filelist(vauth,vhid,vpthid)
@@ -633,6 +633,7 @@ def fileupload():
     print(request.form)
     print(request.json)
     print(request.cookies)
+
     vauth = request.cookies.get(CLUSTER_NAME)
     vuser = request.cookies.get(vauth)
     vpthid = request.cookies.get('rtpthid')
@@ -645,12 +646,19 @@ def fileupload():
     headers = {
         "Authorization": "Bearer " + vauth
     }
+
     # Open the file
     if request.method =='POST':
+        if request.content_type == 'application/json':
+            content = request.json
+            fileup = content['hvfname']
+            print("file" , fileup)
+            vpthid = content['hvfldrid']
 
-        fileup = request.files['hvfname']
-        print("file" , fileup)
-        vpthid = request.form['hvfldrid']
+        else:
+            fileup = request.files['hvfname']
+            print("file" , fileup)
+            vpthid = request.form['hvfldrid']
 
         if fileup and allowed_file(fileup.filename):
             filename = secure_filename(fileup.filename)
@@ -671,8 +679,20 @@ def fileupload():
 
             flinsresp=c_fileupload(vauth,vhid,vpthid,filename,vfileid,vfilesize)
 
+            data_app = {}
+            data_app["file_id"] = vfileupload['file_id']
+            data_app["user_id"] = vfileupload['user_id']
+            data_app["user_role"] = vfileupload['user_role']
+            data_app["content_type"] = vfileupload['content_type']
+            data_app["file_status"] = vfileupload['file_status']
+            data_app["created_at"] = vfileupload['created_at']
+            data_app["file_size"] = vfileupload['file_size']
+
+            json_app = json.dumps(data_app)
+            print ('JSON: ', json_app)
+
             if orgn != hst :
-                respo = make_response(resp.content)
+                respo = make_response(json_app)
             else:
                 fldrresp=r_folderlist(vauth,vhid,vpthid)
                 flresp=r_filelist(vauth,vhid,vpthid)
@@ -688,6 +708,45 @@ def fileupload():
         flresp=r_filelist(vauth,vhid,vpthid)
         resp = make_response(render_template('homedrive.html', name=vuser, msg="", fldr=fldrresp.json(), fllst=flresp.json(),pthid=vpthid))
         return resp
+
+
+@app.route("/fupload2", methods = ['POST','GET'])
+def fileupload2():
+
+    print(request)
+    print(request.headers)
+    print(request.form)
+    print(request.json)
+    print(request.cookies)
+    vauth = request.cookies.get(CLUSTER_NAME)
+    vuser = request.cookies.get(vauth)
+    vpthid = request.cookies.get('rtpthid')
+    vhid = request.headers.get('X-Hasura-User-Id')
+    orgn =  request.headers.get('Origin')
+    hst =  "https://"+request.headers.get('Host')
+    print(orgn)
+    print(hst)
+    # Setting headers
+    headers = {
+        "Authorization": "Bearer " + vauth
+    }
+
+    # Open the file
+    if request.method =='POST':
+        if request.content_type == 'application/json':
+            content = request.json
+            vfileid = content['hvfileid']
+            vfilename = content['hvfname']
+            vpthid = content['hvfldrid']
+            vpthid = content['hvfilesize']
+
+            flinsresp=c_fileupload(vauth,vhid,vpthid,vfilename,vfileid,vfilesize)
+            respo = make_response(flinsresp.content)
+            return respo
+        else:
+            return "Invalid Content Type"
+    return "Invalid Method Call"
+
 
 @app.route("/fchge/<vpthnm>", methods = ['GET'])
 def fchge(vpthnm):
@@ -777,7 +836,7 @@ def fldrlist():
         respo = make_response(render_template('homedrive.html',name=vuser, msg= flresp.content, fldr=fldrresp.json(),fllst=flresp.json(),pthid=vpthid))
         return respo
 
-@app.route("/dlogout")
+@app.route("/dlogout", methods = ['POST', 'GET'])
 def dlogout():
 
     print(request)
@@ -805,14 +864,19 @@ def dlogout():
 
     # resp.content contains the json response.
     print(resp.content)
+
     if request.content_type == 'application/json':
-        respo=make_response(resp)
+        respo=make_response(resp.content)
         respo.set_cookie(CLUSTER_NAME, expires=0)
         respo.set_cookie(vauth, expires=0)
         respo.set_cookie('rtpthid', expires=0)
 
     else:
         respo = make_response(render_template('dlogin.html'))
+        respo.set_cookie(CLUSTER_NAME, expires=0)
+        respo.set_cookie(vauth, expires=0)
+        respo.set_cookie('rtpthid', expires=0)
+
     return respo
 
 @app.route("/dwnload/<vfileid>" , methods = ['GET'])
