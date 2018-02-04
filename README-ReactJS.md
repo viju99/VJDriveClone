@@ -17,6 +17,12 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 - Hasura services - Hasura Auth APIs for Login and Signup
 - Custom services to support - File APIs on Hasura lets users upload and store files
 
+## What all does the app support
+- User can sign-up for a new account for the drive
+- User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md)
+- User can download the files to his local computer
+- To test the application, one can login using the username - "mars" and password "Aaaaaaaaa". You can browse through the folders and files and also upload or download to/from the file
+
 ## What does this come with?
 * React.js and P
   * Automatic reloading and bundling
@@ -24,6 +30,7 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
   * react-scripts with inbuilt webpack bundling
 * Deployed with the [**serve**](https://www.npmjs.com/package/serve) package
 * **Dockerfile** (automatically used by Hasura for deployment)
+
 
 ```
 FROM node:8
@@ -91,9 +98,10 @@ If changes have been done to the dependencies, `git commit`, and perform `git pu
 
 ## Adding backend features
 
-To make changes to backend features, you should refer to Python-Flask files under microservice/app/src.
+To make changes to backend features, you should refer to README.md file in the repository
 
 
-
-![Auth UI](https://github.com/viju99/VJDriveClone/Doc-Images/Drive-FileList.jpg)
-
+For further details, contact:
+viju99@gmail.com
+pritham.saldanha@gmail.com
+shivguru06@gmail.com
