@@ -58,13 +58,13 @@ CMD ["serve", "-s", "build", "-p", "8080"]
 ### Basic deployment:
 
 * Press the **Clone & Deploy** button and follow the instructions.
-* The `hasura quickstart` command clones the project repository to your local computer, and also creates a **free Hasura cluster**, where the project will be hosted for free.
+* The `hasura quickstart marianps/G-Drive-Clone` command clones the project repository to your local computer, and also creates a **free Hasura cluster**, where the project will be hosted for free.
 * A git remote (called hasura) is created and initialized with your project directory.
 * Now get your cluster name using `hasura cluster status` and modify the package.json file inside `microservices/ui/app/package.json`. Assign your cluster name to `REACT_APP_CLUSTER_NAME` environment variable.(in the example, it will be called "animator94", so you have to replace that name with your own cluster name).
 * Run `git add .`, `git commit`, and `git push hasura master`.
 * Run the below command to open your shiny new deployed react app.
 ``` shell
-$ hasura microservice open ui
+$ hasura microservice open mymicroservice
 ```
 
 ### Making changes and deploying
