@@ -65,7 +65,7 @@ export default class AppBarLeft extends React.Component
             <FlatButton className= "newbutton" label="New" backgroundColor="#222" onClick ={this.handleClick}/>
             {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null}  
             </div>
-            <MyMenu style= {{position: 'absolute'}} ZI={this.state.ZI}/>
+            <MyMenu style= {{position: 'absolute', }} ZI={this.state.ZI} />
             </div>
         );
     }

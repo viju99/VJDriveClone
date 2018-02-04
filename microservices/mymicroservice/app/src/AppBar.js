@@ -3,15 +3,8 @@ import Paper from 'material-ui/Paper';
 import AppBarLeft from './AppBarLeft';
 import AppBarCenter from './AppBarCenter';
 import AppBarRight from './AppBarRight';
-import {deepOrange400, grey50} from 'material-ui/styles/colors';
 import MyDriveList from './MyDriveList';
-const styles = {
-
-  //  justifyContent: 'space-between',
-
-
-
-  };
+import { getLoggedInUser } from './login';
 
 export default  class AppBar extends React.Component
 {
@@ -22,11 +15,14 @@ export default  class AppBar extends React.Component
         }
       this.handleRenderList1=this.handleRenderList1.bind(this);
     }
-          handleRenderList1()
-  {
-      alert("Handler called in AppBar");
-    this.setState({RenderList1: true})
-  }
+    handleRenderList1()
+    {
+        this.setState({RenderList1: true});
+        if(!getLoggedInUser().userName){
+            this.setState({RenderList1: false});
+        }
+
+    }
     render()
     {
        

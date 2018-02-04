@@ -1,6 +1,4 @@
 import React from 'react';
-import SearchSVGIcon from 'material-ui/svg-icons/action/search';
-import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
@@ -21,26 +19,6 @@ const styles = {
     }
   };
 
-  
-const appList = [
-    'PDFs',
-    'Text documents',
-    'Spreadsheets',
-    'Presentations',
-    'Photos & Images',
-    'Videos'
-  ];
-
-  const iconStyles = {
-    marginRight: 20,
-    marginTop: 23
-  };
-  
-  const searchIconStyles = {
-    marginRight: 20,
-    marginTop: 14,
-    marginLeft: 8
-  };
 export default class AppBarCenter extends React.Component
 {
     constructor(props) {

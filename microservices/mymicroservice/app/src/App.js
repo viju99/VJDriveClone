@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import AppBar from './AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TopMenu from './TopMenu.js';
-import MyMenu from './MyMenu';
-import Menu from 'material-ui/Menu/Menu';
-import MyDriveList from './MyDriveList';
-import Toggle from 'material-ui/Toggle';
-
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +16,7 @@ class App extends Component {
  
   handleToggle()
   {
-    if(this.state.themee=='#fff')
+    if(this.state.themee==='#fff')
       this.setState({themee: '#FF5722'});
     else
     this.setState({themee: '#fff'});

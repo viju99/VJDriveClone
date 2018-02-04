@@ -2,11 +2,6 @@ import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import './App.css';
 import SearchSVGIcon from 'material-ui/svg-icons/action/search';
-import NotificationIcon from 'material-ui/svg-icons/social/notifications';
-import gridIcon from './images/Grid-Image.png'; 
-import Avatar from 'material-ui/Avatar';
-import profPic from './images/twitter-person-image.png';
-import driveLogo from './images/Hasura_Drive_image.png';
 import { checkLogin } from './login';
 
 
@@ -27,11 +22,6 @@ const appList = [
   'Photos & Images',
   'Videos'
 ];
-
-const iconStyles = {
-  marginRight: 20,
-  marginTop: 23
-};
 
 const searchIconStyles = {
   marginRight: 20,

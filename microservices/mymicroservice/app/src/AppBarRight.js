@@ -14,19 +14,13 @@ import GridIcon from 'material-ui/svg-icons/image/grid-on';
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
 import profPic from './images/Hasura-face-new.jpg';
-import { checkLogin, getFolderList, getLoggedInUser, logout } from './login';
+import {getFolderList, getLoggedInUser, logout, resetUserCredentials } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import {SelectField, TextField} from 'material-ui';
+import {TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
-import blue200 from 'material-ui/styles/colors';
-import { SMALL } from 'material-ui/utils/withWidth';
-import MyDriveList from './MyDriveList';
 import MyDrawer from './MyDrawer';
-import {loginUser,getPromise, getDetails} from './login';
-import flag from 'material-ui/svg-icons/content/flag';
-import face from 'material-ui/svg-icons/action/face';
-import Snackbar from 'material-ui/Snackbar';
+import {getDetails} from './login';
 const styles = {
 
 
@@ -115,45 +109,40 @@ export default class AppBarRight extends React.Component {
        }
     
       handleLogoClick = () => {
-        alert("logo clicked");
-
         var cred= {};
         if(!this.state.isSignUp)
         {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd
                 };
         } else {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd,
                 hvCpwd: this.state.hvCpwd
                 };
         }
         getDetails(cred).then( (loginresp) => {
-       // checkLogin(cred);
-       console.log(loginresp[0]);
+      
+       if(loginresp[0]["username"])
+       {
+        console.log(loginresp[0]);
         this.setState({ success: true} );
+        this.props.handler();
+       }
+       else
+       {
+           alert("Username and Password do not match. Please try again");
+           this.setState({showLogin: false});
+           this.setState({success: false});
+           this.setState({loginType: "Sign in"});
+       }
       
        
     }
         )
     }
-        
-           // alert("User with same username already exists. Please try with a different username");
-         /*  setTimeout(() => {
-            this.setState({ success: true} );
-          }, 3000);*/
-          // this.setState({success: true});
-     
-       /* getPromise().then(function(){
-            alert("Promise resolved");
-        this.setState({success: true});
-        })
-    };
-    */
-        //setErrorText(undefined);
       
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
@@ -183,16 +172,7 @@ export default class AppBarRight extends React.Component {
       }
 
       handleSubmit = () => {
-        /*if (this.state.isSignUp){
-            console.log(this.state.hvPwd);
-            //var password1 = this.state.hvPwd;
-            //var password2 = this.state.hwCpwd;
-            console.log(this.state.hvCpwd);
-            if(password1 !== password2) {
-                alert("Password and confirmations don't match! Please try again");
-                return;
-            }
-        } */ 
+        
         if(!this.state.success)
         {
             this.handleLogoClick();
@@ -215,10 +195,7 @@ export default class AppBarRight extends React.Component {
           this.setState({
               hvName: userName
           });
-          /*this.setState({
-            //name: name,
-            errorTextName: e.target.value ? '' : 'Please, type your Name'
-          });*/
+          
         } else if (e.target.id === 'password') {
           var password = e.target.value;
 
@@ -242,10 +219,11 @@ export default class AppBarRight extends React.Component {
            
         }
         
-       
         alert("User has been signed out");
         this.setState({showLogin: false});
         this.setState({success: false});
+        resetUserCredentials();
+        this.props.handler();
     }
     handleCancelSignOut = (e) => {
         this.setState({showLogin: false});
@@ -375,15 +353,8 @@ export default class AppBarRight extends React.Component {
                     {this.state.show? <MYlist/>: null}
                     
              </div>
-             <div style={{position: 'relative', top:40, left: -500 }}>
+             
            
-
-             </div>
-             {this.state.success ?  <FlatButton
-            label="getlist"
-            primary={true}
-            onClick={this.props.handler}
-          />:null }
              </div>
              
         );    
@@ -391,4 +362,3 @@ export default class AppBarRight extends React.Component {
     }
    
 }
-/*  {this.state.success ? this.props.handler : null}*/
