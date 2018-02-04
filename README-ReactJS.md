@@ -24,7 +24,7 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 - To test the application, one can login using the username - "mars" and password "Aaaaaaaaa". You can browse through the folders and files and also upload or download to/from the file
 
 ## What does this come with?
-* React.js and P
+* React.js and Python Flask
   * Automatic reloading and bundling
   * All *create-react-app* feature
   * react-scripts with inbuilt webpack bundling
