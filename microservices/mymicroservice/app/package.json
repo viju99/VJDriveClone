@@ -9,12 +9,16 @@
     "react": "^16.2.0",
     "react-burger-menu": "^2.2.3",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.0",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "cross-env REACT_APP_CLUSTER_NAME=animator94 react-scripts start",
     "build": "cross-env REACT_APP_CLUSTER_NAME=animator94 react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.3"
   }
 }
