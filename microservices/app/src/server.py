@@ -16,9 +16,18 @@ from werkzeug import secure_filename
 # Created:     17-01-2018
 # Copyright:   (c) PrithamS 2018
 # Licence:     <your licence>
-# Modified:    19-01-2018 - Include the Auth integration index(),registerpage(),
+# Modified:    19-01-2018 - Included the Auth integration index(),registerpage(),
 #                           dregister(),login(),page_not_found(error)
-# Modified:    20-01-2018
+# Modified:    20-01-2018 - Included the homedrive html and other htmls
+# Modified:    22-01-2018 - File & Folder list Functionality
+# Modified:    24-01-2018 - Fileupload list functionality
+# Modified:    26-01-2018 - Create Folder functionality and maintaining sessions
+# Modified:    28-01-2018 - Browse Folder functionality
+# Modified:    30-01-2018 - File Download Functionality - Issue remains
+# Modified:    01-02-2018 - Return responses fixes to UI
+# Modified:    02-01-2018 - Return responses fixes to UI
+# Modified:    03-01-2018 - Included fupload2()
+# Modified:    04-01-2018 - Variable fix in fupload2()
 
 
 #-------------------------------------------------------------------------------
@@ -34,7 +43,7 @@ if CLUSTER_NAME is None:
 UPLOAD_FOLDER = '/fuploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-DEF_USR_PATH = '/'
+DEF_USR_PATH = 'ROOT'
 DEF_PRNT_PTHID = 0
 
 
@@ -386,9 +395,9 @@ def home():
 
 # Uncomment to add a new URL at /new
 
-@app.route("/json")
-def json_message():
-    return jsonify(message="Hello World")
+#@app.route("/json")
+#def json_message():
+#    return jsonify(message="Hello World")
 
 @app.route("/index")
 def index():
@@ -738,7 +747,7 @@ def fileupload2():
             vfileid = content['hvfileid']
             vfilename = content['hvfname']
             vpthid = content['hvfldrid']
-            vpthid = content['hvfilesize']
+            vfilesize = content['hvfilesize']
 
             flinsresp=c_fileupload(vauth,vhid,vpthid,vfilename,vfileid,vfilesize)
             respo = make_response(flinsresp.content)
