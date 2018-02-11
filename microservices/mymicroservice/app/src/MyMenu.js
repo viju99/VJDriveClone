@@ -140,7 +140,7 @@ export default class MyMenu extends  React.Component
   };
 
   handleNewFolderOpen = (e) => {
-   
+    console.log("Setting showNewFolder as true. Dialog should open now")
     this.setState({showNewFolder: true});
   };
 
