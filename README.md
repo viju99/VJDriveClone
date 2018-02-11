@@ -27,21 +27,21 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 
 ```bash
 # Quickstart from this boilerplate 
-$ hasura quickstart hello-python-flask
+$ hasura quickstart marianps/G-Drive-Clone
 ```
 
 The `quickstart` command does the following:
 
-1. Creates a new directory `hello-python-flask` in the current working directory
+1. Creates a new directory `G-Drive-Clone` in the current working directory
 2. Creates a free Hasura cluster and sets it as the default for this project
-3. Sets up `hello-python-flask` as a git repository and adds `hasura` remote to push code
+3. Sets up `G-Drive-Clone` as a git repository and adds `hasura` remote to push code
 4. Adds your SSH public key to the cluster so that you can push to it
 
 ### Deploy
 
 ```bash
 # Navigate to the project directory
-$ cd hello-python-flask
+$ cd G-Drive-Clone
 
 # git add, commit and push to deploy
 $ git add . && git commit -m "First commit"
@@ -88,17 +88,6 @@ The flask microservice is located in `microservices/app` directory in your Hasur
 ### Edit
 
 `server.py` is where the main app is present. You can edit this file and deploy the changes.
-For example, un-comment lines `2`, `11-13` to add new URL `/json`:
-
-```python
-from flask import jsonify
-
-@app.route("/json")
-def json_message():
-    return jsonify(message="Hello World")
-```
-
-These lines will add `/json` which returns `{"message": "Hello World"}`.
 
 ### Deploy
 
@@ -107,7 +96,7 @@ Save the file, git add, commit and push to deploy the changes:
 ```bash
 # git add, commit and push to deploy
 $ git add src/server.py
-$ git commit -m "add new url /json"
+$ git commit -m "some new change"
 $ git push hasura master
 ```
 
