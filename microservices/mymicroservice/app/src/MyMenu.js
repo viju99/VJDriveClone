@@ -88,12 +88,14 @@ export default class MyMenu extends  React.Component
         getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
 
           console.log(response);
+          //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+          this.props.update(file.name);
        
         }).catch(error => {
           console.log('File upload failed: ' + error);
         });
-        //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
-        this.props.update(file.name);
+
+      
      
       } else {
         alert("File upload failed because of an internal error");
@@ -121,6 +123,7 @@ export default class MyMenu extends  React.Component
     getPromiseOfFolderCreation(data, authToken).then(response => {
       //this.showProgressIndicator(false)
       console.log(response[0]);
+      this.props.update(response[0]);
     }).catch(error => {
       console.log('Folder creation failed : ' + error);
     });
@@ -140,7 +143,7 @@ export default class MyMenu extends  React.Component
   };
 
   handleNewFolderOpen = (e) => {
-    console.log("Setting showNewFolder as true. Dialog should open now")
+    console.log("Setting showNewFolder as true. Dialog should open now");
     this.setState({showNewFolder: true});
   };
 

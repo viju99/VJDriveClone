@@ -224,7 +224,7 @@ export default class AppBarRight extends React.Component {
         this.setState({showLogin: false});
         this.setState({success: false});
         resetUserCredentials();
-        this.props.handler();
+        this.props.vanish();
     }
     handleCancelSignOut = (e) => {
         this.setState({showLogin: false});

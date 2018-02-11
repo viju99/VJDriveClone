@@ -29,9 +29,6 @@ class App extends Component {
        
           </div>
 
-          <div style={{color: 'red'}}>
-          Please Click on the Profile Dp to login
-          </div>
        </div>
       </MuiThemeProvider>
     );

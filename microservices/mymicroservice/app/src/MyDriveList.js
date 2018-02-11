@@ -100,19 +100,18 @@ componentWillReceiveProps(nextProps)
      getDetailsofFiles(data).then( (fileData) => {
       var file=fileData[0];
       arrayMix = arrayFiles.concat(file);
-
+      alert("before the set state in willRecieve");
       //this setState triggers Render()
       this.setState({ TData: arrayMix} ); 
-      
-      console.log(this.state.TData);
-     
      })
 }
 }
 
   render(){
    alert("render()");
+  
    var TData=this.state.TData;
+   console.log("length of Tdata: "+TData.length);
     var uName=getLoggedInUser().userName;
     if(TData){
     return (

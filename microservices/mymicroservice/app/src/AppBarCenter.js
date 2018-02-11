@@ -70,18 +70,16 @@ export default class AppBarCenter extends React.Component
        
           <TopMenu/>
           <br/>
-          <BrowserRouter>
-            <FlatButton className= "dropbutton"
-                          label="My drive"
-                          labelPosition="before"
-                          primary={true}
-                          icon={<DetailsIcon  color = '#fff'/>}
-                          onClick={this.handleOpen} 
-                          backgroundColor="#222"
+          <FlatButton className= "dropbutton"
+                        label="My drive"
+                        labelPosition="before"
+                        primary={true}
+                        icon={<DetailsIcon  color = '#fff'/>}
+                        onClick={this.handleOpen} 
+                        backgroundColor="#222"
+                    
                       
-                        
-              />
-          </BrowserRouter>
+            />
             
            
             {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null} 
