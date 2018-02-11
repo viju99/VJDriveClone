@@ -10,6 +10,10 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 - Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
 ![drive-login](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
 
+The embedded video shows how to sign up to use the drive:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kkk-v8QuiJo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
 - Users will be able to see/browse list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
 
