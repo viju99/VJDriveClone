@@ -24,7 +24,7 @@ The embedded video below shows how to sign up to use the drive:
 
 ## What all does the app support
 - User can sign-up for a new account for the drive
-- User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md)
+- User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md')
 - User can download the files to his local computer
 - To test the application, one can login using the username - "mars" and password "Aaaaaaaaa". You can browse through the folders and files and also upload or download to/from the file
 
@@ -75,13 +75,13 @@ $ hasura microservice open mymicroservice
 
 * On Browser type `https://app.<clustername>.hasura-app.io/index` for Data Entry login Service (Python-Flask Microservice) to open  use the user that you have created and login else create a new user through Register link.
 * Once you login, a homepage displayed where you can do the following:
- * Upload Files quickly
- * Create Folders quickly
- * Browse into Folders and create subfolders and upload files
- * This also page to troubleshoot the api service extended from Python-Flask microservice.
+  * Upload Files quickly
+  * Create Folders quickly
+  * Browse into Folders and create subfolders and upload files
+  * This page is also to troubleshoot the api service extended from Python-Flask microservice.
 * Logout once your dataset up is complete.
 * Now login from microservice ui to use the drive
- - Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone
+  * Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone
 
 ### Making changes and deploying
 
