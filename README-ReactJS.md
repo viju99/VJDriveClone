@@ -11,8 +11,7 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 ![drive-login](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
 
 The embedded video shows how to sign up to use the drive:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kkk-v8QuiJo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
+![Sign Up video] (https://www.youtube.com/embed/kkk-v8QuiJo)
 
 - Users will be able to see/browse list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
