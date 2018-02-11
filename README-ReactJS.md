@@ -71,6 +71,17 @@ CMD ["serve", "-s", "build", "-p", "8080"]
 ``` shell
 $ hasura microservice open mymicroservice
 ```
+### DataSetup and DataEntry for quick use 
+
+* On Browser type `https://app.<clustername>.hasura-app.io/index` for Data Entry login Service (Python-Flask Microservice) to open  use the user that you have created and login else create a new user through Register link.
+* Once you login, a homepage displayed where you can do the following:
+** Upload Files quickly
+** Create Folders quickly
+** Browse into Folders and create subfolders and upload files
+** This also page to troubleshoot the api service extended from Python-Flask microservice.
+* Logout once your dataset up is complete.
+* Now login from microservice ui to use the drive
+****Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone
 
 ### Making changes and deploying
 
@@ -90,7 +101,7 @@ To test and make changes to this app locally, follow the below instructions.
 You can view the logs emitted by the ‘serve’ package by running the below command:
 
 ``` shell
-$ hasura microservice logs ui
+$ hasura microservice logs mymicroservice
 ```
 You can see the logs in your terminal, press `CTRL + C` to stop logging.
 
