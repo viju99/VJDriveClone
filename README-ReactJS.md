@@ -26,10 +26,9 @@ The embedded video below shows how to sign up to use the drive:
 - User can sign-up for a new account for the drive
 - User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md')
 - User can download the files to his local computer
-- To test the application, one can login using the username - "mars" and password "Aaaaaaaaa". You can browse through the folders and files and also upload or download to/from the file
 
 ## What does this come with?
-* React.js and Python Flask
+* React.js and Python Flask templates along with Drive Clone App Integration with ReactJS and Python Flask
   * Automatic reloading and bundling
   * All *create-react-app* feature
   * react-scripts with inbuilt webpack bundling
@@ -73,7 +72,7 @@ $ hasura microservice open mymicroservice
 ```
 ### DataSetup and DataEntry for quick use 
 
-* On Browser type `https://app.<clustername>.hasura-app.io/index` for Data Entry login Service (Python-Flask Microservice) to open  use the user that you have created and login else create a new user through Register link.
+* On Browser type `https://app.<clustername>.hasura-app.io/index` for Data Entry login Service (Python-Flask Microservice) to open, You can use the same user that you have already created and else create a new user through Register link.
 * Once you login, a homepage displayed where you can do the following:
   * Upload Files quickly
   * Create Folders quickly
@@ -81,7 +80,7 @@ $ hasura microservice open mymicroservice
   * This page is also to troubleshoot the api service extended from Python-Flask microservice.
 * Logout once your dataset up is complete.
 * Now login from microservice ui to use the drive
-  * Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone
+  * Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone.
 
 ### Making changes and deploying
 
@@ -115,7 +114,6 @@ If changes have been done to the dependencies, `git commit`, and perform `git pu
 ## Adding backend features
 
 To make changes to backend features, you should refer to README.md file in the repository
-
 
 For further details, contact:
 viju99@gmail.com
