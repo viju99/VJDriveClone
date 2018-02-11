@@ -7,7 +7,9 @@ This Readme list the steps to setup the codebase for both Python Flask backend a
 The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
 
 ## Hasura Drive supports limited Frontend features/tasks
-- Users will be able to sign up/login as a user
+- Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
+![drive-login](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
+
 - Users will be able to see/browse list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
 
