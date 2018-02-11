@@ -7,7 +7,12 @@ This Readme list the steps to setup the codebase for both Python Flask backend a
 The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
 
 ## Hasura Drive supports limited Frontend features/tasks
-- Users will be able to sign up/login as a user
+- Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
+![drive-login](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
+
+The embedded video below shows how to sign up to use the drive:
+[![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
+
 - Users will be able to see/browse list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
 
@@ -19,7 +24,7 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 
 ## What all does the app support
 - User can sign-up for a new account for the drive
-- User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md)
+- User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md')
 - User can download the files to his local computer
 - To test the application, one can login using the username - "mars" and password "Aaaaaaaaa". You can browse through the folders and files and also upload or download to/from the file
 
@@ -66,6 +71,17 @@ CMD ["serve", "-s", "build", "-p", "8080"]
 ``` shell
 $ hasura microservice open mymicroservice
 ```
+### DataSetup and DataEntry for quick use 
+
+* On Browser type `https://app.<clustername>.hasura-app.io/index` for Data Entry login Service (Python-Flask Microservice) to open  use the user that you have created and login else create a new user through Register link.
+* Once you login, a homepage displayed where you can do the following:
+  * Upload Files quickly
+  * Create Folders quickly
+  * Browse into Folders and create subfolders and upload files
+  * This page is also to troubleshoot the api service extended from Python-Flask microservice.
+* Logout once your dataset up is complete.
+* Now login from microservice ui to use the drive
+  * Note : Use the DataSetup and DataEntry only for purpose of Smoke testing and Sanity testing on App Drive Clone
 
 ### Making changes and deploying
 
@@ -85,7 +101,7 @@ To test and make changes to this app locally, follow the below instructions.
 You can view the logs emitted by the ‘serve’ package by running the below command:
 
 ``` shell
-$ hasura microservice logs ui
+$ hasura microservice logs mymicroservice
 ```
 You can see the logs in your terminal, press `CTRL + C` to stop logging.
 
