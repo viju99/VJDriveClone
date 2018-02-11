@@ -268,4 +268,35 @@ export async function getFolderList(data) {
 
   export function getPromiseOfFolderInfoUpdate(data, authToken){
     return Promise.all([updateFolderInfoOfFile(data, authToken)]);
+  } 
+
+  export async function createFolder(data,authToken) {
+    console.log('Posting create folder sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    
+    if (userName)
+    {
+        
+        url = projectConfig.url.createFolder;
+    }
+    else {
+        return false;
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      console.log("Folder added in database");
+      return responseObject;
+  }
+
+  export function getPromiseOfFolderCreation(data,authToken){
+      return Promise.all([createFolder(data, authToken)]);
   }

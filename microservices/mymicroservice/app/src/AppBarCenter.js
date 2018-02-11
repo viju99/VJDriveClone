@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
 import TopMenu from './TopMenu'
-
+import {BrowserRouter} from 'react-router-dom';
 const styles = {
     customWidth: {
       width: 500
@@ -70,16 +70,18 @@ export default class AppBarCenter extends React.Component
        
           <TopMenu/>
           <br/>
-          <FlatButton className= "dropbutton"
-                        label="My drive"
-                        labelPosition="before"
-                        primary={true}
-                        icon={<DetailsIcon  color = '#fff'/>}
-                        onClick={this.handleOpen} 
-                        backgroundColor="#222"
-                    
-                       
-            />
+          <BrowserRouter>
+            <FlatButton className= "dropbutton"
+                          label="My drive"
+                          labelPosition="before"
+                          primary={true}
+                          icon={<DetailsIcon  color = '#fff'/>}
+                          onClick={this.handleOpen} 
+                          backgroundColor="#222"
+                      
+                        
+              />
+          </BrowserRouter>
             
            
             {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null} 

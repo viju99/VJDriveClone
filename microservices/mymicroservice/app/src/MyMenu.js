@@ -18,11 +18,17 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login.js';
+import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
 import {List, ListItem} from 'material-ui/List';
+import MyDriveList, { handleFileUpload } from './MyDriveList';
+export var info={};
+export function  setUploadedData(data)
+{
+   info=data;
+  console.log(info);
+}
 
-
-export default class MyMenu extends React.Component
+export default class MyMenu extends  React.Component
 {
   //==================
 
@@ -32,6 +38,7 @@ export default class MyMenu extends React.Component
                  show:false,
                  change:true,
                  showUpload:false,
+                 showNewFolder: false,
                  filePathnName: '',
                  Index: 0,
                  headerFileUpload: {
@@ -49,7 +56,7 @@ export default class MyMenu extends React.Component
 
   }
 
-
+ 
   handleFileUpload = (file) => {
     console.log(file.name);
     const authToken = getLoggedInUser().token;
@@ -68,6 +75,7 @@ export default class MyMenu extends React.Component
         hvfileid: "",
         hvfilesize: ""
       }
+    
     //this.showProgressIndicator(true)
     getPromiseOfUploadFile(data, authToken).then(response => {
       //this.showProgressIndicator(false)
@@ -77,36 +85,46 @@ export default class MyMenu extends React.Component
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
         console.log(folderData);
-
         getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
-          //this.showProgressIndicator(false)
+
           console.log(response);
-          /*if (response["file_id"]) {
-            console.log("folder info updated for the file");
-            //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
-          } else {
-            console.log("File upload failed because of an internal error");
-          }*/
+       
         }).catch(error => {
           console.log('File upload failed: ' + error);
         });
-
-        //this.showAlert("File uploaded successfully: " + JSON.stringify(response, null, 4));
+        //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+        this.props.update(file.name);
+     
       } else {
         alert("File upload failed because of an internal error");
       }
-
-      
-
     }).catch(error => {
       console.log('File upload failed: ' + error);
     });
-
-    
-
-    
   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  handleCreateFolder = (folderName) => {
+    console.log(folderName);
+    const authToken = getLoggedInUser().token;
+    if (!authToken) {
+      alert('Please login first to access features of the Drive');
+      return;
+    }
+    const folderId = getLoggedInUser().rtpthid;
+    var data = {
+      hvfldrname: folderName,
+      hvfldrid: folderId
+      }
+      
+    //this.showProgressIndicator(true)
+    getPromiseOfFolderCreation(data, authToken).then(response => {
+      //this.showProgressIndicator(false)
+      console.log(response[0]);
+    }).catch(error => {
+      console.log('Folder creation failed : ' + error);
+    });
+  }
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -121,8 +139,14 @@ export default class MyMenu extends React.Component
     this.setState({showUpload: true});
   };
 
+  handleNewFolderOpen = (e) => {
+   
+    this.setState({showNewFolder: true});
+  };
+
   handleClose = () => { 
     this.setState({showUpload: false});
+    this.setState({showNewFolder: false});
   };
 
   getUserPathId = () => {
@@ -143,10 +167,6 @@ export default class MyMenu extends React.Component
   }; 
 
 
-
-  //=======================
-
-  
   render()
   {
     const actions = [
@@ -163,10 +183,38 @@ export default class MyMenu extends React.Component
           //var pathId = {this.getUserPathId}
           const input = document.querySelector('input[type="file"]');
           if (input.files[0]) {
-            this.handleFileUpload(input.files[0])
+           this.handleFileUpload(input.files[0])
           } else {
             this.showAlert("Please select a file")
           }
+          this.handleClose();
+        }
+      }/> 
+    ];
+
+    const actionsNewFolder = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Create"
+        secondary={true}
+        onClick={(e) => {
+          e.preventDefault();
+          //var pathId = {this.getUserPathId}
+          //const input = document.querySelectorAll('input[type="text"]');
+          var folderName = '';
+          var input = document.getElementById('newFolder');
+          if( input.value != "" && !/^\d{1,}$/.test(input.value) ){
+            folderName = input.value;
+          }
+          else{
+            alert("Please provide a valid name for the new folder");
+            return false;
+          }
+          this.handleCreateFolder(folderName);
           this.handleClose();
         }
       }/> 
@@ -181,11 +229,11 @@ export default class MyMenu extends React.Component
        
           <Paper style={{position: 'absolute', zIndex: 1}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
-            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
+            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} onClick={this.handleNewFolderOpen}/>
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
-            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
+            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
             <Divider />
             <MenuItem
               primaryText="Google Docs"
@@ -253,7 +301,24 @@ export default class MyMenu extends React.Component
                   </div> &nbsp;
                                   
                   <br />               
-              </Dialog>
+            </Dialog>
+            <Dialog
+            actions={actionsNewFolder}
+            modal={true}
+            open={this.state.showNewFolder}
+            contentStyle={{width: 450, height: 600}}
+            >
+                <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                <br />
+                <br />
+                <br />
+                <h1>New Folder</h1>
+                <div>
+                  <input type="text" id="newFolder" placeholder="Create Folder"/>                   
+                </div> &nbsp;
+                                
+                <br />               
+          </Dialog>
       </div>
     );
     }

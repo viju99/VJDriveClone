@@ -8,7 +8,8 @@ var projectConfig = {
     filestore: "https://filestore." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1/file",
     folderUpdate: "https://app." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fupload2",
     folderList: "https://app." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrlist",
-    logout: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/dlogout"
+    logout: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/dlogout",
+    createFolder: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrcreate"
   }
 }
 

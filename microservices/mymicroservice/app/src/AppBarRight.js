@@ -129,7 +129,7 @@ export default class AppBarRight extends React.Component {
        {
         console.log(loginresp[0]);
         this.setState({ success: true} );
-        this.props.handler();
+        this.props.render();
        }
        else
        {
@@ -216,6 +216,7 @@ export default class AppBarRight extends React.Component {
         if (status)
         {
             this.setState({showSnackBarLogout: true });
+            this.props.vanish();
            
         }
         
@@ -231,6 +232,7 @@ export default class AppBarRight extends React.Component {
   
     render()
     {
+       // alert("ABBarRight rendering");
         const actions = [
             <FlatButton
               label="Cancel"
@@ -244,6 +246,7 @@ export default class AppBarRight extends React.Component {
             />
           ];
         return (
+
             <div >
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >

@@ -11,9 +11,13 @@ export default  class AppBar extends React.Component
     constructor(props){
         super(props);
         this.state={
-            RenderList1: false
+            RenderList1: false,
+            // The state that will be passed as props to MyDriveList
+            FileName: "",
         }
       this.handleRenderList1=this.handleRenderList1.bind(this);
+      this.handleVanishList1=this.handleVanishList1.bind(this);
+      this.toReRender=this.toReRender.bind(this);
     }
     handleRenderList1()
     {
@@ -23,10 +27,20 @@ export default  class AppBar extends React.Component
         }
 
     }
-    render()
+    handleVanishList1()
     {
+        this.setState({RenderList1: false})
+    }
+    //The function that sets the fileName state and triggers render
+    toReRender(name)
+    {
+        alert("setting FileName in AppBar: "+name);
+        this.setState({FileName: name});
        
-        return(
+    }
+    render()
+    { return(
+           
             <div style={{diplay:'flex', overflowY:'hidden'}}>
             <Paper style={{
                             height: 130,
@@ -38,15 +52,15 @@ export default  class AppBar extends React.Component
                             backgroundColor : this.props.themee,}} 
                     zDepth={3}  >
                                     
-                <AppBarLeft/>
+                <AppBarLeft update ={this.toReRender}/>
                 <AppBarCenter/>
-                <AppBarRight handler={this.handleRenderList1}/>
+                <AppBarRight render={this.handleRenderList1} vanish={this.handleVanishList1}/>
                
                
             </Paper>
              
           
-          {this.state.RenderList1 ? <MyDriveList/> :null}
+          {this.state.RenderList1 ? <MyDriveList props={this.state.FileName}/> :null}
            </div>
         );
         

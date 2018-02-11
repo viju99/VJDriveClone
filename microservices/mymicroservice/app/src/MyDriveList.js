@@ -9,22 +9,16 @@ import {
 } from 'material-ui/Table';
 import FileIcon from './images/GDocs.png'; 
 import FolderIcon from './images/folder.png';
-import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles} from './login';
+import {getLoggedInUser,setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate} from './login';
 import Paper from 'material-ui/Paper';
+import {info} from './MyMenu';
 const styles= {
   height: 600,
   marginTop: 150,
   marginLeft: 200,
   width: '70%',
-//  marginTop: theme.spacing.unit * 3,
   overflow: 'auto',
  
-}
-
-
-//a function to give the details of selected row to be displayed in the side bar.
-export function setSelectedRowDetails(data){
-  return data;
 }
 
 export default class MyDriveList extends React.Component{
@@ -33,141 +27,95 @@ export default class MyDriveList extends React.Component{
     this.state = {
       hvName: this.props.hvName,
       hvPwd: this.props.hvPwd,
-      TData: [{}], /*Array to hold the data from fetch */
+      TData: [{}],
       success: false,
-     // selected: [1]
-   
-    };
-
+     }
     this.componentDidMount = this.componentDidMount.bind(this);
-   // this.handleRowSelection = this.handleRowSelection.bind(this);
- //   this.isSelected = this.isSelected.bind(this);
     this.handleSelection=this.handleSelection.bind(this);
+
   }
-
-  /*isSelected = (index) => {
-    return this.state.selected.indexOf(index) !== -1;
-  };*/
-/*
-  handleRowSelection = (selectedRows) => {
-    this.setState({
-      selected: selectedRows
-    });
-    console.log("selected row "+selectedRows);
-  };
-*/
-
-
- /*the getLoggedInUser returning nothing here. How to get the rtpthid?*/
- handleSelection(selectedRow){
-   
-   alert("row selected: "+selectedRow);
-   const TData = this.state.TData;
-   setSelectedRowDetails(TData[selectedRow]);
-   //console.log('file_id of row '+ selectedRow +' -> '+ TData[selectedRow]["file_id"] );
-      var file_id="";
-      file_id=TData[selectedRow]["file_id"] ;
-      if(!file_id)
-      {
-        var fldrid= TData[selectedRow]["path_id"] ;
-        if(fldrid){
-          var userDetails = getLoggedInUser();
-          userDetails.rtpthid = fldrid;
-          setLoggedInUser(userDetails.userName, 
-                          userDetails.token, 
-                          userDetails.rtpthid, 
-                          userDetails.hasura_id);
-          userDetails = getLoggedInUser();
-          this.componentDidMount();
-          return;
-        }
-        alert("select a file please");
-        return;
-      }
-      var file_name=TData[selectedRow]["file_name"] ;
-
-      var auth_token=getLoggedInUser().token;
-      console.log("auth_token is "+auth_token);
-      console.log("file_id is "+file_id)
-      downloadFile(file_id,file_name, auth_token);
-  }
-  componentDidMount() {
-// var userCred = getLoggedInUser();
-   //if(!userCred.hvName){ return false;}
-  // alert(`componentDidMount of MyDriveList:\n userCred.userName:`+userCred.userName + `\n userCred.rtpthid  :\n`+userCred.rtpthid);
-    var data = {
-       // hvName: this.state.hvName,
-       // hvPwd: this.state.hvPwd,
-        hvfldrid: getLoggedInUser().rtpthid
-        } 
-        var arrayFiles =  [{}];
-        var arrayMix = [{}];
-        
-        getDetailsofFolders(data).then( (tableData) => {
-          // checkLogin(cred);
-          console.log(tableData.length);
-          arrayFiles = tableData[0];
-          var j = 0;
-          console.log(  tableData );
-           for (j=0; j < arrayFiles.length; j++ ){    
-                   console.log('Item '+ j +' -> '+ arrayFiles[j]["path_nm"] );
-           }
-
-          // console.log(`this.state.TData `+this.state.TData);
-         } )
-
-         getDetailsofFiles(data).then( (fileData) => {
-          // checkLogin(cred);
-          console.log(fileData);
-          var file=fileData[0];
-          
-          var j = 0;
-           for (j=0; j < file.length; j++ ){    
-                   console.log('Item '+ j +' -> '+ file[j]["file_name"] );
-           }
-
-          arrayMix = arrayFiles.concat(file);
-
-       //   console.log ("!!!!!!!!!!!concatenated arrays!!!!!!: \n"+arrayMix);
-
-          var k = 0;
-           for (k=0; k < arrayMix.length; k++ ){    
-                   console.log('Item '+ k +' -> '+ arrayMix[k]["file_id"] );
-           }
-        
-          //console.log("Files were" + file );   
-          this.setState({ TData: arrayMix} ); 
-          console.log("set state called");
- 
-         })
-         
-        
-
-    //tableData = getFolderList(data);
-    //setTimeout(function() { this.setState({success: true}); }.bind(this), 3000);
-
-   // console.log(`tabledata is `+tableData);
-    }
-    
-    
   
+ handleSelection(selectedRow){
+  const TData = this.state.TData;
+     var file_id="";
+     file_id=TData[selectedRow]["file_id"] ;
+     if(!file_id)
+     {
+       var fldrid= TData[selectedRow]["path_id"] ;
+       if(fldrid){
+         var userDetails = getLoggedInUser();
+         userDetails.rtpthid = fldrid;
+         setLoggedInUser(userDetails.userName, 
+                         userDetails.token, 
+                         userDetails.rtpthid, 
+                         userDetails.hasura_id);
+         userDetails = getLoggedInUser();
+         this.componentDidMount();
+         return;
+       }
+       alert("select a file please");
+       return;
+     }
+     var file_name=TData[selectedRow]["file_name"] ;
 
+     var auth_token=getLoggedInUser().token;
+     console.log("auth_token is "+auth_token);
+     console.log("file_id is "+file_id)
+     downloadFile(file_id,file_name,auth_token);
+ }
+ 
+ 
+ componentDidMount() {
+   alert("componentDidMount");
+   var data = {
+       hvfldrid: getLoggedInUser().rtpthid
+       } 
+       var arrayFiles =  [{}];
+       var arrayMix = [{}];
+        getDetailsofFolders(data).then( (tableData) => {arrayFiles = tableData[0];} )
+        getDetailsofFiles(data).then( (fileData) => {
+         var file=fileData[0];
+         arrayMix = arrayFiles.concat(file);
+      
+         this.setState({ TData: arrayMix} ); 
+         console.log("set state called");
+        
+        })
+  }
+ 
+//the nextProps will be the fileName of the new file uploaded sent via props from MyMenu.
+componentWillReceiveProps(nextProps)
+{
+  alert("nextProps: "+nextProps.props);
+  alert("props now: "+this.props.props);
+ if(nextProps.props!==this.props.props)
+ {
+   alert("Not equal");
+  var data = {
+    hvfldrid: getLoggedInUser().rtpthid
+    } 
+    var arrayFiles =  [{}];
+    var arrayMix = [{}];
+     getDetailsofFolders(data).then( (tableData) => {arrayFiles = tableData[0];} )
+     getDetailsofFiles(data).then( (fileData) => {
+      var file=fileData[0];
+      arrayMix = arrayFiles.concat(file);
 
+      //this setState triggers Render()
+      this.setState({ TData: arrayMix} ); 
+      
+      console.log(this.state.TData);
+     
+     })
+}
+}
 
   render(){
+   alert("render()");
    var TData=this.state.TData;
     var uName=getLoggedInUser().userName;
-    /*If TData is not set ,  rendering with the sampleArrray */
-    if(TData.length===0){
+    if(TData){
     return (
-    <div>
-     
-      <h2> get started by uploading files or folders </h2>
-    </div>
-    );
-    }
-    /*if set, rendering with the fetched data */
-    else return (
       <div style={{}}>
        <Paper style= {styles}>
         <Table selectable = {true} onRowSelection={this.handleSelection}>
@@ -196,82 +144,9 @@ export default class MyDriveList extends React.Component{
         </Paper>
       </div>
   );
+}
+
 
   }
 }
 
-/* 
-    <TableBody
-            displayRowCheckbox={false}
-          
-                      
-          >
-      <TableRow selectable={true} >
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>F1</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-
-        <TableRowColumn>f2</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>f3</TableRowColumn>
-        <TableRowColumn>person1</TableRowColumn>
-        <TableRowColumn>-</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-
-      <TableRow>
-        <TableRowColumn>f4</TableRowColumn>
-        <TableRowColumn>person2</TableRowColumn>
-        <TableRowColumn>-</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>f5</TableRowColumn>
-        <TableRowColumn>me</TableRowColumn>
-        <TableRowColumn>date</TableRowColumn>
-        <TableRowColumn>1 MB</TableRowColumn>
-      </TableRow>
-    </TableBody>*/

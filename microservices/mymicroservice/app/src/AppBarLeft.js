@@ -24,9 +24,11 @@ export default class AppBarLeft extends React.Component
             showComponent1: false, 
             appear: 'inline', 
             ZI: "0",
+          
     };
         this.handleClick=this.handleClick.bind(this);
         this.handler = this.handler.bind(this)
+        this.handleUpdatingOnUploading=this.handleUpdatingOnUploading.bind(this);
         
       }
       handler(e) {
@@ -54,7 +56,12 @@ export default class AppBarLeft extends React.Component
            });
        
       }
-
+      handleUpdatingOnUploading(name)
+      {
+          alert("FileName in AppBarLeft: "+name);
+          //The FileName is passed to its parent AppBar through props.
+         this.props.update(name);
+      }
     render(){
         return(
             <div>
@@ -63,7 +70,7 @@ export default class AppBarLeft extends React.Component
             <br/>
             <br/>
             <FlatButton className= "newbutton" label="New" backgroundColor="#222" onClick ={this.handleClick}/>
-            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null}  
+            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} update={this.handleUpdatingOnUploading}/>: null}  
             </div>
             <MyMenu style= {{position: 'absolute', }} ZI={this.state.ZI} />
             </div>
