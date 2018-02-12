@@ -61,7 +61,7 @@ export default class MyMenu extends  React.Component
     console.log(file.name);
     const authToken = getLoggedInUser().token;
     if (!authToken) {
-      this.showAlert('Please login first. Go to /auth to login');
+      //this.showAlert('Please login first. Go to /auth to login');
       return;
     }
     const folderId = getLoggedInUser().rtpthid;
@@ -188,7 +188,7 @@ export default class MyMenu extends  React.Component
           if (input.files[0]) {
            this.handleFileUpload(input.files[0])
           } else {
-            this.showAlert("Please select a file")
+            alert("Please select a file");
           }
           this.handleClose();
         }

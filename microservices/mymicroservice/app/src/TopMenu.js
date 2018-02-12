@@ -53,14 +53,14 @@ export default class TopMenu extends React.Component {
   };
 
   handleLogoClick = () => {
-    alert("logo clicked");
+    //alert("logo clicked");
     
     const text = {
         hvName: "t47user29",
         hvPwd: "sankarXYZ",
         hvCpwd: "sankarXYZ"
     }
-    alert(text);
+    //alert(text);
     checkLogin(text);
     //setErrorText(undefined);
   };
@@ -71,7 +71,7 @@ export default class TopMenu extends React.Component {
         hvPwd: "sankar",
         hvCpwd: "sankar"
     }
-    alert(text.hvName);
+    //alert(text.hvName);
     checkLogin(text);
     //setErrorText(undefined);
 
