@@ -66,7 +66,7 @@ export default class MyMenu extends  React.Component
     }
     const folderId = getLoggedInUser().rtpthid;
     var data = {
-      hvfname: file.name,
+      hvfname: file,
       hvfldrid: folderId
       }
       var folderData = {
