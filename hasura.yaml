@@ -2,5 +2,5 @@ description: A boilerplate app for creatung Drive Clone using python-Flask and R
   with Hasura Data APIs,Auth APIs and Filestore APIs.
 keywords: python, python3, flask, boilerplate
 media: {}
-name: App-Drive-Clone
+name: G-Drive-Clone
 platformVersion: v0.15.21
