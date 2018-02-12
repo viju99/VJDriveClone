@@ -34,7 +34,7 @@ export default  class AppBar extends React.Component
     //The function that sets the fileName state and triggers render
     toReRender(name)
     {
-        alert("setting FileName in AppBar: "+name);
+        //alert("setting FileName in AppBar: "+name);
         this.setState({FileName: name});
        
     }

@@ -58,7 +58,7 @@ export default class AppBarLeft extends React.Component
       }
       handleUpdatingOnUploading(name)
       {
-          alert("FileName in AppBarLeft: "+name);
+         // alert("FileName in AppBarLeft: "+name);
           //The FileName is passed to its parent AppBar through props.
          this.props.update(name);
       }

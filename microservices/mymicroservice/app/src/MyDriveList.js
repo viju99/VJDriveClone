@@ -66,7 +66,7 @@ export default class MyDriveList extends React.Component{
  
  
  componentDidMount() {
-   alert("componentDidMount");
+   //alert("componentDidMount");
    var data = {
        hvfldrid: getLoggedInUser().rtpthid
        } 
@@ -86,11 +86,11 @@ export default class MyDriveList extends React.Component{
 //the nextProps will be the fileName of the new file uploaded sent via props from MyMenu.
 componentWillReceiveProps(nextProps)
 {
-  alert("nextProps: "+nextProps.props);
-  alert("props now: "+this.props.props);
+  //alert("nextProps: "+nextProps.props);
+  //alert("props now: "+this.props.props);
  if(nextProps.props!==this.props.props)
  {
-   alert("Not equal");
+   //alert("Not equal");
   var data = {
     hvfldrid: getLoggedInUser().rtpthid
     } 
@@ -100,7 +100,7 @@ componentWillReceiveProps(nextProps)
      getDetailsofFiles(data).then( (fileData) => {
       var file=fileData[0];
       arrayMix = arrayFiles.concat(file);
-      alert("before the set state in willRecieve");
+     // alert("before the set state in willRecieve");
       //this setState triggers Render()
       this.setState({ TData: arrayMix} ); 
      })
@@ -108,7 +108,7 @@ componentWillReceiveProps(nextProps)
 }
 
   render(){
-   alert("render()");
+   //alert("render()");
   
    var TData=this.state.TData;
    console.log("length of Tdata: "+TData.length);
