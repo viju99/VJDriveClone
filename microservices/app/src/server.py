@@ -28,7 +28,9 @@ from werkzeug import secure_filename
 # Modified:    02-02-2018 - Return responses fixes to UI
 # Modified:    03-02-2018 - Included fupload2()
 # Modified:    04-02-2018 - Variable fix in fupload2()
-
+# Modified:    20-02-2018 - Implementing Quick Access read API
+# Modified:    22-02-2018 - Implementing User Activity API create,read
+# Modified:    25-02-2018 - qccss query change to view
 
 #-------------------------------------------------------------------------------
 CLUSTER_NAME = os.environ.get("CLUSTER_NAME")
@@ -95,7 +97,7 @@ def r_folderlist(vauth,vhid,vpthid):
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     # resp.content contains the json response.
-    print(resp.content)
+   print(resp.content)
     return resp
 
 def r_getfldrid(vauth,vhid,vpthnm):
@@ -197,41 +199,41 @@ def r_qaccss(vauth,vhid,vpthid):
 
     # This is the json payload for the query
     requestPayload1 = {
-    "type": "select",
-    "args": {
-        "table": "v_usrqaccss",
-        "columns": [
-            "username",
-            "obj_id",
-            "obj_type",
-            "obj_nm",
-            "act_nm",
-            "act_desc",
-            "modified_at"
-        ],
-        "where": {
-            "$and": [
-                {
-                    "user_id": {
-                        "$eq": vhid
+        "type": "select",
+        "args": {
+            "table": "v_usrqaccss",
+            "columns": [
+                "username",
+                "obj_id",
+                "obj_type",
+                "obj_nm",
+                "act_nm",
+                "act_desc",
+                "modified_at"
+            ],
+            "where": {
+                "$and": [
+                    {
+                        "user_id": {
+                            "$eq": vhid
+                        }
+                    },
+                    {
+                        "obj_type": {
+                            "$eq": "File"
+                        }
                     }
-                },
+                ]
+            },
+            "limit": "4",
+            "order_by": [
                 {
-                    "obj_type": {
-                        "$eq": "File"
-                    }
+                    "column": "modified_at",
+                    "order": "desc"
                 }
             ]
-        },
-        "limit": "4",
-        "order_by": [
-            {
-                "column": "modified_at",
-                "order": "desc"
-            }
-        ]
+        }
     }
-}
 
 
     # Setting headers
@@ -253,36 +255,36 @@ def r_actvty(vauth,vhid,vpthid):
 
     # This is the json payload for the query
     requestPayload1 = {
-    "type": "select",
-    "args": {
-        "table": "user_activity",
-        "columns": [
-            "username",
-            "obj_id",
-            "obj_type",
-            "obj_nm",
-            "act_nm",
-            "act_desc",
-            "modified_at",
-            "path_id"
-        ],
-        "where": {
-            "$and": [
-                {
-                    "user_id": {
-                        "$eq": vhid
+        "type": "select",
+        "args": {
+            "table": "user_activity",
+            "columns": [
+                "username",
+                "obj_id",
+                "obj_type",
+                "obj_nm",
+                "act_nm",
+                "act_desc",
+                "modified_at",
+                "path_id"
+            ],
+            "where": {
+                "$and": [
+                    {
+                        "user_id": {
+                            "$eq": vhid
+                        }
+                    },
+                    {
+                        "path_id": {
+                            "$eq": vpthid
+                        }
                     }
-                },
-                {
-                    "path_id": {
-                        "$eq": vpthid
-                    }
-                }
-            ]
+                ]
+            }
         }
     }
-}
-
+    
     # Setting headers
     headers1 = {
         "Content-Type": "application/json",
@@ -841,8 +843,8 @@ def fileupload():
 #            print(vfileupload['file_status'])
 #            print(vfileupload['created_at'])
 #            print(vfileupload['file_size'])
-#            vfilesize=vfileupload['file_size']
-#            vfileid=vfileupload['file_id']
+            vfilesize=vfileupload['file_size']
+            vfileid=vfileupload['file_id']
 
             # Logging Activity
             vobjid=vfileid
