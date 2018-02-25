@@ -97,7 +97,7 @@ def r_folderlist(vauth,vhid,vpthid):
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     # resp.content contains the json response.
-   print(resp.content)
+    print(resp.content)
     return resp
 
 def r_getfldrid(vauth,vhid,vpthnm):
@@ -456,18 +456,18 @@ def c_userfldr(vauth,vhid,vprntpthid,pthnm):
 
     # This is the json payload for the query
     requestPayload = {
-        "type": "insert",
-        "args": {
-            "table": "user_paths",
-            "objects": [
-                {
-                    "path_nm": pthnm,
-                    "prnt_path_id": vprntpthid,
-                    "user_id": vhid
-                }
-            ]
-        }
-}
+            "type": "insert",
+            "args": {
+                "table": "user_paths",
+                "objects": [
+                    {
+                        "path_nm": pthnm,
+                        "prnt_path_id": vprntpthid,
+                        "user_id": vhid
+                    }
+                ]
+            }
+    }
 
 
     # Setting headers
