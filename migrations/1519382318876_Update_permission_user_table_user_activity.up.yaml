@@ -1,0 +1,21 @@
+- args:
+    role: user
+    table: user_activity
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - act_desc
+      - act_nm
+      - created_at
+      - modified_at
+      - obj_id
+      - obj_nm
+      - obj_type
+      - path_id
+      - user_id
+      - username
+      filter: {}
+    role: user
+    table: user_activity
+  type: create_select_permission

@@ -1,0 +1,14 @@
+- args:
+    permission:
+      columns:
+      - act_desc
+      - act_nm
+      - created_at
+      - modified_at
+      - obj_id
+      - obj_type
+      - user_id
+      filter: {}
+    role: user
+    table: user_activity
+  type: create_select_permission

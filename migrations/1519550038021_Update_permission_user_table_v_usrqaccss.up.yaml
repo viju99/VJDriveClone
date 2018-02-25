@@ -1,0 +1,18 @@
+- args:
+    permission:
+      columns:
+      - act_desc
+      - act_nm
+      - actid
+      - created_at
+      - modified_at
+      - obj_id
+      - obj_nm
+      - obj_type
+      - path_id
+      - user_id
+      - username
+      filter: {}
+    role: user
+    table: v_usrqaccss
+  type: create_select_permission

@@ -1,0 +1,3 @@
+- args:
+    name: v_usrqaccss
+  type: add_existing_table_or_view

@@ -10,6 +10,11 @@
         <p><a href="/fupload" target="_self">Home</a></p>
         <p><h1>Welcome to Am-Drive {{ name }}!</h1></p>
         <p>Message:{{ msg }}!</p>
+        <p><h3>Quick Access:</h3>{{ qa }}!</p>
+        <p>{% for row in qa %}</p>
+        <div><a href=""> {{ row['username'] }}</a> - {{ row['obj_id'] }} - {{ row['obj_nm']}} - {{ row['obj_type'] }} - {{ row['act_nm'] }} - {{ row['act_desc'] }}</div>
+        {% endfor %}
+        
         <p><h2>Upload file: </h2><input type="file" name="hvfname"><input type="submit" value="Upload File" name="submit"></p>
         <p><a href="/cfldr/{{ pthid }}" target="_self">Create Folder</a></p>
         <p><h3>Folder List:</h3>{{ fldr }}!</p>
