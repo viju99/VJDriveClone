@@ -316,7 +316,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.animator94.hasura-app.io/usract";
+        url =  projectConfig.url.useract;
     }
     else {
         return false;
@@ -342,7 +342,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.animator94.hasura-app.io/qaccess";
+        url = projectConfig.url.qaccess;
     }
     else {
         return false;
@@ -369,7 +369,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.animator94.hasura-app.io/actvty";
+        url = projectConfig.url.logact;
     }
     else {
         return false;
