@@ -21,7 +21,7 @@ export function getFilesOfUser(userName){
 }
 
 export function getLoggedInUser() {
-    console.log("reached getLoggedInUser");
+   // console.log("reached getLoggedInUser");
     return loginUser;
 }
 
@@ -97,7 +97,9 @@ export function downloadFile(file_id,file_name, authToken){
   export function getDetails(data){
     return Promise.all([checkLogin(data)])
   }
-
+  export function getActivity(data, a){
+    return Promise.all([getactivity(data, a)])
+  }
   export function getDetailsofFolders(data){
     return Promise.all([getFolderList(data)])
   }
@@ -106,7 +108,9 @@ export function downloadFile(file_id,file_name, authToken){
     return Promise.all([getFileList(data)])
   }
 
-
+  export function getQaccessed(data, a){
+    return Promise.all([getQaccess(data, a)])
+  }
 
   export function signUpNewUser(data) {
 
@@ -138,9 +142,9 @@ export function downloadFile(file_id,file_name, authToken){
    
      if(responseObject){
         var i = 0;
-        for (i=0; i < responseObject.length; i++ ){    
+      /*  for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["file_name"] );
-        }
+        }*/
         return responseObject;
     }
     else{
@@ -156,12 +160,7 @@ export async function getFolderList(data) {
 
     if (data)
     {
-<<<<<<< HEAD
-       // url = 'https://app.animator94.hasura-app.io/dregister'
-        url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
-=======
         url = projectConfig.url.folderList;
->>>>>>> 1d372f737738521807773ea42c241630823d38e3
     }
 
     let responseObject = await (await fetch(url, {
@@ -175,15 +174,9 @@ export async function getFolderList(data) {
    
      if(responseObject){
         var i = 0;
-        for (i=0; i < responseObject.length; i++ ){    
+        /*for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
-        }
-<<<<<<< HEAD
-    }).then(function(responsedata) {
-        if(responsedata){
-            console.log(responsedata);
-            return true;
-=======
+        }*/
         return responseObject;
     }
     else{
@@ -201,7 +194,6 @@ export async function getFolderList(data) {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + authToken
->>>>>>> 1d372f737738521807773ea42c241630823d38e3
         }
       };
     console.log(projectConfig.url.filestore);
@@ -252,7 +244,7 @@ export async function getFolderList(data) {
   }
 
   export async function updateFolderInfoOfFile(data,authToken) {
-    console.log('Posting logout request sent to API...');
+    console.log('Posting updateFolderInfoOfFile request sent to API...');
     var url = '';
     const userName = getLoggedInUser().userName;
     
@@ -312,3 +304,117 @@ export async function getFolderList(data) {
   export function getPromiseOfFolderCreation(data,authToken){
       return Promise.all([createFolder(data, authToken)]);
   }
+  export function getlogAct(data,authToken){
+    return Promise.all([logAct(data, authToken)]);
+}
+
+  export async function logAct(data,authToken) {
+    console.log('Posting logAct request sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    
+    if (userName)
+    {
+        
+        url = "https://t47d.anthology78.hasura-app.io/usract";
+    }
+    else {
+        return false;
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      return responseObject;
+  }
+  
+  export async function getQaccess(data, authToken) {
+    console.log('Posting getAccess request sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    
+    if (userName)
+    {
+        
+        url = "https://t47d.anthology78.hasura-app.io/qaccess";
+    }
+    else {
+        return false;
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      console.log("quick access data fetched: "+responseObject.length);
+    //  console.log(responseObject)
+      return responseObject;
+  }
+  export async function getactivity(data, authToken) {
+    console.log('Posting getActivity request sent to API...');
+    var url = '';
+    const userName = getLoggedInUser().userName;
+    
+    if (userName)
+    {
+        
+        url = "https://t47d.anthology78.hasura-app.io/actvty";
+    }
+    else {
+        return false;
+    } 
+
+    let responseObject =  await (await fetch(url,{
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+          }
+      })).json();
+      console.log("activity got: "+responseObject.length);
+      console.log(responseObject)
+      return responseObject;
+  }
+/*  export function getQaccess(data, authToken){
+
+    var  url = "https://t47d.anthology78.hasura-app.io/qaccess";
+    console.log("POST to url : "+url);
+
+    var requestOptions = {
+        method: "POST",
+        credentials: 'include',
+        body: JSON.stringify(data),
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + authToken
+    }
+    
+    };
+
+    fetch(url, requestOptions)
+    .then(function(response) {
+        console.log(response);
+    return response;
+    
+    }).then(function(res)
+    {
+        console.log(res);
+    })
+    .catch(function(error) {
+    console.log('Request Failed:' + error);
+    });
+
+  }*/

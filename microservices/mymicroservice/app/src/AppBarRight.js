@@ -49,22 +49,7 @@ const styles = {
     }
 
 }
-class MYlist extends React.Component{
-    render()
-    {
-      
-        return(
-            <Paper >
-            <Menu className="menu">
-                <MenuItem primaryText="settings"/>
-                <MenuItem primaryText="Download Backup and Sync for Windows"/>
-                <MenuItem primaryText="Keyboard shortcuts"/>
-                <MenuItem primaryText="Help"/>
-                </Menu>
-                </Paper>
-        );
-    }
-}
+
 export default class AppBarRight extends React.Component {
 
     constructor(props) {
@@ -249,16 +234,16 @@ export default class AppBarRight extends React.Component {
 
             <div >
             <div style={styles.Left} className="iconColor">
-                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
+                    <IconButton style={{ opacity:0.4,  }} tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
                         <GridIcon color= '#212121'/>
                     </IconButton>
 
-                    <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
+                    <IconButton   style={{ opacity:0.4,  }}tooltip="notification " tooltipPosition="bottom-center" >
                         <NotificationIcon color= '#212121'/>
                     </IconButton>
 
-                    <IconButton >
-                        <Avatar className="profilePic" src={profPic} alt="profPic" round="true" onClick={this.handleOpen} />
+                    <IconButton tooltip="Click to LogIn " >
+                        <Avatar className="profilePic"  src={profPic} alt="profPic" round="true" onClick={this.handleOpen} />
                             <Dialog
                             actions={actions}
                             modal={true}
@@ -323,11 +308,11 @@ export default class AppBarRight extends React.Component {
 
                     </IconButton>
                     
-                    {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
+                    {this.state.change ? <IconButton  style={{ opacity:0.4,  }} tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
                         <GridIcon color= '#212121'/>
                     </IconButton>
                     :
-                     <IconButton tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
+                     <IconButton  style={{ opacity:0.4,  }} tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
                      <ListIcon color= '#212121'/>
                  </IconButton>
                  }
@@ -336,8 +321,8 @@ export default class AppBarRight extends React.Component {
                     <IconButton tooltip="View details"  tooltipPosition="bottom-center" onClick ={this.handleToggle}  >
                         <InfoIcon color= '#212121' />
                     </IconButton>
-                    <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
-                        <SettingsIcon onClick={this.handleClick}  color= '#212121'/>
+                    <IconButton  style={{ opacity:0.4,  }} tooltip="Settings"  tooltipPosition="bottom-center">
+                        <SettingsIcon  color= '#212121'/>
                     </IconButton>
 
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
@@ -353,7 +338,6 @@ export default class AppBarRight extends React.Component {
                         
                     </Drawer>
 
-                    {this.state.show? <MYlist/>: null}
                     
              </div>
              

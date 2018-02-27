@@ -18,10 +18,40 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
+import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation,getlogAct} from './login.js';
 import {List, ListItem} from 'material-ui/List';
 import MyDriveList, { handleFileUpload } from './MyDriveList';
+import TreeNode from './TreeNode';
 export var info={};
+
+/*nestedItems={[
+  this.state.TData.map( (row, index) => (
+  
+      <ListItem key= {index} 
+                primaryText = {row.path_nm } 
+                onClick={() =>this.handleBrowse(row.path_id)}
+                />
+     
+    ))
+]} />,
+*/
+var tree = {
+  childNodes: [
+    {title: "Folder 1"},
+    {title: "Folder 2"},
+    {title: "Folder 3", 
+            childNodes: [
+                          {title: "Folder 3.1",
+                                  childNodes: [
+                                                {title: "Folder 3.1.1"}]
+                          },
+                          {title: "Folder 3.2"}
+                       ]
+    }
+  ],
+  
+};
+
 export function  setUploadedData(data)
 {
    info=data;
@@ -45,7 +75,8 @@ export default class MyMenu extends  React.Component
                   'Content-type': 'multipart/form-data',
                   'credentials' : 'include',
                 },
-                rtpthid: 0
+                rtpthid: 0,
+                TData: [{}],
                  
                
                 };
@@ -53,7 +84,7 @@ export default class MyMenu extends  React.Component
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
     this.getUserPathId=this.getUserPathId.bind(this);  
-
+ //   this.handleBrowse=this.handleBrowse.bind(this);
   }
 
  
@@ -75,22 +106,32 @@ export default class MyMenu extends  React.Component
         hvfileid: "",
         hvfilesize: ""
       }
-    
-    //this.showProgressIndicator(true)
+     var logactData ={
+      hvfileid: "",
+      hvfname: file.name,
+      hvfldrid: data.hvfldrid,
+      hvfilesize: "",
+      hvobjtype: "File",
+      hvobjname: file.name,
+      hvactname: "Upload",
+      hvactdesc: "You uploaded a File",
+     }
     getPromiseOfUploadFile(data, authToken).then(response => {
-      //this.showProgressIndicator(false)
-      console.log(response[0]);
+      console.log("respne[0] in getPromiseofUploadfile "+response[0]);
       if (response[0]["file_id"]) {
         alert("Upload of file named " + file.name + ". Status - " + response[0]["file_status"]);
         folderData.hvfileid = response[0]["file_id"];
         folderData.hvfilesize = response[0]["file_size"];
-        console.log(folderData);
+        logactData.hvfileid = response[0]["file_id"];
+        logactData.hvfilesize = response[0]["file_size"];
+
+        console.log("inside if : "+folderData);
         getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
 
-          console.log(response);
-          //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+          console.log("inside getPromiseofFOlderInfoUpdate"+response);
           this.props.update(file.name);
-       
+         // getlogAct(logactData, authToken).then(res=>{console.log(res)});
+         // console.log("logged : "+obj);
         }).catch(error => {
           console.log('File upload failed: ' + error);
         });
@@ -114,6 +155,7 @@ export default class MyMenu extends  React.Component
       return;
     }
     const folderId = getLoggedInUser().rtpthid;
+    console.log("rtpthid before folder creation: "+folderId);
     var data = {
       hvfldrname: folderName,
       hvfldrid: folderId
@@ -169,10 +211,30 @@ export default class MyMenu extends  React.Component
     
   }; 
 
+  handleBrowse(x)
+  {
+    if(x){
+  var arrayFolders =  [{}];
+  var data= {
+    hvfldrid: x
+    } ;
+    getDetailsofFolders(data).then( (tableData) =>
+      {
+        arrayFolders=tableData[0];
+        this.setState({ TData: arrayFolders} );
+        console.log(this.state.TData);
+
+        
+      } 
+    )
+  }
+  
+   }
 
   render()
   {
-    const actions = [
+    
+     const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
@@ -230,60 +292,60 @@ export default class MyMenu extends  React.Component
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 1}}  >
+          <Paper style={{position: 'absolute', zIndex: 2}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
             <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} onClick={this.handleNewFolderOpen}/>
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
-            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
+            <MenuItem style={{ opacity:0.6,  }}primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
             <Divider />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Docs"
               leftIcon={<img src={GdocsIcon} alt="googleDocs" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank document"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Blank document"/>,
+                <MenuItem style={{ opacity:0.6,  }}primaryText="Form a template"/>,
                 ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Sheets"
               leftIcon={<img src={GSheetsIcon} alt="gSheets" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank spread sheet"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }}  primaryText="Blank spread sheet"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
               ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="Google Slides"
               leftIcon={<img src={GSlidesIcon} alt="googleSheets" />}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem primaryText="Blank presentation"/>,
-                <MenuItem primaryText="Form a template"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Blank presentation"/>,
+                <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
                   ]}
             />
-            <MenuItem
+            <MenuItem style={{ opacity:0.6,  }}
               primaryText="More"
               leftIcon={<p></p>}
               rightIcon={<ArrowDropRight />}
               menuItems={[
-                <MenuItem
+                <MenuItem style={{ opacity:0.6,  }}
                   primaryText="Google Forms"
                   leftIcon={<img src={GFIcon} alt="Forms" />}
                   rightIcon={<ArrowDropRight />}
                   menuItems={[
-                    <MenuItem primaryText="Blank form"/>,
-                    <MenuItem primaryText="Form a template"/>,
+                    <MenuItem style={{ opacity:0.6,  }}primaryText="Blank form"/>,
+                    <MenuItem style={{ opacity:0.6,  }} primaryText="Form a template"/>,
                     ]}
                   />,
-                  <MenuItem primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
-                  <MenuItem primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
-                  <MenuItem primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google Drawings"  leftIcon={<img src={GdrIcon} color= '#616161'  alt="Dra" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google My Maps"  leftIcon={<img src={GMIcon} color= '#616161'  alt="Maps" />}/>,
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Google Sites"  leftIcon={<img src={GSIcon} color= '#616161'  alt="Sites" />}/>,
                   <Divider/>,
-                  <MenuItem primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
+                  <MenuItem style={{ opacity:0.6,  }} primaryText="Connect More Apps"  leftIcon={<img src={PlusIcon} color= '#616161'  alt="pLus" />}/>
                 ]}
                 />
           </Menu>
@@ -325,68 +387,50 @@ export default class MyMenu extends  React.Component
       </div>
     );
     }
-    else if(this.props.id==='2')
-  {
-    return(
-      <div>
-        <Menu>
-      <MenuItem primaryText="Download" />
-            
-           <MenuItem primaryText="View Details"  />
-          
-           
-           </Menu>
-           </div>
-    )
-  }
     else 
     {
-      return(
+     //return(<TreeNode node={tree}/>);
+      
+  return(
         <div >
+          <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
          
-           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
-          
-              <ListItem
-              primaryText="My Drive"
-              leftIcon={<CFolderIcon />}
-              initiallyOpen={false}
-              primaryTogglesNestedList={true}
-              nestedItems={[
-                <ListItem
-                  key={1}
-                  primaryText="F1"
-                  leftIcon={<CFolderIcon />}
-                />,
-                <ListItem
-                  key={2}
-                  primaryText="F2"
-                  leftIcon={<CFolderIcon />}
-                  
-                  
-                />,
-              
-              ]}
-            />,
-             
-         
-           <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
-            
-           <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-          
-           <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
-           <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+          <ListItem primaryText="MyDrive" 
+                    leftIcon={<UFileIcon/>} 
+                    onClick={() =>this.handleBrowse(getLoggedInUser().rtpthid)}
+                    initiallyOpen={false}
+                    primaryTogglesNestedList={true}
+
+                    nestedItems={[
+                    
+                      this.state.TData.map( (row, index) => (
+                      
+                          <ListItem key= {index} 
+                                    primaryText = {row.path_nm } 
+                                    onClick={() =>this.handleBrowse(row.path_id)}
+                                    />
+                         
+                        ))
+                ]} /> 
+
+                
+                
+          <MenuItem style={{ opacity:0.6,  }} primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
+          <MenuItem style={{ opacity:0.6,  }} primaryText="Shared with me" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Recent" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }}primaryText="Google Photos" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} style={{ opacity:0.6,  }} primaryText="Starred" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Trash" leftIcon={<FolderIcon/>} />
            <Divider/>
-           <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Backups" leftIcon={<FolderIcon/>} />
            <Divider/>
-           <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
          </List>
 
       
         </div>
-      );
+         );
     }
   }
 }

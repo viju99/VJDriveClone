@@ -24,7 +24,9 @@ export default class AppBarCenter extends React.Component
     constructor(props) {
         super(props);
         this.state = {value: 1,showComponent: false, appear: 'inline'};
-        this.handler = this.handler.bind(this)
+        this.handler = this.handler.bind(this);
+        this.handleUpdatingOnUploading=this.handleUpdatingOnUploading.bind(this);
+
       }
     
       state = {
@@ -61,6 +63,12 @@ export default class AppBarCenter extends React.Component
            appear: 'none'
         })
       };
+      
+      handleUpdatingOnUploading(name)
+      {
+          //The FileName is passed to its parent AppBar through props.
+         this.props.update(name);
+      }
     
      
     render(){
@@ -82,7 +90,7 @@ export default class AppBarCenter extends React.Component
             />
             
            
-            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} />: null} 
+            {this.state.showComponent?  <MyMenu id="1" appear ={this.state.appear} action={this.handler} update={this.handleUpdatingOnUploading} />: null} 
             </div>
         );
     }
