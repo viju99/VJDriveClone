@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   position: relative;
+  display : flex;
  
 }
 
@@ -98,9 +99,10 @@ text-align: start;
 }
 .newbutton{
   width: 110px;
-
+  color: #fff !important;
+ 
 }
 .dropbutton{
-  color:#222 !important;
+  color:#fff !important;
   margin-left: -100;
 }

@@ -1,0 +1,4 @@
+- args:
+    sql: CREATE VIEW v_usrqaccss AS SELECT * FROM user_activity WHERE to_char(modified_at,
+      'YYYYMMDD') > to_char((now() - interval '1 day'), 'YYYYMMDD');
+  type: run_sql

@@ -1,7 +1,19 @@
-# Team47 hello-python-flask
+# Google Drive Clone using Hasura with Python Flask & ReactJS
 
-Boilerplate Hasura project with [Flask](http://flask.pocoo.org/) microservice.
+This Readme list the steps to setup the codebase for both Python Flask backend and ReactJS front-end as microservices and build a GDrive(Google Drive) Clone - what we call as Hasura Drive
 
+The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
+
+## Hasura Drive supports limited Frontend features/tasks
+- Users will be able to sign up/login as a user
+- Users will be able to see/browse list of folders in their drive account
+- Users will be able to upload/download files to/from their drive store
+
+
+## Backend features implemented using Hasura API with Python Flask
+- Schema modelling and Data Layer - using Data API
+- Hasura services - Hasura Auth APIs for Login and Signup
+- Custom services to support - File APIs on Hasura lets users upload and store files
 
 ## Getting started
 
@@ -15,21 +27,21 @@ Boilerplate Hasura project with [Flask](http://flask.pocoo.org/) microservice.
 
 ```bash
 # Quickstart from this boilerplate 
-$ hasura quickstart hello-python-flask
+$ hasura quickstart marianps/G-Drive-Clone
 ```
 
 The `quickstart` command does the following:
 
-1. Creates a new directory `hello-python-flask` in the current working directory
+1. Creates a new directory `G-Drive-Clone` in the current working directory
 2. Creates a free Hasura cluster and sets it as the default for this project
-3. Sets up `hello-python-flask` as a git repository and adds `hasura` remote to push code
+3. Sets up `G-Drive-Clone` as a git repository and adds `hasura` remote to push code
 4. Adds your SSH public key to the cluster so that you can push to it
 
 ### Deploy
 
 ```bash
 # Navigate to the project directory
-$ cd hello-python-flask
+$ cd G-Drive-Clone
 
 # git add, commit and push to deploy
 $ git add . && git commit -m "First commit"
@@ -64,23 +76,18 @@ The flask microservice is located in `microservices/app` directory in your Hasur
     ├── hasura.py                # hasura API examples
     ├── __init__.py              # main Flask app is defined here
     ├── requirements.txt         # python dependency requirements
-    └── server.py                # main Flask server code
+    ├── server.py                # main Flask server code
+    └── templates                # html templates to testout Python Flask API calls
+        ├── homedrive.html       # Primary Drive page to test Drive Flask APIs
+        ├── cfldr.html           # Create Folder html call to Flask APIs
+        ├── dlogin.html          # Login html  call to Flask APIs
+        ├── dregister.html       # SignIn/Register User html  call to Flask APIs
+        └── page_not_found.html  # Page Not Found Error html  call to Flask APIs
 ```
 
 ### Edit
 
 `server.py` is where the main app is present. You can edit this file and deploy the changes.
-For example, un-comment lines `2`, `11-13` to add new URL `/json`:
-
-```python
-from flask import jsonify
-
-@app.route("/json")
-def json_message():
-    return jsonify(message="Hello World")
-```
-
-These lines will add `/json` which returns `{"message": "Hello World"}`.
 
 ### Deploy
 
@@ -89,7 +96,7 @@ Save the file, git add, commit and push to deploy the changes:
 ```bash
 # git add, commit and push to deploy
 $ git add src/server.py
-$ git commit -m "add new url /json"
+$ git commit -m "some new change"
 $ git push hasura master
 ```
 
@@ -124,6 +131,13 @@ You can deploy further changes by going through `Edit -> Deploy -> Verify -> Deb
 ## Use a database
 
 Hasura comes with a pre-configured ready-to-use PostgreSQL database, which can be contacted over HTTP JSON APIs. You can use this database from client side or server side just by making HTTP API calls with JSON data. There are no DB connection strings or ORMs to worry about.
+
+### database schema extension
+
+Following tables are added to schema to implement the Drive features
+- app_users - App Users information for login on signup
+- user_files - Files Upload and folder information
+- user_paths - Folder structure and Folder Hierarchy information
 
 ### API Console
 

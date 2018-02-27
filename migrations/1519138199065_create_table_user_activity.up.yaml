@@ -1,0 +1,10 @@
+- args:
+    sql: CREATE TABLE "user_activity"("actid" bigserial NOT NULL, "user_id" bigint
+      NOT NULL, "obj_id" bigint NOT NULL, "obj_type" text NOT NULL, "act_nm" text
+      NOT NULL, "act_desc" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT
+      now(), "modified_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("actid","user_id")
+      )
+  type: run_sql
+- args:
+    name: user_activity
+  type: add_existing_table_or_view

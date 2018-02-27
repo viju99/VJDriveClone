@@ -17,15 +17,18 @@ import GMIcon from './images/GMaps.png';
 import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
-import {Dialog, TextField} from 'material-ui';
-import { SelectField } from 'material-ui/SelectField';
-import index from 'material-ui/Dialog';
-import {getLoggedInUser} from './login.js';
+import {Dialog} from 'material-ui';
+import {getLoggedInUser,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
+import {List, ListItem} from 'material-ui/List';
+import MyDriveList, { handleFileUpload } from './MyDriveList';
+export var info={};
+export function  setUploadedData(data)
+{
+   info=data;
+  console.log(info);
+}
 
-
-import RaisedButton from 'material-ui/RaisedButton'
-
-export default class MyMenu extends React.Component
+export default class MyMenu extends  React.Component
 {
   //==================
 
@@ -35,23 +38,96 @@ export default class MyMenu extends React.Component
                  show:false,
                  change:true,
                  showUpload:false,
+                 showNewFolder: false,
                  filePathnName: '',
                  Index: 0,
+                 headerFileUpload: {
+                  'Content-type': 'multipart/form-data',
+                  'credentials' : 'include',
+                },
+                rtpthid: 0
+                 
                
                 };
-    this.handleUpload=this.handleUpload.bind(this);
+    //this.handleUpload=this.handleUpload.bind(this);
     this.handleToggle=this.handleToggle.bind(this);
     this.handleChange=this.handleChange.bind(this);
-  
+    this.getUserPathId=this.getUserPathId.bind(this);  
 
   }
 
-  handleUpload = () => {
-
+ 
+  handleFileUpload = (file) => {
+    console.log(file.name);
+    const authToken = getLoggedInUser().token;
+    if (!authToken) {
+      //this.showAlert('Please login first. Go to /auth to login');
+      return;
+    }
+    const folderId = getLoggedInUser().rtpthid;
+    var data = {
+      hvfname: file,
+      hvfldrid: folderId
+      }
+      var folderData = {
+        hvfname: file.name,
+        hvfldrid: data.hvfldrid,
+        hvfileid: "",
+        hvfilesize: ""
+      }
     
-    //checkLogin(cred);
-    //setErrorText(undefined);
-  };
+    //this.showProgressIndicator(true)
+    getPromiseOfUploadFile(data, authToken).then(response => {
+      //this.showProgressIndicator(false)
+      console.log(response[0]);
+      if (response[0]["file_id"]) {
+        alert("Upload of file named " + file.name + ". Status - " + response[0]["file_status"]);
+        folderData.hvfileid = response[0]["file_id"];
+        folderData.hvfilesize = response[0]["file_size"];
+        console.log(folderData);
+        getPromiseOfFolderInfoUpdate(folderData, authToken).then(response => {
+
+          console.log(response);
+          //On successful file Upload, passes the FileName through props function to parent(AppBarLeft).
+          this.props.update(file.name);
+       
+        }).catch(error => {
+          console.log('File upload failed: ' + error);
+        });
+
+      
+     
+      } else {
+        alert("File upload failed because of an internal error");
+      }
+    }).catch(error => {
+      console.log('File upload failed: ' + error);
+    });
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  handleCreateFolder = (folderName) => {
+    console.log(folderName);
+    const authToken = getLoggedInUser().token;
+    if (!authToken) {
+      alert('Please login first to access features of the Drive');
+      return;
+    }
+    const folderId = getLoggedInUser().rtpthid;
+    var data = {
+      hvfldrname: folderName,
+      hvfldrid: folderId
+      }
+      
+    //this.showProgressIndicator(true)
+    getPromiseOfFolderCreation(data, authToken).then(response => {
+      //this.showProgressIndicator(false)
+      console.log(response[0]);
+      this.props.update(response[0]);
+    }).catch(error => {
+      console.log('Folder creation failed : ' + error);
+    });
+  }
   handleToggle = () => this.setState({open: !this.state.open});
   handleChange=()=>this.setState({change: !this.state.change});
   handleClick =()=> this.setState({show: !this.state.show});
@@ -66,9 +142,20 @@ export default class MyMenu extends React.Component
     this.setState({showUpload: true});
   };
 
+  handleNewFolderOpen = (e) => {
+    console.log("Setting showNewFolder as true. Dialog should open now");
+    this.setState({showNewFolder: true});
+  };
+
   handleClose = () => { 
     this.setState({showUpload: false});
+    this.setState({showNewFolder: false});
   };
+
+  getUserPathId = () => {
+    var loginUser = getLoggedInUser();
+    this.setState({rtpthid: loginUser.rtpthid});
+  }
 
   handleErrorInputChange = (e) => {
     if (e.target.id === 'filePathnName') {
@@ -77,71 +164,11 @@ export default class MyMenu extends React.Component
       this.setState({
         filePathnName: fileDetails
       });
-      /*this.setState({
-        //name: name,
-        errorTextName: e.target.value ? '' : 'Please, type your Name'
-      });*/
+      
     };
     
   }; 
- handletest=(e)=>{
-   e.stopPropagation();
-   alert("onblur");
- }
 
-  
-  handleFileUpload = () => {
-    var x = document.getElementById("fileToUpload");
-    const fileName = x.files[0];
-    
-    console.log(fileName);
-    var data = new FormData()
-    data.append('hvfname', x.files[0])
-
-    var arr = getLoggedInUser();
-    
-    //fetch('https://app.animator94.hasura-app.io/fupload', {
-    fetch('https://t47d.anthology78.hasura-app.io/fupload', {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-      username: arr["userName"],
-      headers: {
-        "Authorization": 'Bearer ' + arr[1]
-      }
-    }).then(function(response) {
-      if (response.status >= 200 && response.status < 300) {
-          console.log("retirning response.json function");
-          var obj = JSON.stringify(response.body);
-          return response.json();
-      }
-      else{
-          return null;
-      }
-  }).then(function(data) {
-      if(data){
-          console.log("printing returned value");
-          if (data["auth_token"])
-          {
-              console.log("User logged in. Username is : " + data['username'] + " and user id is "+ data['hasura_id']);
-              //setLoggedInUser(data['username']);
-          }
-          else {
-              console.log("User sign up/in failed becaue - "+ data['message']);
-          }
-      }
-      else{
-          return false;
-      }
-    });
-    
-  }
-
-  //=======================
-
-  componentDidMount(){
-    window.addEventListener('onmousedown', this.props.action, false);
-}
 
   render()
   {
@@ -153,25 +180,63 @@ export default class MyMenu extends React.Component
       />,
       <FlatButton
         label="Upload"
+        secondary={true}
+        onClick={(e) => {
+          e.preventDefault();
+          //var pathId = {this.getUserPathId}
+          const input = document.querySelector('input[type="file"]');
+          if (input.files[0]) {
+           this.handleFileUpload(input.files[0])
+          } else {
+            alert("Please select a file");
+          }
+          this.handleClose();
+        }
+      }/> 
+    ];
+
+    const actionsNewFolder = [
+      <FlatButton
+        label="Cancel"
         primary={true}
         onClick={this.handleClose}
       />,
+      <FlatButton
+        label="Create"
+        secondary={true}
+        onClick={(e) => {
+          e.preventDefault();
+          //var pathId = {this.getUserPathId}
+          //const input = document.querySelectorAll('input[type="text"]');
+          var folderName = '';
+          var input = document.getElementById('newFolder');
+          if( input.value != "" && !/^\d{1,}$/.test(input.value) ){
+            folderName = input.value;
+          }
+          else{
+            alert("Please provide a valid name for the new folder");
+            return false;
+          }
+          this.handleCreateFolder(folderName);
+          this.handleClose();
+        }
+      }/> 
     ];
     /* needs an eventlistener that will call {this.props.action}, a funcyion defined in line 28 of AppBarLeft and line 73 of
      AppBarRight wich changes the state of showComponent to false */
 
-    if(this.props.id=="1"){
-    
+    if(this.props.id==="1"){
+     
       return(
       <div >
        
-          <Paper style={{position: 'absolute', zIndex: 10}}  >
+          <Paper style={{position: 'absolute', zIndex: 1}}  >
           <Menu desktop={true} width={320} className="menu" style= {{display: this.props.appear}} onMouseLeave= {this.props.action} >
-            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} />
+            <MenuItem primaryText="New Folder.."  leftIcon={<CFolderIcon/>} onClick={this.handleNewFolderOpen}/>
             <Divider /> 
             <MenuItem primaryText="Upload Files.." leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
-            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>} />
+            <MenuItem primaryText="Upload Folder" leftIcon={<FolderIcon/>}  />
             <Divider />
             <MenuItem
               primaryText="Google Docs"
@@ -234,43 +299,95 @@ export default class MyMenu extends React.Component
                   <br />
                   <br />
                   <h1>File Upload</h1>
-                
-                    <input id="fileToUpload" type="file" height="30"/>
-                    <button type="submit" onClick={this.handleFileUpload}>Upload</button>
-                    
+                  <div>
+                    <input type="file" className="form-control" placeholder="Upload a file"/>                   
+                  </div> &nbsp;
+                                  
                   <br />               
-              </Dialog>
+            </Dialog>
+            <Dialog
+            actions={actionsNewFolder}
+            modal={true}
+            open={this.state.showNewFolder}
+            contentStyle={{width: 450, height: 600}}
+            >
+                <img className="driveLogo" src={driveLogo} alt="driveLogo" />
+                <br />
+                <br />
+                <br />
+                <h1>New Folder</h1>
+                <div>
+                  <input type="text" id="newFolder" placeholder="Create Folder"/>                   
+                </div> &nbsp;
+                                
+                <br />               
+          </Dialog>
       </div>
     );
     }
-    else
+    else if(this.props.id==='2')
+  {
+    return(
+      <div>
+        <Menu>
+      <MenuItem primaryText="Download" />
+            
+           <MenuItem primaryText="View Details"  />
+          
+           
+           </Menu>
+           </div>
+    )
+  }
+    else 
     {
       return(
         <div >
-           <Paper style={{position: 'absolute', marginTop: 132, zIndex: -1,}}>
-           <Menu desktop={true} width={300} className="menu" >
-           <MenuItem primaryText="MyDrive"  leftIcon={<CFolderIcon/>} 
-            menuItems={[
-              <MenuItem primaryText="F1"/>,
-              <MenuItem primaryText="F2"/>,
-            ]}/>
+         
+           <List width={250} className="menu" style={{position: 'absolute', marginTop: 20, zIndex: -1}} >
+          
+              <ListItem
+              primaryText="My Drive"
+              leftIcon={<CFolderIcon />}
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <ListItem
+                  key={1}
+                  primaryText="F1"
+                  leftIcon={<CFolderIcon />}
+                />,
+                <ListItem
+                  key={2}
+                  primaryText="F2"
+                  leftIcon={<CFolderIcon />}
+                  
+                  
+                />,
+              
+              ]}
+            />,
+             
          
            <MenuItem primaryText="Computers" leftIcon={<UFileIcon/>} onClick={this.handleOpen} />
             
            <MenuItem primaryText="Shared with me" leftIcon={<FolderIcon/>} />
-           <Divider />
+          
            <MenuItem primaryText="Recent" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Google Photos" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Starred" leftIcon={<FolderIcon/>} />
            <MenuItem primaryText="Trash" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Backups" leftIcon={<FolderIcon/>} />
+           <Divider/>
            <MenuItem primaryText="Upgrade storage" leftIcon={<FolderIcon/>} />
 
-         </Menu>
+         </List>
 
-          </Paper>
+      
         </div>
       );
     }
   }
 }
+

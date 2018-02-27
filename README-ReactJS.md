@@ -1,11 +1,13 @@
-﻿[**React**](https://reactjs.org) is a JavaScript library to create interactive user interfaces. The core library is focussed on the view layer. It is declarative and component based. This quickstart uses [**create-react-app**](https://github.com/facebook/create-react-app) to scaffold a react app with no build configuration.
+![hasura_drive_image](https://user-images.githubusercontent.com/31035012/36073898-dbcc8378-0f5d-11e8-8ee3-61b8e51f247d.png)
+
+[**React**](https://reactjs.org) is a JavaScript library to create interactive user interfaces. The core library is focussed on the view layer. It is declarative and component based. This quickstart uses [**create-react-app**](https://github.com/facebook/create-react-app) to scaffold a react app with no build configuration.
 
 
 # Google Drive Clone using Hasura with Python Flask & ReactJS
 
-This Readme list the steps to setup the codebase for both Python Flask backend and ReactJS front-end as microservices and build a GDrive(Google Drive) Clone - what we call as Hasura Drive.
+This Readme list the steps to setup the codebase for both Python Flask backend and ReactJS front-end as microservices and build a GDrive(Google Drive) Clone - what we call as Hasura Drive
 
-The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive.
+The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive 
 
 ## Hasura Drive supports limited Frontend features/tasks
 - Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
@@ -114,7 +116,7 @@ If changes have been done to the dependencies, `git commit`, and perform `git pu
 
 ## Adding backend features
 
-To make changes to backend features, you should refer to README-Base.md file in the repository
+To make changes to backend features, you should refer to README.md file in the repository
 
 For further details, contact:
 viju99@gmail.com

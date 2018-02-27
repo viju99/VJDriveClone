@@ -1,11 +1,9 @@
 import React from 'react';
-import SearchSVGIcon from 'material-ui/svg-icons/action/search';
-import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
 import TopMenu from './TopMenu'
-
+import {BrowserRouter} from 'react-router-dom';
 const styles = {
     customWidth: {
       width: 500
@@ -15,32 +13,12 @@ const styles = {
         display: 'flex',
         flexFlow: 'column',
         justifyContent: 'space-around',
-       alignItems: 'flex-start',
+        alignItems: 'flex-start',
         marginLeft: 20,
 
     }
   };
 
-  
-const appList = [
-    'PDFs',
-    'Text documents',
-    'Spreadsheets',
-    'Presentations',
-    'Photos & Images',
-    'Videos'
-  ];
-
-  const iconStyles = {
-    marginRight: 20,
-    marginTop: 23
-  };
-  
-  const searchIconStyles = {
-    marginRight: 20,
-    marginTop: 14,
-    marginLeft: 8
-  };
 export default class AppBarCenter extends React.Component
 {
     constructor(props) {
@@ -96,10 +74,11 @@ export default class AppBarCenter extends React.Component
                         label="My drive"
                         labelPosition="before"
                         primary={true}
-                        icon={<DetailsIcon  color = '#21212'/>}
+                        icon={<DetailsIcon  color = '#fff'/>}
                         onClick={this.handleOpen} 
+                        backgroundColor="#222"
                     
-                       
+                      
             />
             
            

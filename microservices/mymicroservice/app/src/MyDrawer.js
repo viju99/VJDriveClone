@@ -1,16 +1,11 @@
 import React from 'react';
-
-
-
 import {
   Table,
   TableBody,
-  TableHeader,
-  TableHeaderColumn,
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
+//import {setSelectedRowDetails} from './MyDriveList';
 
 
 export default class MyDrawer extends React.Component {

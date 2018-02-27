@@ -13,18 +13,14 @@ import Paper from 'material-ui/Paper';
 import GridIcon from 'material-ui/svg-icons/image/grid-on'; 
 import NotificationIcon from 'material-ui/svg-icons/social/notifications';
 import Avatar from 'material-ui/Avatar';
-import profPic from './images/twitter-person-image.png';
-import { checkLogin, getFolderList, getLoggedInUser } from './login';
+import profPic from './images/Hasura-face-new.jpg';
+import {getFolderList, getLoggedInUser, logout, resetUserCredentials } from './login';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import {SelectField, TextField} from 'material-ui';
+import {TextField} from 'material-ui';
 import driveLogo from './images/Hasura_Drive_image.png';
-import blue200 from 'material-ui/styles/colors';
-import { SMALL } from 'material-ui/utils/withWidth';
-
 import MyDrawer from './MyDrawer';
-
-
+import {getDetails} from './login';
 const styles = {
 
 
@@ -70,6 +66,7 @@ class MYlist extends React.Component{
     }
 }
 export default class AppBarRight extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {open: false,
@@ -81,49 +78,72 @@ export default class AppBarRight extends React.Component {
                      hvCpwd: '',
                      isSignUp: false,
                      loginType: "Sign in",
-                     showLoginErrorDialog: false
-                    };
+                     showLoginErrorDialog: false,
+                     success: false,
+                     showSnack: false
+                     };
         this.handleClick=this.handleClick.bind(this);
         this.handleToggle=this.handleToggle.bind(this);
         this.handleChange=this.handleChange.bind(this);
-
+        this.handleRequestClose=this.handleRequestClose.bind(this);
+        this.handleRequestOpen=this.handleRequestOpen.bind(this);
       }
-
+      handleRequestOpen =()=>
+      {
+        this.setState({showSnack: true});
+      }
+      handleRequestClose =()=>
+      {
+        this.setState({showSnack: false});
+      }
+     
       getFolders = () => {
         var userCred = getLoggedInUser();
-
         var data = {
             hvName: this.state.hvName,
             hvPwd: this.state.hvPwd,
             hvfldrid: userCred.rtpthid
             }
         var x = getFolderList(data);
-        console.log(x);
-      }
+        console.log('x=: '+x);
+       }
+    
       handleLogoClick = () => {
-        alert("logo clicked");
-
-
+        var cred= {};
         if(!this.state.isSignUp)
         {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd
-                }
+                };
         } else {
-            var cred = {
+             cred = {
                 hvName: this.state.hvName,
                 hvPwd: this.state.hvPwd,
                 hvCpwd: this.state.hvCpwd
-                }
+                };
         }
-        
-        if (!checkLogin(cred))
-        {
-            alert("User with same username already exists. Please try with a different username");
-        }
-        //setErrorText(undefined);
-      };
+        getDetails(cred).then( (loginresp) => {
+      
+       if(loginresp[0]["username"])
+       {
+        console.log(loginresp[0]);
+        this.setState({ success: true} );
+        this.props.render();
+       }
+       else
+       {
+           alert("Username and Password do not match. Please try again");
+           this.setState({showLogin: false});
+           this.setState({success: false});
+           this.setState({loginType: "Sign in"});
+       }
+      
+       
+    }
+        )
+    }
+      
       handleToggle = () => this.setState({open: !this.state.open});
       handleChange=()=>this.setState({change: !this.state.change});
       handleClick =()=> this.setState({show: !this.state.show});
@@ -147,20 +167,25 @@ export default class AppBarRight extends React.Component {
         this.setState({showLogin: false});
         this.setState({isSignUp: false});
       };
+      handleSignOutClose = () => {
+
+      }
 
       handleSubmit = () => {
-        /*if (this.state.isSignUp){
-            console.log(this.state.hvPwd);
-            //var password1 = this.state.hvPwd;
-            //var password2 = this.state.hwCpwd;
-            console.log(this.state.hvCpwd);
-            if(password1 !== password2) {
-                alert("Password and confirmations don't match! Please try again");
-                return;
-            }
-        } */ 
-        this.handleLogoClick();
+        
+        if(!this.state.success)
+        {
+            this.handleLogoClick();
+         }
+
+         else{
+             this.handleSignOut();
+         }
         this.setState({showLogin: false});
+        
+        this.state.loginType === "Sign Out" ? 
+            this.setState({loginType: "Sign in"}) : 
+            this.setState({loginType: "Sign Out"});
       };
 
       handleErrorInputChange = (e) => {
@@ -170,10 +195,7 @@ export default class AppBarRight extends React.Component {
           this.setState({
               hvName: userName
           });
-          /*this.setState({
-            //name: name,
-            errorTextName: e.target.value ? '' : 'Please, type your Name'
-          });*/
+          
         } else if (e.target.id === 'password') {
           var password = e.target.value;
 
@@ -188,9 +210,29 @@ export default class AppBarRight extends React.Component {
              });
       }
     }
+
+    handleSignOut = () => {
+        const status = logout();
+        if (status)
+        {
+            this.setState({showSnackBarLogout: true });
+            this.props.vanish();
+           
+        }
+        
+        alert("User has been signed out");
+        this.setState({showLogin: false});
+        this.setState({success: false});
+        resetUserCredentials();
+        this.props.vanish();
+    }
+    handleCancelSignOut = (e) => {
+        this.setState({showLogin: false});
+    }
   
     render()
     {
+       // alert("ABBarRight rendering");
         const actions = [
             <FlatButton
               label="Cancel"
@@ -201,16 +243,18 @@ export default class AppBarRight extends React.Component {
               label={this.state.loginType}
               primary={true}
               onClick={this.handleSubmit}
-            />,
+            />
           ];
         return (
+
+            <div >
             <div style={styles.Left} className="iconColor">
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.getFolders}  >
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton tooltip="Grid View" tooltipPosition="bottom-center" >
-                        <NotificationIcon color= '#757575'/>
+                        <NotificationIcon color= '#212121'/>
                     </IconButton>
 
                     <IconButton >
@@ -221,68 +265,79 @@ export default class AppBarRight extends React.Component {
                             open={this.state.showLogin}
                             contentStyle={{width: 450, height: 1000}}
                             >
-                                <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
-                                <br />
-                                <br />
-                                <strong>Sign in</strong><br />
-                                to continue to Hasura Drive
-                                <br />
-                                <br />
-                                <TextField
-                                    id="userName"
-                                    hintText="User Name"
-                                    floatingLabelText="User Name"
-                                    errorText="Enter your user name"
-                                    onChange={this.handleErrorInputChange}
-                                /><br />
-                                <TextField
-                                    id="password"
-                                    hintText="Password"
-                                    floatingLabelText="Password"
-                                    errorText="Enter your password"
+                            {this.state.success ?
+                                <div>
+                                    <Avatar className="profilePic" src={profPic} alt="profPic" round="true"/>
+                                    <h4> Logged in user : {this.state.hvName} </h4>
+
+                                </div>
+                                :
+                                <div>
+                                    <img className="driveLogo" src={driveLogo} alt="driveLogo"  />
+                                    <br />
+                                    <br />
+                                    <strong>Sign in</strong><br />
+                                    to continue to Hasura Drive
+                                    <br />
+                                    <br />
+                                    <TextField
+                                        id="userName"
+                                        hintText="User Name"
+                                        floatingLabelText="User Name"
+                                        errorText="Enter your user name"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <TextField
+                                        id="password"
+                                        hintText="Password"
+                                        floatingLabelText="Password"
+                                        errorText="Enter your password"
+                                        type="password"
+                                        onChange={this.handleErrorInputChange}
+                                    /><br />
+                                    <br />
+                                    If not existing user, please 
+                                        <FlatButton 
+                                            id="signUPlink" 
+                                            style={styles.fBUtton} 
+                                            onClick={this.setSignUp} 
+                                            label="Sign Up"
+                                            primary={true}> 
+                                        </FlatButton> 
+                                    first
+                                    <TextField
+                                    style={styles.cfmPassword}
+                                    id="cfmPassword"
+                                    hintText="Confirm Password"
+            
                                     type="password"
+                                    disabled={!this.state.isSignUp}
                                     onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
-                                If not existing user, please 
-                                    <FlatButton 
-                                        id="signUPlink" 
-                                        style={styles.fBUtton} 
-                                        onClick={this.setSignUp} 
-                                        label="Sign Up"
-                                        primary={true}> 
-                                    </FlatButton> 
-                                first
-                                <TextField
-                                style={styles.cfmPassword}
-                                id="cfmPassword"
-                                hintText="Confirm Password"
-        
-                                type="password"
-                                disabled={!this.state.isSignUp}
-                                onChange={this.handleErrorInputChange}
-                                /><br />
-                                <br />
+                                    /><br />
+                                    <br />
+                                </div>
+                                
+                            }
                                 
                             </Dialog>
 
                     </IconButton>
                     
                     {this.state.change ? <IconButton tooltip="Grid View" tooltipPosition="bottom-center" onClick={this.handleChange}>
-                        <GridIcon color= '#757575'/>
+                        <GridIcon color= '#212121'/>
                     </IconButton>
                     :
                      <IconButton tooltip="List View"  tooltipPosition="bottom-center" onClick={this.handleChange}  >
-                     <ListIcon color= '#757575'/>
+                     <ListIcon color= '#212121'/>
                  </IconButton>
                  }
                     
                    
                     <IconButton tooltip="View details"  tooltipPosition="bottom-center" onClick ={this.handleToggle}  >
-                        <InfoIcon color= '#757575' />
+                        <InfoIcon color= '#212121' />
                     </IconButton>
                     <IconButton tooltip="Settings"  tooltipPosition="bottom-center">
-                        <SettingsIcon onClick={this.handleClick}  color= '#757575'/>
+                        <SettingsIcon onClick={this.handleClick}  color= '#212121'/>
                     </IconButton>
 
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
@@ -299,7 +354,14 @@ export default class AppBarRight extends React.Component {
                     </Drawer>
 
                     {this.state.show? <MYlist/>: null}
+                    
              </div>
+             
+           
+             </div>
+             
         );    
+       
     }
+   
 }

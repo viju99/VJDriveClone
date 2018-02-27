@@ -1,6 +1,6 @@
-description: A boilerplate project for python-flask with a sample schema and integration
-  with Hasura data APIs.
+description: A boilerplate app for creatung Drive Clone using python-Flask and ReactJS
+  with Hasura Data APIs,Auth APIs and Filestore APIs.
 keywords: python, python3, flask, boilerplate
 media: {}
-name: hello-python-flask
+name: G-Drive-Clone
 platformVersion: v0.15.21

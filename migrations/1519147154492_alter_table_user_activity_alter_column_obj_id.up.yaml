@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "user_activity" ALTER COLUMN "obj_id" TYPE text;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "user_activity" ALTER COLUMN "obj_id" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "user_activity" ALTER COLUMN "obj_id" SET NOT NULL;
+  type: run_sql
