@@ -110,7 +110,7 @@ export function checkLogin(data) {
     var url = '';
     if (data)
     {
-        //url = 'https://app.animator94.hasura-app.io/dregister'
+       // url = 'https://app.animator94.hasura-app.io/dregister'
         url = 'https://t47d.anthology78.hasura-app.io/fldrlist'
     }
    
@@ -130,9 +130,9 @@ export function checkLogin(data) {
         else{
             return null;
         }
-    }).then(function(data) {
-        if(data){
-            console.log(data);
+    }).then(function(responsedata) {
+        if(responsedata){
+            console.log(responsedata);
             return true;
         }
         else{
