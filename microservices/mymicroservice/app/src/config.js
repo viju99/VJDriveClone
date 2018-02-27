@@ -1,4 +1,4 @@
-/*var projectConfig = {
+var projectConfig = {
   url: {
     data: "https://data." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1/query",
     auth: "https://auth." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/v1",
@@ -12,22 +12,7 @@
     createFolder: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrcreate"
   }
 }
-*/
 
-var projectConfig = {
-  url: {
-    data: "https://data.anthology78.hasura-app.io/v1/query",
-    auth: "https://auth.anthology78.hasura-app.io/v1",
-    register: "https://t47d.anthology78.hasura-app.io/dregister",
-    login: "https://t47d.anthology78.hasura-app.io/dlogin",
-    filelist: "https://t47d.anthology78.hasura-app.io/filelist",
-    filestore: "https://filestore.anthology78.hasura-app.io/v1/file",
-    folderUpdate: "https://t47d.anthology78.hasura-app.io/fupload2",
-    folderList: "https://t47d.anthology78.hasura-app.io/fldrlist",
-    logout: "https://t47d.anthology78.hasura-app.io/dlogout",
-    createFolder: "https://t47d.anthology78.hasura-app.io/fldrcreate"
-  }
-}
 
 
 const saveOffline = (authToken) => {
