@@ -316,7 +316,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/usract";
+        url = "https://t47d.animator94.hasura-app.io/usract";
     }
     else {
         return false;
@@ -342,7 +342,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/qaccess";
+        url = "https://t47d.animator94.hasura-app.io/qaccess";
     }
     else {
         return false;
@@ -369,7 +369,7 @@ export async function getFolderList(data) {
     if (userName)
     {
         
-        url = "https://t47d.anthology78.hasura-app.io/actvty";
+        url = "https://t47d.animator94.hasura-app.io/actvty";
     }
     else {
         return false;
