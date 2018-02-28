@@ -1,6 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card,  CardHeader,  CardTitle,} from 'material-ui/Card';
 
 import FileIcon from './images/GDocs.png'; 
 import FolderIcon from './images/folder.png';
@@ -15,7 +14,7 @@ export default class Cards extends React.Component{
     <Card>
     <CardHeader
       title="Recent activity"
-      avatar={this.props.type=="File"? FileIcon: FolderIcon}
+      avatar={this.props.type==="File"? FileIcon: FolderIcon}
     />
     
     

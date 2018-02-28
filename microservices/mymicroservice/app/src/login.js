@@ -141,7 +141,6 @@ export function downloadFile(file_id,file_name, authToken){
     })).json();
    
      if(responseObject){
-        var i = 0;
       /*  for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["file_name"] );
         }*/
@@ -173,7 +172,6 @@ export async function getFolderList(data) {
     })).json();
    
      if(responseObject){
-        var i = 0;
         /*for (i=0; i < responseObject.length; i++ ){    
                 console.log('Item '+ i +' -> '+ responseObject[i]["path_nm"] );
         }*/

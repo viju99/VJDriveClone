@@ -3,7 +3,6 @@ import FlatButton from 'material-ui/FlatButton';
 import DetailsIcon from 'material-ui/svg-icons/image/details';
 import MyMenu from './MyMenu';
 import TopMenu from './TopMenu'
-import {BrowserRouter} from 'react-router-dom';
 const styles = {
     customWidth: {
       width: 500

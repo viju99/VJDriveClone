@@ -9,9 +9,8 @@ import {
 } from 'material-ui/Table';
 import FileIcon from './images/GDocs.png'; 
 import FolderIcon from './images/folder.png';
-import {getLoggedInUser,getActivity, getQaccess,getQaccessed, setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate, getlogAct, } from './login';
+import {getLoggedInUser,getActivity, getQaccessed, setLoggedInUser,downloadFile,getDetailsofFolders,getDetailsofFiles, getlogAct, } from './login';
 import Paper from 'material-ui/Paper';
-import { BrowserRouter as Router, Route, Link, Redirect, BrowserRouter } from "react-router-dom";
 import history from './history';
 import Cards from './Cards';
 const styles= {

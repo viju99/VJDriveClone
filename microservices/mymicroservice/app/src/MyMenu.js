@@ -18,10 +18,8 @@ import GSIcon from './images/GSites2016.png';
 import driveLogo from './images/Hasura_Drive_image.png';
 import FlatButton from 'material-ui/FlatButton';
 import {Dialog} from 'material-ui';
-import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation,getlogAct} from './login.js';
+import {getLoggedInUser,getDetailsofFolders,getPromiseOfUploadFile,getPromiseOfFolderInfoUpdate,getPromiseOfFolderCreation} from './login.js';
 import {List, ListItem} from 'material-ui/List';
-import MyDriveList, { handleFileUpload } from './MyDriveList';
-import TreeNode from './TreeNode';
 export var info={};
 
 /*nestedItems={[
@@ -35,22 +33,7 @@ export var info={};
     ))
 ]} />,
 */
-var tree = {
-  childNodes: [
-    {title: "Folder 1"},
-    {title: "Folder 2"},
-    {title: "Folder 3", 
-            childNodes: [
-                          {title: "Folder 3.1",
-                                  childNodes: [
-                                                {title: "Folder 3.1.1"}]
-                          },
-                          {title: "Folder 3.2"}
-                       ]
-    }
-  ],
-  
-};
+
 
 export function  setUploadedData(data)
 {
@@ -272,7 +255,7 @@ export default class MyMenu extends  React.Component
           //const input = document.querySelectorAll('input[type="text"]');
           var folderName = '';
           var input = document.getElementById('newFolder');
-          if( input.value != "" && !/^\d{1,}$/.test(input.value) ){
+          if( input.value !== "" && !/^\d{1,}$/.test(input.value) ){
             folderName = input.value;
           }
           else{
@@ -406,6 +389,7 @@ export default class MyMenu extends  React.Component
                       this.state.TData.map( (row, index) => (
                       
                           <ListItem key= {index} 
+                          leftIcon={<FolderIcon/>} 
                                     primaryText = {row.path_nm } 
                                     onClick={() =>this.handleBrowse(row.path_id)}
                                     />
@@ -419,7 +403,7 @@ export default class MyMenu extends  React.Component
           <MenuItem style={{ opacity:0.6,  }} primaryText="Shared with me" leftIcon={<FolderIcon/>} />
            <MenuItem style={{ opacity:0.6,  }} primaryText="Recent" leftIcon={<FolderIcon/>} />
            <MenuItem style={{ opacity:0.6,  }}primaryText="Google Photos" leftIcon={<FolderIcon/>} />
-           <MenuItem style={{ opacity:0.6,  }} style={{ opacity:0.6,  }} primaryText="Starred" leftIcon={<FolderIcon/>} />
+           <MenuItem style={{ opacity:0.6,  }} primaryText="Starred" leftIcon={<FolderIcon/>} />
            <MenuItem style={{ opacity:0.6,  }} primaryText="Trash" leftIcon={<FolderIcon/>} />
            <Divider/>
            <MenuItem style={{ opacity:0.6,  }} primaryText="Backups" leftIcon={<FolderIcon/>} />

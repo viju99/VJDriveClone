@@ -326,7 +326,7 @@ export default class AppBarRight extends React.Component {
                     </IconButton>
 
                     <Drawer width={250} openSecondary={true} open={this.state.open} containerStyle={{ top: 144}} style={{display: 'flex'}}>
-                         <AppBar   title="My Drive" 
+                         <AppBar   title=" Activity" 
                                     
                                     iconElementLeft={<IconButton>
                                                         <FolderIcon color= '#616161'/>

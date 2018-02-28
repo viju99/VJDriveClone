@@ -86,6 +86,7 @@ export default class TopMenu extends React.Component {
         <div className="TopMenu">
           <SearchSVGIcon style={searchIconStyles} />
           <AutoComplete className="AutoComplete"
+         
             width={styles.customWidth.width}
             hintText="Search Drive"
             searchText={this.state.searchText}

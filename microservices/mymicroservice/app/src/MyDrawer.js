@@ -1,18 +1,7 @@
 import React from 'react';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-//import {setSelectedRowDetails} from './MyDriveList';
-import {setActivityInfo,getLoggedInUser, getActivity } from './login';
+import {getLoggedInUser, getActivity } from './login';
 import {List, ListItem} from 'material-ui/List';
-
-import FileIcon from './images/GDocs.png'; 
-
+import Divider from 'material-ui/Divider';
 export default class MyDrawer extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +9,6 @@ export default class MyDrawer extends React.Component {
       TData: [{}],
       pID: "",
      }
-     var TData1=[{}];
   }
 
   setActivityInfo()
@@ -36,7 +24,11 @@ export default class MyDrawer extends React.Component {
   
     getActivity(data, getLoggedInUser().token).then((res) => {
       console.log(res[0]);
-       this.setState({TData: res[0]});
+      var A=res[0];
+    //  alert(typeof A[0]["obj_nm"]);
+      A.reverse();
+      this.setState({TData: A});
+    //   this.setState({TData: res[0]});
      //this.TData1=res[0];
     }
     )
@@ -51,39 +43,32 @@ export default class MyDrawer extends React.Component {
         return false;
     
   }*/
-  
   render() {
     var pID=getLoggedInUser().rtpthid;
-    if(pID!=this.state.pID)
+    if(pID!==this.state.pID)
     {
       this.setActivityInfo();
     }
-   if(this.state.TData){ 
+    if(this.state.TData.length>0){
+   if(this.state.TData[0]["modified_at"]){ 
     return (
      
       <div>
-
-          <List>
+          
           {this.state.TData.map( (row, index) => (
-          <ListItem primaryText={row.obj_nm} 
-                   // leftIcon={<FileIcon/>} 
-                   // onClick={() =>this.handleBrowse(getLoggedInUser().rtpthid)}
-                    initiallyOpen={false}
-                    primaryTogglesNestedList={true}
-                    nestedItems={[
-                      
-                      
-                          <ListItem
-                                    primaryText = {row.act_desc} 
-                                   // onClick={() =>this.handleBrowse(row.path_id)}
-                                    />
-                         
-                      
-                ]} />
+           <List>
+          <ListItem key={index}
+          
+          style={{position: 'inherit'}}
+          primaryText={row.act_desc +`\n`+ row.obj_nm}  secondaryText={row.modified_at.toString().slice(0,9)}
                 
+                    />,
+                   <Divider/>
+                   </List>
                 ))}
-                
-            </List>
+               
+           
+
 
       </div>
     );
@@ -91,5 +76,11 @@ export default class MyDrawer extends React.Component {
   else{
     return(<div></div>);
   }
+}
+  else{
+    return(<div></div>);
+  }
   }
 }
+
+/**  */
