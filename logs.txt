@@ -1,0 +1,180 @@
+[2018-02-11 07:04:19 +0000] [1] [DEBUG] Current configuration:
+  config: ./conf/gunicorn_config.py
+  bind: ['0.0.0.0:8080']
+  backlog: 2048
+  workers: 1
+  worker_class: sync
+  threads: 1
+  worker_connections: 1000
+  max_requests: 0
+  max_requests_jitter: 0
+  timeout: 30
+  graceful_timeout: 30
+  keepalive: 2
+  limit_request_line: 4094
+  limit_request_fields: 100
+  limit_request_field_size: 8190
+  reload: False
+  reload_engine: auto
+  spew: False
+  check_config: False
+  preload_app: False
+  sendfile: None
+  chdir: /app
+  daemon: False
+  raw_env: []
+  pidfile: None
+  worker_tmp_dir: None
+  user: 0
+  group: 0
+  umask: 0
+  initgroups: False
+  tmp_upload_dir: None
+  secure_scheme_headers: {'X-FORWARDED-PROTOCOL': 'ssl', 'X-FORWARDED-PROTO': 'https', 'X-FORWARDED-SSL': 'on'}
+  forwarded_allow_ips: ['127.0.0.1']
+  accesslog: -
+  access_log_format: %(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s"
+  errorlog: -
+  loglevel: debug
+  capture_output: True
+  logger_class: gunicorn.glogging.Logger
+  logconfig: None
+  syslog_addr: udp://localhost:514
+  syslog: False
+  syslog_prefix: None
+  syslog_facility: user
+  enable_stdio_inheritance: True
+  statsd_host: None
+  statsd_prefix: 
+  proc_name: None
+  default_proc_name: src:app
+  pythonpath: None
+  paste: None
+  on_starting: <function OnStarting.on_starting at 0x7eff3f8f4d08>
+  on_reload: <function OnReload.on_reload at 0x7eff3f8f4ea0>
+  when_ready: <function WhenReady.when_ready at 0x7eff3f8fd0d0>
+  pre_fork: <function Prefork.pre_fork at 0x7eff3f8fd268>
+  post_fork: <function Postfork.post_fork at 0x7eff3f8fd400>
+  post_worker_init: <function PostWorkerInit.post_worker_init at 0x7eff3f8fd598>
+  worker_int: <function WorkerInt.worker_int at 0x7eff3f8fd730>
+  worker_abort: <function WorkerAbort.worker_abort at 0x7eff3f8fd8c8>
+  pre_exec: <function PreExec.pre_exec at 0x7eff3f8fda60>
+  pre_request: <function PreRequest.pre_request at 0x7eff3f8fdbf8>
+  post_request: <function PostRequest.post_request at 0x7eff3f8fdd08>
+  child_exit: <function ChildExit.child_exit at 0x7eff3f8fdea0>
+  worker_exit: <function WorkerExit.worker_exit at 0x7eff3f6660d0>
+  nworkers_changed: <function NumWorkersChanged.nworkers_changed at 0x7eff3f666268>
+  on_exit: <function OnExit.on_exit at 0x7eff3f666400>
+  proxy_protocol: False
+  proxy_allow_ips: ['127.0.0.1']
+  keyfile: None
+  certfile: None
+  ssl_version: 2
+  cert_reqs: 0
+  ca_certs: None
+  suppress_ragged_eofs: True
+  do_handshake_on_connect: False
+  ciphers: TLSv1
+  raw_paste_global_conf: []
+[2018-02-11 07:04:19 +0000] [1] [INFO] Starting gunicorn 19.7.1
+[2018-02-11 07:04:19 +0000] [1] [DEBUG] Arbiter booted
+[2018-02-11 07:04:19 +0000] [1] [INFO] Listening at: http://0.0.0.0:8080 (1)
+[2018-02-11 07:04:19 +0000] [1] [INFO] Using worker: sync
+[2018-02-11 07:04:20 +0000] [8] [INFO] Booting worker with pid: 8
+[2018-02-11 07:04:20 +0000] [1] [DEBUG] 1 workers
+[2018-02-11 07:05:47 +0000] [8] [DEBUG] POST /dlogin
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.106.53.167
+X-Forwarded-For: 100.106.53.167
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 37
+Origin: https://mymicroservice.animator94.hasura-app.io
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Referer: https://mymicroservice.animator94.hasura-app.io/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: 0ae6a8cb03368d81d087db40b5c2dccc2855089d9767dffd=mars; 5f9799685a8c4387bec721bb6e861e6965b7672ac2317511=mars; 43c41d6b7296b04b514c838b9b5b8a78ac8eca737f18b522=VijayFeb1101; 6bf16f3fb1ed463b992bb998df43cf658c04f1cdd00c93d0=mars; animator94=f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b; f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b=VijayFeb1101; rtpthid=29
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 188
+X-Hasura-Role: user
+X-Hasura-Session-Id: f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b
+
+
+b'{"hvName":"mars","hvPwd":"Aaaaaaaaa"}'
+{'hvName': 'mars', 'hvPwd': 'Aaaaaaaaa'}
+True
+{'provider': 'username', 'data': {'username': 'mars', 'password': 'Aaaaaaaaa'}}
+b'{"auth_token":"da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92","username":"mars","hasura_id":77,"hasura_roles":["user"]}'
+da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92
+mars
+77
+['user']
+b'[{"username":"mars","hasura_id":77,"root_path_id":12}]'
+[{'username': 'mars', 'hasura_id': 77, 'root_path_id': 12}]
+JSON:  {"auth_token": "da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92", "hasura_id": 77, "hasura_roles": ["user"], "rtpthid": "12", "username": "mars"}
+100.119.50.82 - - [11/Feb/2018:07:05:49 +0000] "POST /dlogin HTTP/1.0" 200 146 "https://mymicroservice.animator94.hasura-app.io/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"
+[2018-02-11 07:05:49 +0000] [8] [DEBUG] POST /fldrlist
+<Request 'http://app.animator94.hasura-app.io/fldrlist' [POST]>
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.106.53.167
+X-Forwarded-For: 100.106.53.167
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 17
+Origin: https://mymicroservice.animator94.hasura-app.io
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Referer: https://mymicroservice.animator94.hasura-app.io/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: 0ae6a8cb03368d81d087db40b5c2dccc2855089d9767dffd=mars; 5f9799685a8c4387bec721bb6e861e6965b7672ac2317511=mars; 43c41d6b7296b04b514c838b9b5b8a78ac8eca737f18b522=VijayFeb1101; 6bf16f3fb1ed463b992bb998df43cf658c04f1cdd00c93d0=mars; f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b=VijayFeb1101; animator94=da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92; da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92=mars; rtpthid=12
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 77
+X-Hasura-Role: user
+X-Hasura-Session-Id: da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92
+
+
+ImmutableMultiDict([])
+{'hvfldrid': '12'}
+{'0ae6a8cb03368d81d087db40b5c2dccc2855089d9767dffd': 'mars', '5f9799685a8c4387bec721bb6e861e6965b7672ac2317511': 'mars', '43c41d6b7296b04b514c838b9b5b8a78ac8eca737f18b522': 'VijayFeb1101', '6bf16f3fb1ed463b992bb998df43cf658c04f1cdd00c93d0': 'mars', 'f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b': 'VijayFeb1101', 'animator94': 'da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92', 'da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92': 'mars', 'rtpthid': '12'}
+b'[{"path_nm":"test","path_id":13,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"hpdf","path_id":14,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"checking","path_id":15,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"X1234","path_id":18,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"Ared","path_id":21,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"vijay9","path_id":26,"prnt_path_id":12,"modified_at":"2018-02-09T11:02:16.394646+00:00"}, \n {"path_nm":"VIjay10","path_id":27,"prnt_path_id":12,"modified_at":"2018-02-10T18:21:18.765838+00:00"}, \n {"path_nm":"vijay11","path_id":28,"prnt_path_id":12,"modified_at":"2018-02-11T06:14:56.878578+00:00"}]'
+b'[{"path_nm":"test","path_id":13,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"hpdf","path_id":14,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"checking","path_id":15,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"X1234","path_id":18,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"Ared","path_id":21,"prnt_path_id":12,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"path_nm":"vijay9","path_id":26,"prnt_path_id":12,"modified_at":"2018-02-09T11:02:16.394646+00:00"}, \n {"path_nm":"VIjay10","path_id":27,"prnt_path_id":12,"modified_at":"2018-02-10T18:21:18.765838+00:00"}, \n {"path_nm":"vijay11","path_id":28,"prnt_path_id":12,"modified_at":"2018-02-11T06:14:56.878578+00:00"}]'
+100.119.50.82 - - [11/Feb/2018:07:05:50 +0000] "POST /fldrlist HTTP/1.0" 200 827 "https://mymicroservice.animator94.hasura-app.io/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"
+[2018-02-11 07:05:50 +0000] [8] [DEBUG] POST /filelist
+<Request 'http://app.animator94.hasura-app.io/filelist' [POST]>
+Host: app.animator94.hasura-app.io
+X-Real-Ip: 100.123.95.26
+X-Forwarded-For: 100.123.95.26
+X-Forwarded-Proto: https
+X-Forwarded-By: hasura-gateway
+X-Hasura-Base-Domain: animator94.hasura-app.io
+Connection: close
+Content-Length: 17
+Origin: https://mymicroservice.animator94.hasura-app.io
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36
+Content-Type: application/json
+Accept: */*
+Referer: https://mymicroservice.animator94.hasura-app.io/
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: 0ae6a8cb03368d81d087db40b5c2dccc2855089d9767dffd=mars; 5f9799685a8c4387bec721bb6e861e6965b7672ac2317511=mars; 43c41d6b7296b04b514c838b9b5b8a78ac8eca737f18b522=VijayFeb1101; 6bf16f3fb1ed463b992bb998df43cf658c04f1cdd00c93d0=mars; f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b=VijayFeb1101; animator94=da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92; da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92=mars; rtpthid=12
+X-Hasura-Allowed-Roles: user
+X-Hasura-User-Id: 77
+X-Hasura-Role: user
+X-Hasura-Session-Id: da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92
+
+
+ImmutableMultiDict([])
+{'hvfldrid': '12'}
+{'0ae6a8cb03368d81d087db40b5c2dccc2855089d9767dffd': 'mars', '5f9799685a8c4387bec721bb6e861e6965b7672ac2317511': 'mars', '43c41d6b7296b04b514c838b9b5b8a78ac8eca737f18b522': 'VijayFeb1101', '6bf16f3fb1ed463b992bb998df43cf658c04f1cdd00c93d0': 'mars', 'f9c67e1320d4c2fa8c7eead222c18c29be8631051b1df88b': 'VijayFeb1101', 'animator94': 'da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92', 'da2abc6be50d1097f1c8e6e1309234710bd38861cb613b92': 'mars', 'rtpthid': '12'}
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"README.md","file_id":"bf641bfd-470b-4ff0-9736-a8c2743be05e","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"z.txt","file_id":"b4367151-ae55-499c-85f5-f5801ab11857","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"z.txt","file_id":"ccc9dfcf-032d-4b65-a8ee-a701ccf48347","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"log22.txt","file_id":"412e9431-ae9c-46dc-b4a2-ff7de60572a5","file_path_id":12,"file_size":9,"modified_at":"2018-02-04T14:13:32.186469+00:00"}, \n {"file_name":"hasura2.jpg","file_id":"53ddb054-886e-427b-89e7-a739d2d029d7","file_path_id":12,"file_size":11,"modified_at":"2018-02-04T15:12:31.698824+00:00"}]'
+b'[{"file_name":"DTSLog.txt","file_id":"67a125ee-85bc-47a5-b63d-4d98713bc7a0","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"README_-_Copy.txt","file_id":"b4b8ca51-bb15-45e7-a988-52a0ff3aa502","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"ebayvoucher.txt","file_id":"b14dc024-a9f1-4ac3-88dc-23edabca5918","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"20MayList.txt","file_id":"47277340-a0e6-4fcc-b799-bd1468e01a34","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"README.md","file_id":"bf641bfd-470b-4ff0-9736-a8c2743be05e","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"z.txt","file_id":"b4367151-ae55-499c-85f5-f5801ab11857","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"z.txt","file_id":"ccc9dfcf-032d-4b65-a8ee-a701ccf48347","file_path_id":12,"file_size":0,"modified_at":"2018-02-02T14:53:55.449021+00:00"}, \n {"file_name":"log22.txt","file_id":"412e9431-ae9c-46dc-b4a2-ff7de60572a5","file_path_id":12,"file_size":9,"modified_at":"2018-02-04T14:13:32.186469+00:00"}, \n {"file_name":"hasura2.jpg","file_id":"53ddb054-886e-427b-89e7-a739d2d029d7","file_path_id":12,"file_size":11,"modified_at":"2018-02-04T15:12:31.698824+00:00"}]'
+100.119.50.82 - - [11/Feb/2018:07:05:51 +0000] "POST /filelist HTTP/1.0" 200 1443 "https://mymicroservice.animator94.hasura-app.io/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36"
