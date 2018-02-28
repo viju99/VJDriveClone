@@ -26,7 +26,7 @@ class App extends Component {
         <div>
           <div className="App" style={{postion: 'absolute', zIndex: 0}}>
           <AppBar themee= {this.state.themee}/>
-       
+
           </div>
 
        </div>

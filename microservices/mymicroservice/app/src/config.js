@@ -9,9 +9,15 @@ var projectConfig = {
     folderUpdate: "https://app." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fupload2",
     folderList: "https://app." + process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrlist",
     logout: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/dlogout",
-    createFolder: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrcreate"
+    createFolder: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/fldrcreate",
+    useract:  "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/usract",
+    logact: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/actvty",
+    qaccess: "https://app."+ process.env.REACT_APP_CLUSTER_NAME + ".hasura-app.io/qaccess",
+
   }
 }
+
+
 
 const saveOffline = (authToken) => {
   window.localStorage.setItem('authToken', authToken);
