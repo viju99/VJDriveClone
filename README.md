@@ -16,17 +16,22 @@ The embedded video below shows how to sign up to use the drive:
 
 - Users will be able to see/browse list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
+- Users will be able to view their recent 4 activities of the previous day in Quick Access section
+- Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar
 
 
 ## Backend features implemented using Hasura API with Python Flask
 - Schema modelling and Data Layer - using Data API
 - Hasura services - Hasura Auth APIs for Login and Signup
 - Custom services to support - File APIs on Hasura lets users upload and store files
+- Data API to support - Tracking of User transactions like file upload, folder creation, user activity logging and activity review
 
 ## What all does the app support
 - User can sign-up for a new account for the drive
 - User can upload files to the drive (currently supported file extensions - 'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','docx','xlsx','pptx','md')
 - User can download the files to his local computer
+- Users will be able to view their recent 4 activities of the previous day in Quick Access section
+- Users will be able view their activity for the drive on the Activity Slide Bar
 
 ## What does this come with?
 * React.js and Python Flask templates along with Drive Clone App Integration with ReactJS and Python Flask
@@ -120,3 +125,9 @@ For further details, contact:
 viju99@gmail.com
 pritham.saldanha@gmail.com
 shivguru06@gmail.com
+
+## Contributions
+
+* Vijaysankar - viju99@gmail.com - 
+* Shiva Shankari G - shivguru06@gmail.com -  https://www.linkedin.com/in/shiva-shankari-g
+* Marian P Saldanha - pritham.saldanha@gmail.com - https://www.linkedin.com/in/marian-p-saldanha-5957143
