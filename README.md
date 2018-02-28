@@ -14,7 +14,7 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 The embedded video below shows how to sign up to use the drive:
 [![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
 
-- Users will be able to see/browse list of folders in their drive account
+- Users will be able to see/browse into list of folders in their drive account
 - Users will be able to upload/download files to/from their drive store
 - Users will be able to view their recent 4 activities of the previous day in Quick Access section
 - Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar
@@ -122,12 +122,12 @@ If changes have been done to the dependencies, `git commit`, and perform `git pu
 To make changes to backend features, you should refer to README-Base.md file in the repository
 
 For further details, contact:
-viju99@gmail.com
-pritham.saldanha@gmail.com
-shivguru06@gmail.com
+* viju99@gmail.com
+* pritham.saldanha@gmail.com
+* shivguru06@gmail.com
 
 ## Contributions
 
-* Vijaysankar - viju99@gmail.com - 
+* Vijay Sankar A - viju99@gmail.com - https://www.linkedin.com/in/vijay-sankar-7802731
 * Shiva Shankari G - shivguru06@gmail.com -  https://www.linkedin.com/in/shiva-shankari-g
 * Marian P Saldanha - pritham.saldanha@gmail.com - https://www.linkedin.com/in/marian-p-saldanha-5957143
