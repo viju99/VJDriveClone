@@ -9,15 +9,23 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 
 ## Hasura Drive supports limited Frontend features/tasks
 - Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
-![drive-login](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
+![drive-signup](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
 
 The embedded video below shows how to sign up to use the drive:
 [![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
 
-- Users will be able to see/browse into list of folders in their drive account
-- Users will be able to upload/download files to/from their drive store
-- Users will be able to view their recent 4 activities of the previous day in Quick Access section
-- Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar
+- Users will be able to see/browse into list of folders in their drive account.
+![drive-home](https://user-images.githubusercontent.com/31035012/36808630-a61861de-1ceb-11e8-84a1-3b73d28fe87e.jpg)
+
+- Users will be able to upload/download files to/from their drive store.
+![drive-upload](https://user-images.githubusercontent.com/31035012/36809155-241cb30e-1ced-11e8-8adb-3c7f7faf749e.jpg)
+
+- Users will be able to view their recent 4 activities of the previous day in Quick Access section.
+![drive-QAccess](https://user-images.githubusercontent.com/11634668/36846064-2a72805c-1d7f-11e8-8c27-541f0e7a646f.png)
+
+- Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar. 
+![drive-activity](https://user-images.githubusercontent.com/31035012/36827959-d5ba41b8-1d3c-11e8-9f34-64e8882c12c7.jpg)
+
 
 
 ## Backend features implemented using Hasura API with Python Flask
