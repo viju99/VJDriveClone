@@ -1,6 +1,6 @@
 ![hasura_drive_image](https://user-images.githubusercontent.com/31035012/36073898-dbcc8378-0f5d-11e8-8ee3-61b8e51f247d.png)
 
-[**React**](https://reactjs.org) is a JavaScript library to create interactive user interfaces. The core library is focussed on the view layer. It is declarative and component based. This quickstart uses [**create-react-app**](https://github.com/facebook/create-react-app) to scaffold a react app with no build configuration.
+﻿[**React**](https://reactjs.org) is a JavaScript library to create interactive user interfaces. The core library is focussed on the view layer. It is declarative and component based. This quickstart uses [**create-react-app**](https://github.com/facebook/create-react-app) to scaffold a react app with no build configuration.
 
 
 # Google Drive Clone using Hasura with Python Flask & ReactJS
@@ -10,23 +10,38 @@ This Readme list the steps to setup the codebase for both Python Flask backend a
 The codebase makes use of the Hasura boilerplate templates of hello-Python-flask and hello-react to build a Drive Clone. The UI interface of the "Hasura Drive" mimic the GDrive.
 
 ## Hasura Drive supports limited Frontend features/tasks
-- Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS cordner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
+- Users will be able to sign up/login as a user. The login is initiated by clicking on the profile picture icon on the top RHS corner of the screen. If its a new user, you should choose to "SIGN UP" so that the account is created in the drive database.
+
 ![drive-signup](https://user-images.githubusercontent.com/31035012/36072175-26331516-0f41-11e8-914b-c8542a4ac1ef.jpg)
 
-The embedded video below shows how to sign up to use the drive:
-[![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
-
 - Users will be able to see/browse into list of folders in their drive account.
+
 ![drive-home](https://user-images.githubusercontent.com/31035012/36808630-a61861de-1ceb-11e8-84a1-3b73d28fe87e.jpg)
 
 - Users will be able to upload/download files to/from their drive store.
+
 ![drive-upload](https://user-images.githubusercontent.com/31035012/36809155-241cb30e-1ced-11e8-8adb-3c7f7faf749e.jpg)
 
 - Users will be able to view their recent 4 activities of the previous day in Quick Access section.
+
 ![drive-QAccess](https://user-images.githubusercontent.com/11634668/36846064-2a72805c-1d7f-11e8-8c27-541f0e7a646f.png)
 
 - Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar. 
-![drive-activity](https://user-images.githubusercontent.com/31035012/36827959-d5ba41b8-1d3c-11e8-9f34-64e8882c12c7.jpg)
+
+![activity tab ](https://user-images.githubusercontent.com/11634668/36847486-833e33fc-1d84-11e8-8256-ff9530e48228.png)
+
+### Videos:
+- The embedded video below shows how to sign up to use the drive:
+
+ [![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
+
+- The embedded video below shows File Upload and Folder creation:
+
+ [![File Upload](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://youtu.be/PmdECdMLU6E)
+
+- The embedded video below shows Activity Logging and Quick Access:
+
+ [![Activity Logging](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://youtu.be/c353lfOjQ3k)
 
 
 
