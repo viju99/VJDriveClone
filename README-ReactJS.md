@@ -22,6 +22,9 @@ The embedded video below shows how to sign up to use the drive:
 - Users will be able to upload/download files to/from their drive store.
 ![drive-upload](https://user-images.githubusercontent.com/31035012/36809155-241cb30e-1ced-11e8-8adb-3c7f7faf749e.jpg)
 
+The embedded video below shows you can create a folder and upload/dowload a file in the drive:
+[![Folder-file-actions up video](https://img.youtube.com/vi/PmdECdMLU6E/0.jpg)](https://youtu.be/PmdECdMLU6E)
+
 - Users will be able to view their recent 4 activities of the previous day in Quick Access section.
 ![drive-QAccess](https://user-images.githubusercontent.com/11634668/36846064-2a72805c-1d7f-11e8-8c27-541f0e7a646f.png)
 
