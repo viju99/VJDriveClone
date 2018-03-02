@@ -33,15 +33,15 @@ The codebase makes use of the Hasura boilerplate templates of hello-Python-flask
 ### Videos:
 - The embedded video below shows how to sign up to use the drive:
 
- [![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/watch?v=kkk-v8QuiJo)
+ [![Sign up video](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/embed/kkk-v8QuiJo)
 
 - The embedded video below shows File Upload and Folder creation:
 
- [![File Upload](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://youtu.be/PmdECdMLU6E)
+ [![File Upload](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/embed/PmdECdMLU6E)
 
 - The embedded video below shows Activity Logging and Quick Access:
 
- [![Activity Logging](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://youtu.be/c353lfOjQ3k)
+ [![Activity Logging](https://img.youtube.com/vi/kkk-v8QuiJo/0.jpg)](https://www.youtube.com/embed/c353lfOjQ3k)
 
 
 
