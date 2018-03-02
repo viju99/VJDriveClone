@@ -28,6 +28,9 @@ The embedded video below shows you can create a folder and upload/dowload a file
 - Users will be able to view their recent 4 activities of the previous day in Quick Access section.
 ![drive-QAccess](https://user-images.githubusercontent.com/11634668/36846064-2a72805c-1d7f-11e8-8c27-541f0e7a646f.png)
 
+The embedded video explains the quick access feature where recent activity of the user are listed:
+[![Folder-file-actions up video](https://img.youtube.com/vi/c353lfOjQ3k/0.jpg)](https://youtu.be/c353lfOjQ3k)
+
 - Users will be able view their activity for the drive on the Activity Slide Bar by clicking on (i) icon - "View details" on Top Right hand App bar. 
 ![drive-activity](https://user-images.githubusercontent.com/31035012/36827959-d5ba41b8-1d3c-11e8-9f34-64e8882c12c7.jpg)
 
